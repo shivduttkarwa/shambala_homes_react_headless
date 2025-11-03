@@ -31,6 +31,7 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
   const publicUrl = import.meta.env.BASE_URL;
 
   const progressRef = useRef({ value: 0 });
+  const lastProgressRef = useRef(0); // Store last progress position
 
   useEffect(() => {
     if (!containerRef.current || !wrapperRef.current || !swiperWrapperRef.current) return;
@@ -136,6 +137,9 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
         invalidateOnRefresh: true,
         fastScrollEnd: isMobile ? true : false, // Prevent flicker on mobile
         onUpdate: (self) => {
+          // Store the current progress
+          lastProgressRef.current = self.progress;
+          
           if (isMobile) {
             // Throttle updates on mobile to prevent stagger
             requestAnimationFrame(() => {
@@ -146,45 +150,42 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
           }
         },
         onRefresh: () => {
-          updateSlidePositions(progressRef.current.value);
+          // Use stored position if available, otherwise use current progress
+          const positionToUse = lastProgressRef.current || progressRef.current.value;
+          updateSlidePositions(positionToUse);
         },
         onEnter: (self) => {
-          // Ensure smooth entry on mobile, especially for RTL
-          if (isMobile) {
-            progressRef.current.value = 0;
-            // Force immediate positioning without animation
-            const initialProgress = direction === 'rtl' ? 0 : 0;
-            gsap.set(swiperWrapper, { x: 0 }); // Reset to start position
-            updateSlidePositions(initialProgress);
+          // Restore last position when re-entering
+          if (lastProgressRef.current > 0) {
+            // Force the ScrollTrigger to use our stored position
+            gsap.set(progressRef.current, { value: lastProgressRef.current });
+            updateSlidePositions(lastProgressRef.current);
           }
         },
+        onLeave: (self) => {
+          // Store position when leaving
+          lastProgressRef.current = self.progress;
+        },
         onToggle: (self) => {
-          // Prevent flicker when entering/leaving on mobile
-          if (isMobile && !self.isActive) {
-            // Smooth transition instead of immediate reset
-            gsap.to(progressRef.current, {
-              value: 0,
-              duration: 0.2,
-              ease: "power2.out",
-              onUpdate: () => updateSlidePositions(progressRef.current.value)
-            });
+          // Store position when leaving, restore when entering
+          if (self.isActive) {
+            // Entering: restore last position
+            if (lastProgressRef.current > 0) {
+              progressRef.current.value = lastProgressRef.current;
+              updateSlidePositions(lastProgressRef.current);
+            }
+          } else {
+            // Leaving: store current position
+            lastProgressRef.current = self.progress;
           }
         }
       }
     });
 
     
-    // Initialize at starting position with slight delay for mobile
-    if (isMobile) {
-      // For mobile, ensure we start cleanly
-      gsap.set(swiperWrapper, { x: 0 }); // Force reset position immediately
-      setTimeout(() => {
-        progressRef.current.value = 0;
-        updateSlidePositions(0);
-      }, 100);
-    } else {
-      updateSlidePositions(0);
-    }
+    // Initialize at starting position (or restore last position)
+    const initialProgress = lastProgressRef.current || 0;
+    updateSlidePositions(initialProgress);
 
     return () => {
       animation.kill();
