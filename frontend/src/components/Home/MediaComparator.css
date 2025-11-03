@@ -247,6 +247,48 @@
   background: var(--color-bg);
 }
 
+/* Mobile optimizations to prevent flicker */
+@media (max-width: 768px) {
+  .media-comparator {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  .swiper-wrapper {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+  }
+
+  .slide-inner {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  .media-overlay-stack {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+
+  /* Prevent overflow issues on mobile */
+  .media-comparator .container {
+    overflow: hidden;
+  }
+
+  /* Smoother transitions on mobile */
+  .swiper-wrapper,
+  .slide-inner,
+  .media-overlay-stack {
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+  }
+}
+
 .dummy-block .text-container {
   padding: 2rem;
 }

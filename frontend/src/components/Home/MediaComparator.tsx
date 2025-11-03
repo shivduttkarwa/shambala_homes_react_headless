@@ -68,9 +68,12 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
       const maxTranslate = -(wrapperWidth * (numSlides - 1));
       const currentTranslate = maxTranslate * progress;
 
-      // Apply translation
+      // Apply translation with mobile optimization
+      const isMobile = window.innerWidth <= 768;
       gsap.set(swiperWrapper, {
-        x: currentTranslate
+        x: currentTranslate,
+        force3D: true, // Force GPU acceleration
+        willChange: isMobile ? 'transform' : 'auto'
       });
 
       // Update in-progress state for comparator line
@@ -81,9 +84,9 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
         swiperWrapper.classList.remove('in-progress');
       }
 
-      // Update each slide's parallax effect
-      const interleaveOffset = 0.5;
-      const interleaveOverlayOffset = 0.9;
+      // Update each slide's parallax effect with mobile optimization
+      const interleaveOffset = isMobile ? 0.3 : 0.5; // Reduce parallax on mobile
+      const interleaveOverlayOffset = isMobile ? 0.7 : 0.9; // Reduce overlay movement on mobile
       
       slideElements.forEach((slide, index) => {
         const slideProgress = progress * (numSlides - 1) - index;
@@ -95,7 +98,9 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
         if (slideInner) {
           const innerTranslate = clampedProgress * wrapperWidth * interleaveOffset;
           gsap.set(slideInner, {
-            x: innerTranslate
+            x: innerTranslate,
+            force3D: true,
+            willChange: isMobile ? 'transform' : 'auto'
           });
         }
 
@@ -106,13 +111,18 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
           
           gsap.set(overlay, {
             x: `${overlayTranslate}%`,
-            opacity: opacity
+            opacity: opacity,
+            force3D: true,
+            willChange: isMobile ? 'transform, opacity' : 'auto'
           });
         }
       });
     };
 
-    // Create ScrollTrigger animation
+    // Detect mobile for optimized settings
+    const isMobile = window.innerWidth <= 768;
+    
+    // Create ScrollTrigger animation with mobile optimizations
     const animation = gsap.to(progressRef.current, {
       value: 1,
       ease: 'none',
@@ -120,16 +130,23 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
         trigger: wrapper,
         pin: container,
         pinSpacing: true,
-        scrub: 0.25,
-        anticipatePin: 1,
+        scrub: isMobile ? 1 : 0.25, // Less aggressive scrub on mobile
+        anticipatePin: isMobile ? 0 : 1, // Disable anticipatePin on mobile
         start: 'center center',
         end: () => `+=${getWrapperWidth()}`,
         invalidateOnRefresh: true,
+        fastScrollEnd: isMobile ? true : false, // Prevent flicker on mobile
         onUpdate: (self) => {
           updateSlidePositions(self.progress);
         },
         onRefresh: () => {
           updateSlidePositions(progressRef.current.value);
+        },
+        onToggle: (self) => {
+          // Prevent flicker when entering/leaving on mobile
+          if (isMobile && !self.isActive) {
+            updateSlidePositions(0);
+          }
         }
       }
     });
