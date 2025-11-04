@@ -40,6 +40,25 @@ body {
     align-items: center;
 }
 
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.logo-text {
+    font-family: "Cinzel", serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease;
+}
+
+.logo-text:hover {
+    color: var(--accent);
+}
+
 #menu-toggle {
     width: 44px;
     height: 44px;
@@ -226,6 +245,7 @@ body {
 .btn:hover {
     background: var(--text);
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(44, 44, 44, 0.3);
 }
 
 .btn:focus {
@@ -239,6 +259,18 @@ body {
 
 .navbar__btn:hover {
     color: var(--cream);
+}
+
+.navbar__btn svg {
+    transition: all 0.3s ease;
+}
+
+.navbar__btn:hover svg {
+    transform: translateX(3px);
+}
+
+.navbar__btn:hover svg path {
+    fill: var(--cream);
 }
 
 .page-content {
@@ -310,4 +342,153 @@ body {
 
 #spacer-section {
     height: 100vh;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    /* Hide background images on mobile for better performance */
+    .menu-overlay__bg-container {
+        display: none;
+    }
+    
+    /* Full width menu on mobile */
+    .menu-overlay__links {
+        width: 100%;
+        background: rgba(44, 44, 44, 0.95);
+        backdrop-filter: none;
+        padding: 80px 20px 60px;
+        justify-content: space-between;
+        min-height: 100vh;
+    }
+    
+    /* Better mobile font sizing and spacing */
+    .menu-overlay__main {
+        font-size: clamp(2rem, 10vw, 3.5rem);
+        letter-spacing: -0.8px;
+        margin-bottom: 40px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .menu-overlay__main ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .menu-overlay__main li {
+        margin-bottom: 0;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .menu-overlay__main li a {
+        display: block;
+        padding: 15px 20px;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+    }
+    
+    .menu-overlay__main li a:hover,
+    .menu-overlay__main li a:active {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(10px);
+    }
+    
+    /* Better social links layout */
+    .menu-overlay__socials {
+        margin-top: auto;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .menu-overlay__socials ul {
+        flex-direction: row;
+        justify-content: center;
+        gap: 30px;
+        text-align: center;
+        font-size: 1rem;
+    }
+    
+    .menu-overlay__socials ul li a {
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .menu-overlay__socials ul li a:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        transform: translateY(-2px);
+    }
+    
+    /* Simpler navbar on mobile */
+    .navbar {
+        top: 15px;
+    }
+    
+    .navbar .menu-bar {
+        padding: 0 15px;
+    }
+    
+    /* Hide CTA button on mobile to save space */
+    .navbar__btn {
+        display: none;
+    }
+    
+    /* Larger touch target for menu toggle */
+    #menu-toggle {
+        width: 52px;
+        height: 52px;
+        gap: 8px;
+    }
+    
+    #menu-toggle span {
+        width: 32px;
+        height: 3px;
+    }
+    
+    /* Responsive logo text */
+    .logo-text {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Adjust for very small screens */
+    .menu-overlay__main {
+        font-size: clamp(1.8rem, 9vw, 3rem);
+    }
+    
+    .menu-overlay__links {
+        padding: 70px 15px 50px;
+    }
+    
+    .menu-overlay__main ul {
+        gap: 10px;
+    }
+    
+    .menu-overlay__main li a {
+        padding: 12px 15px;
+        font-size: 0.9em;
+    }
+    
+    .menu-overlay__socials ul {
+        font-size: 0.9rem;
+        gap: 20px;
+    }
+    
+    .menu-overlay__socials ul li a {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+    
+    /* Smaller logo on very small screens */
+    .logo-text {
+        font-size: 1.1rem;
+    }
 }

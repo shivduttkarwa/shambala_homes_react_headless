@@ -37,6 +37,9 @@ const FullPageMenu: React.FC<FullPageMenuProps> = ({ isOpen, onToggle }) => {
     const pageContent = document.querySelector('.page-content') as HTMLElement;
     const bgImgs = bgImgsRef.current;
     const items = itemsRef.current;
+    
+    // Check if mobile device
+    const isMobile = window.innerWidth <= 768;
 
     // Initialize GSAP timeline
     const menuTimeline = gsap.timeline({ paused: true });
@@ -47,55 +50,57 @@ const FullPageMenu: React.FC<FullPageMenuProps> = ({ isOpen, onToggle }) => {
       gsap.set(bgImgs[0], { opacity: 1 });
     }
 
-    // Setup hover effects for menu items
+    // Setup hover effects for menu items (skip on mobile for performance)
     const cleanupFunctions: (() => void)[] = [];
     
-    items.forEach((item, index) => {
-      const handleMouseEnter = () => {
-        // Fade out all images
-        gsap.to(bgImgs, {
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.inOut"
-        });
-
-        // Fade in corresponding image
-        if (bgImgs[index + 1]) {
-          gsap.to(bgImgs[index + 1], {
-            opacity: 1,
-            scale: 1.18,
+    if (!isMobile) {
+      items.forEach((item, index) => {
+        const handleMouseEnter = () => {
+          // Fade out all images
+          gsap.to(bgImgs, {
+            opacity: 0,
             duration: 0.5,
-            ease: "power3.inOut"
+            ease: "power2.inOut"
           });
-        }
-      };
 
-      const handleMouseLeave = () => {
-        // Reset to default (first image)
-        gsap.to(bgImgs, {
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.inOut",
-          scale: 1
-        });
-        if (bgImgs[0]) {
-          gsap.to(bgImgs[0], {
-            opacity: 1,
+          // Fade in corresponding image
+          if (bgImgs[index + 1]) {
+            gsap.to(bgImgs[index + 1], {
+              opacity: 1,
+              scale: 1.18,
+              duration: 0.5,
+              ease: "power3.inOut"
+            });
+          }
+        };
+
+        const handleMouseLeave = () => {
+          // Reset to default (first image)
+          gsap.to(bgImgs, {
+            opacity: 0,
             duration: 0.5,
-            ease: "power3.inOut"
+            ease: "power2.inOut",
+            scale: 1
           });
-        }
-      };
+          if (bgImgs[0]) {
+            gsap.to(bgImgs[0], {
+              opacity: 1,
+              duration: 0.5,
+              ease: "power3.inOut"
+            });
+          }
+        };
 
-      item.addEventListener('mouseenter', handleMouseEnter);
-      item.addEventListener('mouseleave', handleMouseLeave);
+        item.addEventListener('mouseenter', handleMouseEnter);
+        item.addEventListener('mouseleave', handleMouseLeave);
 
-      // Store cleanup function
-      cleanupFunctions.push(() => {
-        item.removeEventListener('mouseenter', handleMouseEnter);
-        item.removeEventListener('mouseleave', handleMouseLeave);
+        // Store cleanup function
+        cleanupFunctions.push(() => {
+          item.removeEventListener('mouseenter', handleMouseEnter);
+          item.removeEventListener('mouseleave', handleMouseLeave);
+        });
       });
-    });
+    }
 
     // Setup timeline animations
     menuTimeline
@@ -117,8 +122,8 @@ const FullPageMenu: React.FC<FullPageMenuProps> = ({ isOpen, onToggle }) => {
         0
       );
 
-    // Animate page content if it exists
-    if (pageContent) {
+    // Animate page content if it exists (simplified for mobile)
+    if (pageContent && !isMobile) {
       menuTimeline.to(
         pageContent,
         {
@@ -133,16 +138,18 @@ const FullPageMenu: React.FC<FullPageMenuProps> = ({ isOpen, onToggle }) => {
       );
     }
 
-    // Animate background zoom
-    menuTimeline.to(
-      ".menu-overlay__bg-img img",
-      {
-        scale: 1.1,
-        duration: 1,
-        ease: "power3.inOut"
-      },
-      0
-    );
+    // Animate background zoom (skip on mobile)
+    if (!isMobile) {
+      menuTimeline.to(
+        ".menu-overlay__bg-img img",
+        {
+          scale: 1.1,
+          duration: 1,
+          ease: "power3.inOut"
+        },
+        0
+      );
+    }
 
     // Animate menu links in
     menuTimeline.add(() => {
@@ -307,7 +314,7 @@ const FullPageMenu: React.FC<FullPageMenuProps> = ({ isOpen, onToggle }) => {
         <nav className="wrapper">
           <div className="menu-bar">
             <div className="logo-wrapper">
-              {/* Logo removed */}
+              <span className="logo-text">Shambala Homes</span>
             </div>
             <button className="navbar__menu" id="menu-toggle" onClick={onToggle} type="button">
               <span className="toggle-line-top"></span>
@@ -316,7 +323,7 @@ const FullPageMenu: React.FC<FullPageMenuProps> = ({ isOpen, onToggle }) => {
             <a href="#contact" className="navbar__btn btn">
               <span className="btn-txt">GET QUOTE</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" fill="none">
-                <path fill="var(--text)" d="m17.76 6.857-5.727-5.688a.821.821 0 0 0-1.147.01.81.81 0 0 0-.01 1.139l4.33 4.3H.819a.821.821 0 0 0-.578.238.81.81 0 0 0 .578 1.388h14.389l-4.33 4.3a.813.813 0 0 0-.19.892.813.813 0 0 0 .765.505.824.824 0 0 0 .581-.248l5.727-5.688a.81.81 0 0 0 0-1.148Z" />
+                <path fill="currentColor" d="m17.76 6.857-5.727-5.688a.821.821 0 0 0-1.147.01.81.81 0 0 0-.01 1.139l4.33 4.3H.819a.821.821 0 0 0-.578.238.81.81 0 0 0 .578 1.388h14.389l-4.33 4.3a.813.813 0 0 0-.19.892.813.813 0 0 0 .765.505.824.824 0 0 0 .581-.248l5.727-5.688a.81.81 0 0 0 0-1.148Z" />
               </svg>
             </a>
           </div>

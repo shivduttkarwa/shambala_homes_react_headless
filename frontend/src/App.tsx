@@ -14,6 +14,7 @@ import {
   DreamHomeJourney,
   BlogSection,
 } from './components/Home';
+import NewHeroSection from './components/Home/NewHeroSection';
 
 import { defaultHeroData } from './data/defaultData';
 
@@ -103,16 +104,18 @@ function App() {
 
         
       
-        {/* Hero wired to Strapi, with safe fallbacks to your defaults */}
-        <HeroSection
-  mainTitle={heroProps?.mainTitle ?? defaultHeroData.mainTitle}
-  typedTexts={heroProps?.typedTexts ?? defaultHeroData.typedTexts}
-  description={heroProps?.description ?? defaultHeroData.description}
-  ctaText={heroProps?.ctaText ?? defaultHeroData.ctaText}
-  ctaLink={heroProps?.ctaLink ?? defaultHeroData.ctaLink}
-  backgroundImage={heroProps?.backgroundImage ?? defaultHeroData.backgroundImage}
-  serviceBoxes={heroProps?.serviceBoxes ?? defaultHeroData.serviceBoxes}
-/>
+        {/* New lightweight hero section */}
+        <NewHeroSection
+          title="Creating Beautiful Outdoor Spaces"
+          subtitle="Transform your property with expert landscaping and design that brings your vision to life."
+          ctaText="Get Free Consultation"
+          ctaLink="#contact"
+          heroImages={[
+            `${publicUrl}images/hero.jpg`,
+            `${publicUrl}images/l1.jpg`,
+            `${publicUrl}images/l2.jpg`
+          ]}
+        />
         <MediaComparator
           id="residential_projects_comparator"
           title="Featured Residential Projects - Scroll to Explore"
