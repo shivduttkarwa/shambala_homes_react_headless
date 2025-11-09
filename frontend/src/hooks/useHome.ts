@@ -78,9 +78,10 @@ export const useNewHero = (): UseNewHeroReturn => {
                 is_external: false
               },
               image: {
-                url: `${import.meta.env.BASE_URL}images/1.jpg`,
-                small: `${import.meta.env.BASE_URL}images/1.jpg`,
+                src: `${import.meta.env.BASE_URL}images/1.jpg`,
+                desktop: `${import.meta.env.BASE_URL}images/1.jpg`,
                 tablet: `${import.meta.env.BASE_URL}images/1.jpg`,
+                mobile: `${import.meta.env.BASE_URL}images/1.jpg`,
                 alt: 'Garden Design'
               }
             },
@@ -94,9 +95,10 @@ export const useNewHero = (): UseNewHeroReturn => {
                 is_external: false
               },
               image: {
-                url: `${import.meta.env.BASE_URL}images/2.jpg`,
-                small: `${import.meta.env.BASE_URL}images/2.jpg`,
+                src: `${import.meta.env.BASE_URL}images/2.jpg`,
+                desktop: `${import.meta.env.BASE_URL}images/2.jpg`,
                 tablet: `${import.meta.env.BASE_URL}images/2.jpg`,
+                mobile: `${import.meta.env.BASE_URL}images/2.jpg`,
                 alt: 'Landscaping Project'
               }
             },
@@ -110,9 +112,10 @@ export const useNewHero = (): UseNewHeroReturn => {
                 is_external: false
               },
               image: {
-                url: `${import.meta.env.BASE_URL}images/3.jpg`,
-                small: `${import.meta.env.BASE_URL}images/3.jpg`,
+                src: `${import.meta.env.BASE_URL}images/3.jpg`,
+                desktop: `${import.meta.env.BASE_URL}images/3.jpg`,
                 tablet: `${import.meta.env.BASE_URL}images/3.jpg`,
+                mobile: `${import.meta.env.BASE_URL}images/3.jpg`,
                 alt: 'Sustainable Landscaping'
               }
             }

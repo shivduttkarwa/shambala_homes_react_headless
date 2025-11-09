@@ -63,7 +63,7 @@
 
 .dream-title {
   font-family: "Cinzel", serif;
-  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-size: clamp(2rem, 4vw, 3.04rem);
   font-weight: 400;
   color: white;
   line-height: 1.2;
@@ -248,4 +248,12 @@
     padding: 16px 35px;
     font-size: 0.95rem;
   }
+}
+
+/* Curtain reveal animation styles */
+.curtain-char {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  color: inherit;
 }

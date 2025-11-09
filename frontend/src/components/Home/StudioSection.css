@@ -188,3 +188,11 @@
     height: 250px;
   }
 }
+
+/* Curtain reveal animation styles */
+.curtain-char {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  color: inherit;
+}

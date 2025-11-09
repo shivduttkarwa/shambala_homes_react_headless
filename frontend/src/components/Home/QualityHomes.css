@@ -280,3 +280,11 @@
     font-size: 0.85rem;
   }
 }
+
+/* Curtain reveal animation styles */
+.curtain-char {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  color: inherit;
+}

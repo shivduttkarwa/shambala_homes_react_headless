@@ -164,7 +164,7 @@
 .media-overlay-stack .text-container h2 {
   color: #ffffff;
   font-family: "Cinzel", serif;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-size: clamp(1.6rem, 3.6vw, 2.56rem);
   font-weight: 400;
   letter-spacing: 0.025em;
   line-height: 1.2;
@@ -298,7 +298,7 @@
 
 .dummy-block h2 {
   font-family: "Cinzel", serif;
-  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-size: clamp(2rem, 4vw, 3.04rem);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0.025em;
@@ -364,7 +364,7 @@
   }
 
   .dummy-block h2 {
-    font-size: clamp(1.5rem, 4.5vw, 2rem);
+    font-size: clamp(1.2rem, 3.6vw, 1.6rem);
     font-weight: 400;
     margin: 0 0 0.5rem 0;
     line-height: 1.2;
@@ -430,7 +430,7 @@
   }
 
   .media-overlay-stack .text-container h2 {
-    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-size: clamp(1.6rem, 3.6vw, 2.24rem);
     font-weight: 400;
   }
 
@@ -453,4 +453,23 @@
   .wrapper {
     transform: scale(1.001);
   }
+}
+
+/* Curtain reveal animation styles */
+.curtain-char {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  color: inherit;
+}
+
+/* Hide original text but keep layout */
+h2:has(.curtain-char) {
+  color: transparent;
+  text-shadow: none;
+}
+
+/* Fallback for browsers that don't support :has() */
+h2 .curtain-char {
+  color: var(--text-color);
 }

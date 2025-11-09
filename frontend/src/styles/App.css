@@ -437,7 +437,7 @@ body{
 .studio-title,
 .blog-section-title {
   font-family: "Cinzel", serif;
-  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-size: clamp(2rem, 4vw, 3.04rem);
   font-weight: 400;
   line-height: 1.2;
   color: var(--text);
@@ -1159,7 +1159,7 @@ body{
   .quality-main-title,
   .studio-title,
   .blog-section-title {
-    font-size: clamp(1.6rem, 5vw, 2rem) !important;
+    font-size: clamp(1.28rem, 4vw, 1.6rem) !important;
     font-family: "Cinzel", serif !important;
     font-weight: 400 !important;
   }
@@ -1179,7 +1179,7 @@ body{
   .quality-main-title,
   .studio-title,
   .blog-section-title {
-    font-size: clamp(1.9rem, 5vw, 2rem) !important;
+    font-size: clamp(1.52rem, 4vw, 1.6rem) !important;
     font-family: "Cinzel", serif !important;
     font-weight: 400 !important;
   }

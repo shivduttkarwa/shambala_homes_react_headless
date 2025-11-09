@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import './MediaComparator.css';
 import { gsap } from '../../lib/gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText as GSAPSplitText } from 'gsap/SplitText';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
 
 interface Slide {
   image: string;
@@ -35,6 +36,7 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const swiperWrapperRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const publicUrl = import.meta.env.BASE_URL;
 
   const progressRef = useRef({ value: 0 });
@@ -215,6 +217,104 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
     };
   }, [slides, direction, showOverlayAnimation]);
 
+  // Curtain reveal animation for title
+  useEffect(() => {
+    if (!titleRef.current || !title) return;
+
+    const titleElement = titleRef.current;
+
+    // Clean up any existing animations
+    ScrollTrigger.getAll().forEach(st => {
+      if (st.trigger === titleElement) st.kill();
+    });
+
+    const timer = setTimeout(() => {
+      try {
+        // Split text into characters
+        const splitText = new GSAPSplitText(titleElement, {
+          type: 'chars',
+          charsClass: 'curtain-char'
+        });
+
+        if (splitText.chars && splitText.chars.length > 0) {
+          // Make original text transparent but keep layout
+          titleElement.style.color = 'transparent';
+          titleElement.style.opacity = '1';
+          
+          // Set each character to be visible with proper color and hidden below
+          gsap.set(splitText.chars, {
+            yPercent: 100,
+            opacity: 0,
+            color: 'var(--text-color, #111827)'
+          });
+
+          // Create curtain reveal animation
+          ScrollTrigger.create({
+            trigger: titleElement,
+            start: 'top 85%',
+            end: 'bottom 20%',
+            onEnter: () => {
+              // Reset and play animation on scroll down
+              gsap.set(splitText.chars, {
+                yPercent: 100,
+                opacity: 0,
+                color: 'var(--text-color, #111827)'
+              });
+              gsap.to(splitText.chars, {
+                yPercent: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.03,
+                ease: 'power2.out'
+              });
+            },
+            onLeave: () => {
+              // Hide characters immediately when leaving the area
+              gsap.set(splitText.chars, {
+                yPercent: 100,
+                opacity: 0
+              });
+            },
+            onLeaveBack: () => {
+              // Hide characters when scrolling up past the section  
+              gsap.set(splitText.chars, {
+                yPercent: 100,
+                opacity: 0
+              });
+            },
+            onEnterBack: () => {
+              // Reset and play animation when scrolling back up into view
+              gsap.set(splitText.chars, {
+                yPercent: 100,
+                opacity: 0,
+                color: 'var(--text-color, #111827)'
+              });
+              gsap.to(splitText.chars, {
+                yPercent: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.03,
+                ease: 'power2.out'
+              });
+            },
+            id: `media-curtain-${id}`
+          });
+        }
+      } catch (error) {
+        console.warn('SplitText curtain effect failed:', error);
+        // Fallback to visible title
+        gsap.set(titleElement, { opacity: 1 });
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+      ScrollTrigger.getAll().forEach(st => {
+        if (st.vars?.id === `media-curtain-${id}`) st.kill();
+      });
+    };
+  }, [title, id]);
+
   return (
     <div 
       id={id}
@@ -227,7 +327,7 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
       {title && (
         <div className="dummy-block">
           <div className="text-container">
-            <h2 style={{ textAlign: 'center' }}>
+            <h2 ref={titleRef} style={{ textAlign: 'center', overflow: 'hidden', opacity: 0 }}>
               {title}
             </h2>
             {subtitle && <p>{subtitle}</p>}

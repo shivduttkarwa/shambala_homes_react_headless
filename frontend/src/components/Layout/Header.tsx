@@ -19,7 +19,7 @@ const defaultMenuItems: MenuItem[] = [
   { id: 5, label: 'Contact', link: '#contact' }
 ];
 
-const Header: React.FC<HeaderProps> = ({ menuItems = defaultMenuItems }) => {
+const Header: React.FC<HeaderProps> = ({ menuItems: _menuItems = defaultMenuItems }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
