@@ -6,11 +6,14 @@ interface Slide {
   image: string;
   title: string;
   subtitle: string;
+  buttonText?: string;
+  buttonUrl?: string;
 }
 
 interface MediaComparatorProps {
   id: string;
   title?: string;
+  subtitle?: string;
   slides: Slide[];
   direction?: 'rtl' | 'ltr';
   showComparatorLine?: boolean;
@@ -20,6 +23,7 @@ interface MediaComparatorProps {
 const MediaComparator: React.FC<MediaComparatorProps> = ({
   id,
   title,
+  subtitle,
   slides,
   direction = 'rtl',
   showComparatorLine = true,
@@ -34,13 +38,20 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
   const lastProgressRef = useRef(0); // Store last progress position
 
   useEffect(() => {
-    if (!containerRef.current || !wrapperRef.current || !swiperWrapperRef.current) return;
+    console.log('MediaComparator useEffect triggered for:', id, 'with', slides.length, 'slides');
+    
+    if (!containerRef.current || !wrapperRef.current || !swiperWrapperRef.current) {
+      console.log('MediaComparator: Missing refs for', id);
+      return;
+    }
 
     const container = containerRef.current;
     const wrapper = wrapperRef.current;
     const swiperWrapper = swiperWrapperRef.current;
     const slideElements = Array.from(swiperWrapper.children) as HTMLElement[];
     const numSlides = slideElements.length;
+    
+    console.log('MediaComparator setup for:', id, 'numSlides:', numSlides);
 
     // Cache slide inner elements
     slideElements.forEach(slide => {
@@ -122,8 +133,12 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
     // Detect mobile for optimized settings
     const isMobile = window.innerWidth <= 768;
     
-    // Create ScrollTrigger animation with mobile optimizations
-    const animation = gsap.to(progressRef.current, {
+    // Add delay to ensure proper initialization
+    const initDelay = setTimeout(() => {
+      console.log('Initializing ScrollTrigger for:', id);
+      
+      // Create ScrollTrigger animation with mobile optimizations
+      const animation = gsap.to(progressRef.current, {
       value: 1,
       ease: 'none',
       scrollTrigger: {
@@ -182,13 +197,18 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
       }
     });
 
-    
-    // Initialize at starting position (or restore last position)
-    const initialProgress = lastProgressRef.current || 0;
-    updateSlidePositions(initialProgress);
+      
+      // Initialize at starting position (or restore last position)
+      const initialProgress = lastProgressRef.current || 0;
+      updateSlidePositions(initialProgress);
+
+      return () => {
+        animation.kill();
+      };
+    }, 200); // 200ms delay
 
     return () => {
-      animation.kill();
+      clearTimeout(initDelay);
     };
   }, [slides, direction, showOverlayAnimation]);
 
@@ -205,6 +225,7 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
         <div className="dummy-block">
           <div className="text-container">
             <h2>{title}</h2>
+            {subtitle && <p>{subtitle}</p>}
             <h3>Scroll Down<br/>↓</h3>
           </div>
         </div>
@@ -251,9 +272,11 @@ const MediaComparator: React.FC<MediaComparatorProps> = ({
                           <div className="text-container">
                             <h2>{slide.title}</h2>
                             <p>{slide.subtitle}</p>
-                            <button className="cta-button">
-                              <span className="text">Learn More</span>
-                            </button>
+                            {slide.buttonText && slide.buttonUrl && (
+                              <a href={slide.buttonUrl} className="cta-button">
+                                <span className="text">{slide.buttonText}</span>
+                              </a>
+                            )}
                           </div>
                         </div>
                       </div>

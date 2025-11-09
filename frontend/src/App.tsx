@@ -5,27 +5,32 @@ import { useEffect } from 'react';
 import { ScrollTrigger } from './lib/gsap';
 
 import {
-  IconLinksSection,
   MediaComparator,
-  StudioSection,
   QualityHomes,
   DreamHomeJourney,
   BlogSection,
 } from './components/Home';
 import NewHeroSection from './components/Home/NewHeroSection';
+import BodyRenderer from './components/BodyRenderer';
 
 import { defaultHeroData } from './data/defaultData';
 
 function App() {
   // Load Strapi page data (Hero mapped to your component props shape)
-  const { loading, heroProps } = useHome();
+  const { loading, heroProps, bodyBlocks } = useHome();
 
   // Global ScrollTrigger coordination
   useEffect(() => {
-    if (!loading) {
-      ScrollTrigger.refresh();
+    if (!loading && bodyBlocks.length > 0) {
+      // Add delay to ensure all components are mounted
+      const timer = setTimeout(() => {
+        console.log('Refreshing ScrollTrigger after content load');
+        ScrollTrigger.refresh();
+      }, 500);
+      
+      return () => clearTimeout(timer);
     }
-  }, [loading]);
+  }, [loading, bodyBlocks]);
 
   // Vite base path for files in /public
   const publicUrl = import.meta.env.BASE_URL || '/';
@@ -86,34 +91,11 @@ function App() {
 
       <Header />
       <main>
-
-        
-      
         {/* New hero section */}
-        <NewHeroSection
-        />
-        <MediaComparator
-          id="residential_projects_comparator"
-          title="Featured Residential Projects - Scroll to Explore"
-          slides={residentialProjects}
-          direction="rtl"
-          showComparatorLine={true}
-          showOverlayAnimation={true}
-        />
-
-        <MediaComparator
-          id="commercial_projects_comparator"
-          title="Commercial & Community Projects"
-          slides={commercialProjects}
-          direction="ltr"
-          showComparatorLine={true}
-          showOverlayAnimation={true}
-        />
-
-        <IconLinksSection />
-
-        {/* Examples / layout blocks */}
-        <StudioSection />
+        <NewHeroSection />
+        
+        {/* Render body blocks from Wagtail CMS */}
+        <BodyRenderer blocks={bodyBlocks} />
 
         <QualityHomes />
         <DreamHomeJourney />

@@ -8,6 +8,52 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page
 
 
+# REUSABLE BLOCKS - For scaling and consistency
+
+class CTABlock(StructBlock):
+    """
+    Reusable Call-to-Action block for buttons and links
+    """
+    button_text = CharBlock(
+        max_length=50, 
+        default="Get Started",
+        help_text="Text for the button"
+    )
+    is_external_link = BooleanBlock(
+        default=False,
+        required=False,
+        help_text="Check if this links to an external website"
+    )
+    external_url = URLBlock(
+        required=False,
+        help_text="External URL (only used if 'External Link' is checked)"
+    )
+    page_link = PageChooserBlock(
+        required=False,
+        help_text="Internal page to link to (only used if 'External Link' is NOT checked)"
+    )
+    
+    class Meta:
+        icon = 'link'
+        label = 'Call to Action'
+
+
+class ImageBlock(StructBlock):
+    """
+    Reusable image block with alt text
+    """
+    image = ImageChooserBlock(help_text="Choose an image")
+    alt_text = CharBlock(
+        max_length=200,
+        required=False,
+        help_text="Alt text for accessibility (optional - will use image title if not provided)"
+    )
+    
+    class Meta:
+        icon = 'image'
+        label = 'Image'
+
+
 class SlideBlock(StructBlock):
     """
     Individual slide for the hero slider
@@ -83,7 +129,6 @@ class HeroSectionBlock(StructBlock):
     class Meta:
         icon = 'hero'
         label = 'Hero Section'
-        template = 'blocks/hero_section.html'
 
 
 # Note: Other block definitions removed as requested.
@@ -154,7 +199,129 @@ class HorizontalSliderBlock(StructBlock):
     class Meta:
         icon = 'horizontalrule'
         label = 'Horizontal Slider'
-        template = 'blocks/horizontal_slider.html'
+
+
+
+
+class ProjectSlideBlock(StructBlock):
+    """
+    Individual project slide for media comparator sections
+    """
+    title = CharBlock(max_length=200, help_text="Project title")
+    description = TextBlock(required=False, help_text="Project description")
+    image = ImageChooserBlock(help_text="Project image")
+    
+    # Button configuration
+    button_text = CharBlock(
+        max_length=50, 
+        default="Learn More",
+        help_text="Text for the slide button"
+    )
+    is_external_link = BooleanBlock(
+        default=False,
+        required=False,
+        help_text="Check if this links to an external website"
+    )
+    external_url = URLBlock(
+        required=False,
+        help_text="External URL (only used if 'External Link' is checked)"
+    )
+    page_link = PageChooserBlock(
+        required=False,
+        help_text="Internal page to link to (only used if 'External Link' is NOT checked)"
+    )
+    
+    class Meta:
+        icon = 'image'
+        label = 'Project Slide'
+
+
+class ResidentialProjectsBlock(StructBlock):
+    """
+    Residential Projects section with horizontal scrolling
+    """
+    title = CharBlock(
+        max_length=200, 
+        default="Featured Residential Projects",
+        help_text="Section title"
+    )
+    subtitle = TextBlock(
+        required=False,
+        help_text="Optional subtitle/description"
+    )
+    
+    projects = ListBlock(
+        ProjectSlideBlock(),
+        min_num=1,
+        max_num=10,
+        label="Residential Projects"
+    )
+    
+    class Meta:
+        icon = 'home'
+        label = 'Residential Projects Section'
+
+
+class CommercialProjectsBlock(StructBlock):
+    """
+    Commercial & Community Projects section with horizontal scrolling
+    """
+    title = CharBlock(
+        max_length=200, 
+        default="Commercial & Community Projects",
+        help_text="Section title"
+    )
+    subtitle = TextBlock(
+        required=False,
+        help_text="Optional subtitle/description"
+    )
+    
+    projects = ListBlock(
+        ProjectSlideBlock(),
+        min_num=1,
+        max_num=10,
+        label="Commercial Projects"
+    )
+    
+    class Meta:
+        icon = 'group'
+        label = 'Commercial Projects Section'
+
+
+class MultiImageContentBlock(StructBlock):
+    """
+    Multiple image with content block that maps to StudioSection.tsx
+    Includes section title, subtitle, rich text description, images, and CTA
+    """
+    # Section content
+    section_title = CharBlock(
+        max_length=200,
+        default="Bring your dream home to life",
+        help_text="Main section title"
+    )
+    section_subtitle = CharBlock(
+        max_length=300,
+        required=False,
+        help_text="Optional section subtitle"
+    )
+    description = RichTextBlock(
+        help_text="Rich text description for the section"
+    )
+    
+    # Images using reusable ImageBlock
+    images = ListBlock(
+        ImageBlock(),
+        min_num=1,
+        max_num=10,
+        help_text="Multiple images for the section (recommended: 2 for optimal layout)"
+    )
+    
+    # CTA using reusable CTABlock
+    cta = CTABlock(help_text="Call to action button")
+    
+    class Meta:
+        icon = 'image'
+        label = 'Multi Image Content Section'
 
 
 # Main StreamField for page body content
@@ -162,9 +329,15 @@ class BodyStreamBlock(StreamBlock):
     """
     Main StreamField block containing available content blocks
     """
+    residential_projects = ResidentialProjectsBlock()
+    commercial_projects = CommercialProjectsBlock()
     horizontal_slider = HorizontalSliderBlock()
+    multi_image_content = MultiImageContentBlock()
     
     class Meta:
         block_counts = {
             'horizontal_slider': {'max_num': 3},  # Max 3 horizontal sliders per page
+            'residential_projects': {'max_num': 1},  # Max 1 residential projects section
+            'commercial_projects': {'max_num': 1},  # Max 1 commercial projects section
+            'multi_image_content': {'max_num': 5},  # Max 5 multi-image content sections
         }

@@ -7,8 +7,13 @@ interface StudioSectionProps {
   description?: string[];
   images?: {
     src: string;
+    desktop?: string;
+    tablet?: string;
+    mobile?: string;
     alt: string;
   }[];
+  ctaText?: string;
+  ctaHref?: string;
 }
 
 
@@ -17,13 +22,13 @@ const publicUrl = import.meta.env.BASE_URL;
 
 const StudioSection: React.FC<StudioSectionProps> = ({
   title = "Bring your dream home to life",
-  
+  subtitle,
   description = [
     "Transform your outdoor space into a breathtaking sanctuary with our expert landscaping services. We specialize in creating stunning gardens that reflect your unique style and enhance your property's value.",
     "Our experienced team combines artistic vision with horticultural expertise to design and implement landscapes that thrive in every season. From concept to completion, we're committed to exceeding your expectations.",
     "Schedule a consultation today and discover how we can bring your dream outdoor space to life."
   ],
-    images = [
+  images = [
     {
       src: `${publicUrl}images/l2.jpg`,
       alt: "Beautiful landscaped garden"
@@ -32,7 +37,9 @@ const StudioSection: React.FC<StudioSectionProps> = ({
       src: `${publicUrl}images/l5.jpg`,
       alt: "Modern outdoor design"
     }
-  ]
+  ],
+  ctaText = "Get Started",
+  ctaHref = "#contact"
 }) => {
   return (
     <section className="studio-section">
@@ -41,7 +48,9 @@ const StudioSection: React.FC<StudioSectionProps> = ({
           {/* Left side: Image 1 - half width, full height */}
           <div className="left-image">
             <img 
-              src={images[0].src} 
+              src={images[0].src}
+              srcSet={`${images[0].mobile} 1000w, ${images[0].tablet || images[0].src} 1400w, ${images[0].desktop || images[0].src} 1400w`}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
               alt={images[0].alt} 
               className="studio-image"
               loading="lazy"
@@ -53,20 +62,23 @@ const StudioSection: React.FC<StudioSectionProps> = ({
             {/* Content area: 60% height */}
             <div className="content-area">
               <h2 className="studio-title">{title}</h2>
+              {subtitle && <h3 className="studio-subtitle">{subtitle}</h3>}
               <div className="studio-description">
                 {description.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>
-              <a href="#contact" className="studio-cta">
-                Get Started
+              <a href={ctaHref} className="studio-cta">
+                {ctaText}
               </a>
             </div>
             
             {/* Image 2: 40% height */}
             <div className="right-image">
               <img 
-                src={images[1].src} 
+                src={images[1].src}
+                srcSet={`${images[1].mobile} 1000w, ${images[1].tablet || images[1].src} 1400w, ${images[1].desktop || images[1].src} 1400w`}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
                 alt={images[1].alt} 
                 className="studio-image"
                 loading="lazy"

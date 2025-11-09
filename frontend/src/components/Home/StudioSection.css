@@ -66,6 +66,14 @@
   margin-bottom: 25px;
 }
 
+.studio-subtitle {
+  font-size: 1.2rem;
+  color: var(--muted-text);
+  font-weight: 400;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
 .studio-description {
   color: var(--muted-text);
   font-size: 1rem;

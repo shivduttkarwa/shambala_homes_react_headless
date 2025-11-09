@@ -36,14 +36,17 @@ export interface HeroSlide {
     is_external: boolean;
   } | null;
   image: {
-    url: string;
-    small: string;
+    src: string;
+    desktop: string;
     tablet: string;
+    mobile: string;
     alt: string;
   };
   full_image?: {
-    url: string;
-    large: string;
+    src: string;
+    desktop: string;
+    tablet: string;
+    mobile: string;
     alt: string;
   };
 }
@@ -57,8 +60,10 @@ export interface HeroSectionData {
   background: {
     video_url?: string;
     image?: {
-      url: string;
-      large: string;
+      src: string;
+      desktop: string;
+      tablet: string;
+      mobile: string;
       alt: string;
     };
   };
@@ -69,9 +74,117 @@ export interface HeroSectionData {
   };
 }
 
+
+// Horizontal Slider Block Types
+export interface HorizontalSlideItem {
+  order: string;
+  title: string;
+  description: string;
+  image: {
+    src: string;
+    desktop: string;
+    tablet: string;
+    mobile: string;
+    alt: string;
+  };
+  button_text: string;
+  is_external_link: boolean;
+  external_url?: string;
+  page_link?: {
+    id: number;
+    title: string;
+    url: string;
+  };
+}
+
+export interface HorizontalSliderBlock {
+  type: 'horizontal_slider';
+  value: {
+    title: string;
+    description?: string;
+    slides: HorizontalSlideItem[];
+    autoplay_enabled: boolean;
+    autoplay_delay: string;
+  };
+  id: string;
+}
+
+// Project Blocks Types
+export interface ProjectSlideItem {
+  title: string;
+  description?: string;
+  image: {
+    src: string;
+    desktop: string;
+    tablet: string;
+    mobile: string;
+    alt: string;
+  };
+  button_text: string;
+  is_external_link: boolean;
+  external_url?: string;
+  page_link?: {
+    id: number;
+    title: string;
+    url: string;
+  };
+}
+
+export interface ResidentialProjectsBlock {
+  type: 'residential_projects';
+  value: {
+    title: string;
+    subtitle?: string;
+    projects: ProjectSlideItem[];
+  };
+  id: string;
+}
+
+export interface CommercialProjectsBlock {
+  type: 'commercial_projects';
+  value: {
+    title: string;
+    subtitle?: string;
+    projects: ProjectSlideItem[];
+  };
+  id: string;
+}
+
+// Multi Image Content Block Types
+export interface MultiImageContentBlock {
+  type: 'multi_image_content';
+  value: {
+    title: string;
+    subtitle?: string;
+    description: string[];
+    images: Array<{
+      src: string;
+      desktop?: string;
+      tablet?: string;
+      mobile?: string;
+      alt: string;
+    }>;
+    cta: {
+      button_text: string;
+      is_external_link: boolean;
+      external_url?: string;
+      page_link?: {
+        id: number;
+        title: string;
+        url: string;
+      };
+    };
+  };
+  id: string;
+}
+
+// Body Content Types
+export type BodyBlock = HorizontalSliderBlock | ResidentialProjectsBlock | CommercialProjectsBlock | MultiImageContentBlock;
+
 export interface WagtailHomePage {
   id: number;
   title: string;
+  body_content_data: BodyBlock[];
   hero_section_data: HeroSectionData;
   // Legacy fields for backward compatibility
   main_title: string[];
@@ -98,7 +211,7 @@ export const fetchHomePage = async (): Promise<WagtailHomePage | null> => {
     const response = await api.get<WagtailApiResponse<WagtailHomePage>>('/pages/', {
       params: {
         type: 'home.HomePage',
-        fields: 'title,hero_section_data',
+        fields: 'title,hero_section_data,body_content_data',
         limit: 1,
       },
     });

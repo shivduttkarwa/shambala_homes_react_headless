@@ -243,7 +243,7 @@ const NewHeroSectionContent: React.FC = () => {
         {heroData?.background.image && (
           <div 
             className={`image-background ${heroData?.background.video_url ? 'video-poster' : ''}`}
-            style={{ backgroundImage: `url(${heroData.background.image.url})` }}
+            style={{ backgroundImage: `url(${heroData.background.image.desktop})` }}
           />
         )}
         
@@ -252,7 +252,7 @@ const NewHeroSectionContent: React.FC = () => {
           heroData.background.video_url.includes('vimeo.com') ? (
             <iframe
               className="video-background vimeo-iframe"
-              style={{ backgroundColor: heroData?.background.image?.url ? 'transparent' : '#1a1a1a' }}
+              style={{ backgroundColor: heroData?.background.image?.desktop ? 'transparent' : '#1a1a1a' }}
               src={`https://player.vimeo.com/video/${heroData.background.video_url.match(/vimeo\.com\/(\d+)/)?.[1]}?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&quality=540p&autopause=0&playsinline=1&transparent=0`}
               allow="autoplay; fullscreen"
               loading="eager"
@@ -332,15 +332,15 @@ const NewHeroSectionContent: React.FC = () => {
 
               <div className="swiper heroSwiper">
                 <div className="swiper-wrapper">
-                  {heroData?.slides && heroData.slides.length > 0 && heroData.slides.some(slide => slide.image?.url) ? 
-                    heroData.slides.filter(slide => slide.image?.url).map((slide) => (
+                  {heroData?.slides && heroData.slides.length > 0 && heroData.slides.some(slide => slide.image?.desktop) ? 
+                    heroData.slides.filter(slide => slide.image?.desktop).map((slide) => (
                       <div key={slide.id} className="swiper-slide">
                         <div className="slide-wrapper">
                           <img 
                             className="slide-image" 
-                            src={slide.image.url}
-                            srcSet={`${slide.image.small} 300w, ${slide.image.tablet} 700w, ${slide.image.url} 600w`}
-                            sizes="(max-width: 768px) 300px, (max-width: 1024px) 700px, 600px"
+                            src={slide.image.desktop}
+                            srcSet={`${slide.image.mobile} 700w, ${slide.image.tablet} 1000w, ${slide.image.desktop} 1200w`}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
                             alt={slide.image.alt || slide.title} 
                             loading="lazy"
                             key={`${slide.id}-${Date.now()}`}

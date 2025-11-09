@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchHomePage, WagtailHomePage, HeroSectionData } from '../services/api';
+import { fetchHomePage, WagtailHomePage, HeroSectionData, BodyBlock } from '../services/api';
 
 // Transform Wagtail data to component props format
 interface HeroProps {
@@ -25,6 +25,7 @@ interface UseHomeReturn {
   error: string | null;
   heroProps: HeroProps | null;
   wagtailData: WagtailHomePage | null;
+  bodyBlocks: BodyBlock[];
 }
 
 interface UseNewHeroReturn {
@@ -143,6 +144,7 @@ export const useHome = (): UseHomeReturn => {
   const [error, setError] = useState<string | null>(null);
   const [wagtailData, setWagtailData] = useState<WagtailHomePage | null>(null);
   const [heroProps, setHeroProps] = useState<HeroProps | null>(null);
+  const [bodyBlocks, setBodyBlocks] = useState<BodyBlock[]>([]);
 
   useEffect(() => {
     const loadHomeData = async () => {
@@ -153,7 +155,12 @@ export const useHome = (): UseHomeReturn => {
         const data = await fetchHomePage();
         
         if (data) {
+          console.log('Fetched Wagtail data:', data);
           setWagtailData(data);
+          
+          // Set body blocks
+          console.log('Body blocks from API:', data.body_content_data);
+          setBodyBlocks(data.body_content_data || []);
           
           // Transform Wagtail data to HeroSection component format
           const API_BASE = import.meta.env.VITE_API_URL?.replace('/api/v2', '') || 'http://127.0.0.1:8000';
@@ -235,5 +242,6 @@ export const useHome = (): UseHomeReturn => {
     error,
     heroProps,
     wagtailData,
+    bodyBlocks,
   };
 };
