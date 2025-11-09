@@ -1,0 +1,14 @@
+.scroll-float {
+  overflow: hidden;
+}
+
+.scroll-float-text {
+  display: inline-block;
+  /* Remove default font size and weight to inherit from parent components */
+  text-align: inherit;
+  line-height: inherit;
+}
+
+.char {
+  display: inline-block;
+}

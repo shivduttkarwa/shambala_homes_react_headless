@@ -1,5 +1,6 @@
 import React from 'react';
 import './BlogSection.css';
+import ScrollVelocity from '../ScrollVelocity';
 
 interface BlogPost {
   id: number;
@@ -72,7 +73,17 @@ const BlogSection: React.FC<BlogSectionProps> = ({
     <section className="blog-section">
       <div className="blog-container">
         <div className="blog-header">
-          <h2 className="blog-section-title">{sectionTitle}</h2>
+          <div className="blog-title-container">
+            <div className="blog-title-line"></div>
+            <ScrollVelocity 
+              text={sectionTitle}
+              velocity={50}
+              className="blog-scroll-title"
+              parallaxClassName="blog-parallax"
+              scrollerClassName="blog-scroller"
+            />
+            <div className="blog-title-line"></div>
+          </div>
         </div>
 
         <div className="blog-layout">
