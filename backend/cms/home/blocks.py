@@ -311,9 +311,9 @@ class MultiImageContentBlock(StructBlock):
     # Images using reusable ImageBlock
     images = ListBlock(
         ImageBlock(),
-        min_num=1,
-        max_num=10,
-        help_text="Multiple images for the section (recommended: 2 for optimal layout)"
+        min_num=2,
+        max_num=2,
+        help_text="Exactly 2 images: First image = Left side (tall format), Second image = Right side (wide format)"
     )
     
     # CTA using reusable CTABlock

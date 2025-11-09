@@ -48,9 +48,7 @@ const StudioSection: React.FC<StudioSectionProps> = ({
           {/* Left side: Image 1 - half width, full height */}
           <div className="left-image">
             <img 
-              src={images[0].src}
-              srcSet={`${images[0].mobile} 1000w, ${images[0].tablet || images[0].src} 1400w, ${images[0].desktop || images[0].src} 1400w`}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+              src={images[0].desktop || images[0].src}
               alt={images[0].alt} 
               className="studio-image"
               loading="lazy"
@@ -76,9 +74,7 @@ const StudioSection: React.FC<StudioSectionProps> = ({
             {/* Image 2: 40% height */}
             <div className="right-image">
               <img 
-                src={images[1].src}
-                srcSet={`${images[1].mobile} 1000w, ${images[1].tablet || images[1].src} 1400w, ${images[1].desktop || images[1].src} 1400w`}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+                src={images[1].desktop || images[1].src}
                 alt={images[1].alt} 
                 className="studio-image"
                 loading="lazy"

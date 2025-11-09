@@ -11,9 +11,9 @@ to ensure crisp, properly sized images without blur or stretching.
 IMAGE_CONFIGS = {
     # Hero Section - Full viewport background images and slider thumbnails
     'hero_background': {
-        'desktop': 'fill-2560x1440|format-webp',  # 4K/QHD background for crisp display
-        'tablet': 'fill-1920x1080|format-webp',   # Full HD for tablets
-        'mobile': 'fill-1080x1920|format-webp',   # Mobile portrait full res
+        'desktop': 'fill-1920x1080|format-webp',  # Full HD background for video poster
+        'tablet': 'fill-1440x900|format-webp',    # Reasonable tablet size
+        'mobile': 'fill-1080x1920|format-webp',   # Mobile portrait
     },
     'hero_slide': {
         # Hero slider images need to be much larger for retina displays
@@ -27,12 +27,11 @@ IMAGE_CONFIGS = {
         'mobile': 'width-1080|format-webp',       # 1080p for mobile lightbox
     },
     
-    # Studio Section - Need much higher resolution for 700px+ containers
+    # Studio Section - Massive resolution to eliminate blur
     'studio_section': {
-        # Studio section containers are 700px wide minimum, need 2x for retina
-        'desktop': 'fill-1400x1200|format-webp',  # 2x retina for 700x600 display
-        'tablet': 'fill-1400x1000|format-webp',   # High res for tablet
-        'mobile': 'fill-1000x800|format-webp',    # High res for mobile
+        'desktop': 'fill-3000x2000|format-webp',  # Massive size, no blur possible
+        'tablet': 'fill-2000x1500|format-webp',   # Massive tablet size
+        'mobile': 'fill-1500x1000|format-webp',   # Massive mobile size
     },
     
     # Media Comparator - Much larger for galleries (75rem = 1200px container)
@@ -50,11 +49,11 @@ IMAGE_CONFIGS = {
         'mobile': 'fill-700x500|format-webp',     # Better mobile quality
     },
     
-    # Video configurations - Higher resolution posters
+    # Video configurations - Optimized poster sizes
     'video_poster': {
-        'desktop': 'fill-3840x2160|format-webp',  # 4K video poster
-        'tablet': 'fill-2560x1440|format-webp',   # QHD tablet poster
-        'mobile': 'fill-1920x1080|format-webp',   # Full HD mobile poster
+        'desktop': 'fill-1920x1080|format-webp',  # Full HD video poster
+        'tablet': 'fill-1440x900|format-webp',    # Reasonable tablet poster
+        'mobile': 'fill-1080x720|format-webp',    # Mobile optimized poster
     }
 }
 
