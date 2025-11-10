@@ -50,6 +50,8 @@ class HeroErrorBoundary extends Component<
 const NewHeroSectionContent: React.FC = () => {
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const swiperRef = useRef<Swiper | null>(null);
+  const line1Ref = useRef<HTMLSpanElement | null>(null);
+  const line2Ref = useRef<HTMLSpanElement | null>(null);
   const { loading, error, heroData } = useNewHero();
   // Fullscreen functionality removed for simplicity
 
@@ -132,12 +134,52 @@ const NewHeroSectionContent: React.FC = () => {
       }
     };
 
+    // Hero text animation function
+    const animateHero = () => {
+      if (!line1Ref.current || !line2Ref.current) return;
+
+      const tl = gsap.timeline();
+
+      // Reset positions
+      gsap.set([line1Ref.current, line2Ref.current], {
+        y: 100,
+        opacity: 0,
+      });
+
+      // Animate first line
+      tl.to(line1Ref.current, {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power4.out',
+      }, 0.3);
+
+      // Animate second line
+      tl.to(line2Ref.current, {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power4.out',
+      }, 0.6);
+    };
+
     // Initialize GSAP animations after DOM is ready
     const initializeAnimations = () => {
       if (!isComponentMounted) return;
 
       try {
         const videoBackground = heroSectionRef.current?.querySelector('#new-hero-section .video-background');
+        
+        // Hero text animation with ScrollTrigger
+        if (line1Ref.current && line2Ref.current) {
+          ScrollTrigger.create({
+            trigger: heroSectionRef.current,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            onEnter: animateHero,
+            onEnterBack: animateHero,
+          });
+        }
         
         // Subtle parallax on video (only if video element exists)
         if (videoBackground) {
@@ -271,7 +313,10 @@ const NewHeroSectionContent: React.FC = () => {
 
         <div className="hero-content">
           <div className="hero-text">
-            <h1 dangerouslySetInnerHTML={{ __html: heroData?.title || 'Transform your<br/>outdoor dreams' }}></h1>
+            <h1>
+              <span ref={line1Ref} className="hero-text-line-1 block">WE BUILD</span>
+              <span ref={line2Ref} className="hero-text-line-2 block">YOUR DREAMS</span>
+            </h1>
           </div>
 
           <div className="hero-bottom">
