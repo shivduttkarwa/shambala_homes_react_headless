@@ -46,7 +46,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   displayItemNumbering = true,
   className,
   logoUrl = '/src/assets/logos/reactbits-gh-white.svg',
-  menuButtonColor = '#fff',
+  menuButtonColor = '#ffffff',
   openMenuButtonColor = '#fff',
   accentColor = '#5227FF',
   changeMenuColorOnOpen = true,
@@ -66,6 +66,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const textInnerRef = useRef<HTMLSpanElement>(null);
   const textWrapRef = useRef<HTMLSpanElement>(null);
   const [textLines, setTextLines] = useState(['Menu', 'Close']);
+  const submenuRefs = useRef<Map<number, HTMLUListElement>>(new Map());
+  const submenuArrowRefs = useRef<Map<number, HTMLSpanElement>>(new Map());
+  const submenuTweens = useRef<Map<number, gsap.core.Timeline>>(new Map());
+  const arrowTweens = useRef<Map<number, gsap.core.Tween>>(new Map());
 
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -75,6 +79,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const toggleBtnRef = useRef<HTMLButtonElement>(null);
   const busyRef = useRef(false);
   const itemEntranceTweenRef = useRef<gsap.core.Tween | null>(null);
+  const submenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -333,6 +338,95 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     });
   }, []);
 
+  const animateSubmenu = useCallback((index: number, isOpening: boolean) => {
+    const arrow = submenuArrowRefs.current.get(index);
+    
+    submenuTweens.current.get(index)?.kill();
+    arrowTweens.current.get(index)?.kill();
+
+    if (isOpening) {
+      // Animate arrow rotation
+      if (arrow) {
+        const arrowTween = gsap.to(arrow, {
+          rotation: 45,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+        arrowTweens.current.set(index, arrowTween);
+      }
+
+      // Wait for next frame to get the submenu element after it's rendered
+      requestAnimationFrame(() => {
+        const submenu = submenuRefs.current.get(index);
+        if (submenu) {
+          gsap.set(submenu, { height: 'auto', opacity: 0, y: -10, scale: 0.95 });
+          const naturalHeight = submenu.offsetHeight;
+          gsap.set(submenu, { height: 0, scale: 1 });
+          
+          const submenuTween = gsap.timeline()
+            .to(submenu, {
+              height: naturalHeight,
+              duration: 0.4,
+              ease: 'power2.out'
+            })
+            .to(submenu, {
+              opacity: 1,
+              y: 0,
+              duration: 0.3,
+              ease: 'power1.out'
+            }, '-=0.2');
+          
+          submenuTweens.current.set(index, submenuTween);
+        }
+      });
+    } else {
+      const submenu = submenuRefs.current.get(index);
+      
+      if (submenu) {
+        const submenuTween = gsap.timeline()
+          .to(submenu, {
+            opacity: 0,
+            y: -5,
+            duration: 0.2,
+            ease: 'power1.in'
+          })
+          .to(submenu, {
+            height: 0,
+            duration: 0.25,
+            ease: 'power2.in'
+          }, '-=0.1');
+        
+        submenuTweens.current.set(index, submenuTween);
+      }
+
+      if (arrow) {
+        const arrowTween = gsap.to(arrow, {
+          rotation: 0,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+        arrowTweens.current.set(index, arrowTween);
+      }
+    }
+  }, []);
+
+  const handleSubmenuToggle = useCallback((index: number) => {
+    const isCurrentlyOpen = openSubmenu === index;
+    const newOpenSubmenu = isCurrentlyOpen ? null : index;
+    
+    if (openSubmenu !== null && openSubmenu !== index) {
+      animateSubmenu(openSubmenu, false);
+    }
+    
+    if (!isCurrentlyOpen) {
+      animateSubmenu(index, true);
+    } else {
+      animateSubmenu(index, false);
+    }
+    
+    setOpenSubmenu(newOpenSubmenu);
+  }, [openSubmenu, animateSubmenu]);
+
   const toggleMenu = useCallback(() => {
     const target = !openRef.current;
     openRef.current = target;
@@ -370,14 +464,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
         <div className="sm-logo" aria-label="Logo">
-          <img
-            src={logoUrl || '/src/assets/logos/reactbits-gh-white.svg'}
-            alt="Logo"
-            className="sm-logo-img"
-            draggable={false}
-            width={110}
-            height={24}
-          />
+          <span className="sm-logo-text">SHAMBALA HOMES</span>
         </div>
         <button
           ref={toggleBtnRef}
@@ -411,28 +498,49 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
                   {it.subItems && it.subItems.length > 0 ? (
-                    <div className="sm-panel-item-with-submenu">
+                    <div className="sm-panel-item-with-submenu" data-index={idx + 1}>
                       <button
                         className="sm-panel-item sm-panel-item-button"
-                        onClick={() => setOpenSubmenu(openSubmenu === idx ? null : idx)}
+                        onClick={() => handleSubmenuToggle(idx)}
                         aria-label={it.ariaLabel}
                         aria-expanded={openSubmenu === idx}
-                        data-index={idx + 1}
                       >
-                        <span className="sm-panel-itemLabel">{it.label}</span>
-                        <span className="sm-submenu-arrow">{openSubmenu === idx ? '−' : '+'}</span>
+                        <span className="sm-panel-itemLabel">
+                          {it.label}
+                          <span style={{ marginLeft: '2rem', fontSize: '1.2rem', fontWeight: 400, opacity: 0.7, color: 'rgba(250, 248, 243, 0.6)' }}>
+                            {displayItemNumbering ? `0${idx + 1}` : ''}
+                          </span>
+                          <span 
+                            ref={(el) => {
+                              if (el) submenuArrowRefs.current.set(idx, el);
+                            }}
+                            className="sm-submenu-arrow"
+                          >
+                            +
+                          </span>
+                        </span>
                       </button>
-                      {openSubmenu === idx && (
-                        <ul className="sm-submenu" role="list">
-                          {it.subItems.map((subItem, subIdx) => (
-                            <li key={subItem.label + subIdx} className="sm-submenu-item">
-                              <a href={subItem.link} className="sm-submenu-link">
-                                {subItem.label}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      <ul 
+                        ref={(el) => {
+                          if (el) submenuRefs.current.set(idx, el);
+                        }}
+                        className="sm-submenu" 
+                        role="list"
+                        style={{ 
+                          overflow: 'hidden', 
+                          height: openSubmenu === idx ? 'auto' : 0, 
+                          opacity: openSubmenu === idx ? 1 : 0,
+                          display: openSubmenu === idx ? 'flex' : 'none'
+                        }}
+                      >
+                        {it.subItems.map((subItem, subIdx) => (
+                          <li key={subItem.label + subIdx} className="sm-submenu-item">
+                            <a href={subItem.link} className="sm-submenu-link">
+                              {subItem.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   ) : (
                     <a className="sm-panel-item" href={it.link} aria-label={it.ariaLabel} data-index={idx + 1}>
@@ -449,20 +557,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               </li>
             )}
           </ul>
-          {displaySocials && socialItems && socialItems.length > 0 && (
-            <div className="sm-socials" aria-label="Social links">
-              <h3 className="sm-socials-title">Socials</h3>
-              <ul className="sm-socials-list" role="list">
-                {socialItems.map((s, i) => (
-                  <li key={s.label + i} className="sm-socials-item">
-                    <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </aside>
     </div>

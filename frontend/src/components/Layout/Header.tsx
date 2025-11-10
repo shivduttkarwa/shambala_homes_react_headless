@@ -41,11 +41,6 @@ const Header: React.FC = () => {
       ]
     },
     { 
-      label: 'Portfolio', 
-      ariaLabel: 'View our portfolio', 
-      link: '/shambala_homes/portfolio' 
-    },
-    { 
       label: 'Contact', 
       ariaLabel: 'Get in touch', 
       link: '/shambala_homes/contact' 
