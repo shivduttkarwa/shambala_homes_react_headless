@@ -137,30 +137,8 @@ const NewHeroSectionContent: React.FC = () => {
       if (!isComponentMounted) return;
 
       try {
-        // Wait for elements to exist in the DOM - use specific selectors for this component
-        const heroText = heroSectionRef.current?.querySelector('#new-hero-section .hero-text h1');
-        const discoverBox = heroSectionRef.current?.querySelector('#new-hero-section .discover-box');
-        const sliderContainer = heroSectionRef.current?.querySelector('#new-hero-section .slider-container');
         const videoBackground = heroSectionRef.current?.querySelector('#new-hero-section .video-background');
         
-        // Only proceed if elements exist and are in the DOM
-        if (!heroText || !discoverBox || !sliderContainer) {
-          // Retry after a short delay
-          setTimeout(initializeAnimations, 100);
-          return;
-        }
-
-        // Clear any existing animations on these elements first
-        gsap.killTweensOf([heroText, discoverBox, sliderContainer]);
-
-        // Set initial visible state (no animations during development)
-        gsap.set([heroText, discoverBox, sliderContainer], { 
-          opacity: 1, 
-          x: 0, 
-          y: 0,
-          clearProps: "transform"
-        });
-
         // Subtle parallax on video (only if video element exists)
         if (videoBackground) {
           gsap.to(videoBackground, {
@@ -293,7 +271,7 @@ const NewHeroSectionContent: React.FC = () => {
 
         <div className="hero-content">
           <div className="hero-text">
-            <h1 dangerouslySetInnerHTML={{ __html: heroData?.title || 'Transform your<br/>outdoor dreams' }} />
+            <h1 dangerouslySetInnerHTML={{ __html: heroData?.title || 'Transform your<br/>outdoor dreams' }}></h1>
           </div>
 
           <div className="hero-bottom">

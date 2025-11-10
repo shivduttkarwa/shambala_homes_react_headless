@@ -1,10 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import './BlogSection.css';
-import { gsap } from '../../lib/gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText as GSAPSplitText } from 'gsap/SplitText';
-
-gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
+import ScrollVelocity from '../animations/ScrollVelocity';
 
 interface BlogPost {
   id: number;
@@ -33,7 +29,7 @@ interface BlogSectionProps {
 const publicUrl = import.meta.env.BASE_URL;
 
 const BlogSection: React.FC<BlogSectionProps> = ({
-  sectionTitle = "Design and building tips from our blog",
+  sectionTitle = "Design Tips",
   ctaText = "View all blog posts",
   ctaLink = "#",
   posts = [
@@ -70,108 +66,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({
     }
   ]
 }) => {
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  
   const featuredPost = posts.find(post => post.featured) || posts[0];
   const sidebarPosts = posts.filter(post => !post.featured).slice(0, 2);
-
-  // Curtain reveal animation for title
-  useEffect(() => {
-    if (!titleRef.current || !sectionTitle) return;
-
-    const titleElement = titleRef.current;
-
-    // Clean up any existing animations
-    ScrollTrigger.getAll().forEach(st => {
-      if (st.trigger === titleElement) st.kill();
-    });
-
-    const timer = setTimeout(() => {
-      try {
-        // Split text into characters
-        const splitText = new GSAPSplitText(titleElement, {
-          type: 'chars',
-          charsClass: 'curtain-char'
-        });
-
-        if (splitText.chars && splitText.chars.length > 0) {
-          // Make original text transparent but keep layout
-          titleElement.style.color = 'transparent';
-          titleElement.style.opacity = '1';
-          
-          // Set each character to be visible with proper color and hidden below
-          gsap.set(splitText.chars, {
-            yPercent: 100,
-            opacity: 0,
-            color: 'var(--text-color, #111827)'
-          });
-
-          // Create curtain reveal animation
-          ScrollTrigger.create({
-            trigger: titleElement,
-            start: 'top 85%',
-            end: 'bottom 20%',
-            onEnter: () => {
-              // Reset and play animation on scroll down
-              gsap.set(splitText.chars, {
-                yPercent: 100,
-                opacity: 0,
-                color: 'var(--text-color, #111827)'
-              });
-              gsap.to(splitText.chars, {
-                yPercent: 0,
-                opacity: 1,
-                duration: 0.6,
-                stagger: 0.03,
-                ease: 'power2.out'
-              });
-            },
-            onLeave: () => {
-              // Hide characters immediately when leaving the area
-              gsap.set(splitText.chars, {
-                yPercent: 100,
-                opacity: 0
-              });
-            },
-            onLeaveBack: () => {
-              // Hide characters when scrolling up past the section  
-              gsap.set(splitText.chars, {
-                yPercent: 100,
-                opacity: 0
-              });
-            },
-            onEnterBack: () => {
-              // Reset and play animation when scrolling back up into view
-              gsap.set(splitText.chars, {
-                yPercent: 100,
-                opacity: 0,
-                color: 'var(--text-color, #111827)'
-              });
-              gsap.to(splitText.chars, {
-                yPercent: 0,
-                opacity: 1,
-                duration: 0.6,
-                stagger: 0.03,
-                ease: 'power2.out'
-              });
-            },
-            id: 'blog-curtain-title'
-          });
-        }
-      } catch (error) {
-        console.warn('SplitText curtain effect failed:', error);
-        // Fallback to visible title
-        gsap.set(titleElement, { opacity: 1, color: 'inherit' });
-      }
-    }, 300);
-
-    return () => {
-      clearTimeout(timer);
-      ScrollTrigger.getAll().forEach(st => {
-        if (st.vars?.id === 'blog-curtain-title') st.kill();
-      });
-    };
-  }, [sectionTitle]);
 
   return (
     <section className="blog-section">
@@ -179,9 +75,14 @@ const BlogSection: React.FC<BlogSectionProps> = ({
         <div className="blog-header">
           <div className="blog-title-container">
             <div className="blog-title-line"></div>
-            <h2 ref={titleRef} className="blog-scroll-title" style={{ textAlign: 'center', overflow: 'hidden' }}>
-              {sectionTitle}
-            </h2>
+            <ScrollVelocity
+              texts={[`${sectionTitle} •`]}
+              velocity={30}
+              className="blog-scroll-title"
+              numCopies={4}
+              parallaxClassName="blog-parallax"
+              scrollerClassName="blog-scroller"
+            />
             <div className="blog-title-line"></div>
           </div>
         </div>

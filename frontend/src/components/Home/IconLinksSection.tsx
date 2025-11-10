@@ -1,4 +1,5 @@
 import React from 'react';
+import LiquidTextAnimate from '../animations/LiquidTextAnimate';
 
 interface IconLink {
   id: number;
@@ -21,7 +22,7 @@ const defaultIconLinks: IconLink[] = [
 ];
 
 const IconLinksSection: React.FC<IconLinksSectionProps> = ({
-  title = 'Transform Your Landscape',
+  title = 'Landscape',
   iconLinks = defaultIconLinks
 }) => {
   const getIcon = (iconType: string): React.ReactElement => {
@@ -70,8 +71,10 @@ const IconLinksSection: React.FC<IconLinksSectionProps> = ({
   return (
     <section className="icon-links-section" id="services">
       <div className="section-container">
-        <h2 className="section-title" style={{ textAlign: 'center' }}>
-          {title}
+        <h2 className="section-title" style={{ textAlign: 'center', overflow: 'visible' }}>
+          <LiquidTextAnimate delay={0.2} duration={0.4}>
+            {title}
+          </LiquidTextAnimate>
         </h2>
         <div className="icon-links-grid">
           {iconLinks.map((item) => (
