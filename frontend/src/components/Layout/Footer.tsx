@@ -31,7 +31,13 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
           {/* Footer Top Section */}
           <div className="footer-top">
             <div className="footer-column footer-brand">
-              <h3 className="footer-logo">{settings?.header?.logo_text || 'Shambala Homes'}</h3>
+              <div className="footer-logo">
+                <img
+                  src={`${publicUrl}images/LOGO_final.png`}
+                  alt="Shambala Homes"
+                  className="footer-logo-image"
+                />
+              </div>
               <p className="footer-tagline">
                 Creating timeless outdoor spaces that blend natural beauty with sophisticated design.
               </p>

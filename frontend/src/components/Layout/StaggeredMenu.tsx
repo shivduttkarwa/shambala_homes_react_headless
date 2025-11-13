@@ -27,6 +27,8 @@ interface StaggeredMenuProps {
   isFixed?: boolean;
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
+  logoSrc?: string;
+  logoAlt?: string;
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -42,6 +44,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   isFixed = false,
   onMenuOpen,
   onMenuClose,
+  logoSrc,
+  logoAlt = "Logo",
 }) => {
   const [open, setOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
@@ -478,7 +482,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         aria-label="Main navigation header"
       >
         <div className="sm-logo" aria-label="Logo">
-          <span className="sm-logo-text">SHAMBALA HOMES</span>
+          {logoSrc ? (
+            <img src={logoSrc} alt={logoAlt} className="sm-logo-image" />
+          ) : (
+            <span className="sm-logo-text">SHAMBALA HOMES</span>
+          )}
         </div>
         <button
           ref={toggleBtnRef}

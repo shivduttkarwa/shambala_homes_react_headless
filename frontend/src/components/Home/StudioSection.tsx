@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./StudioSection.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface StudioSectionProps {
   title?: string;
@@ -39,8 +43,50 @@ const StudioSection: React.FC<StudioSectionProps> = ({
   ctaText = "Get Started",
   ctaHref = "#contact",
 }) => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const leftImageOverlayRef = useRef<HTMLDivElement>(null);
+  const rightImageOverlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Left image reveal animation
+      if (leftImageOverlayRef.current) {
+        gsap.to(leftImageOverlayRef.current, {
+          scaleX: 0,
+          duration: 1.4,
+          ease: "expo.inOut",
+          scrollTrigger: {
+            trigger: leftImageOverlayRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      // Right image reveal animation
+      if (rightImageOverlayRef.current) {
+        gsap.to(rightImageOverlayRef.current, {
+          scaleX: 0,
+          duration: 1.4,
+          ease: "expo.inOut",
+          scrollTrigger: {
+            trigger: rightImageOverlayRef.current,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => {
+      ctx.revert();
+    };
+  }, []);
+
   return (
-    <section className="studio-section">
+    <section className="studio-section" ref={sectionRef}>
       <div className="studio-container">
         <div className="studio-layout">
           {/* Left side: Image 1 - half width, full height */}
@@ -51,6 +97,10 @@ const StudioSection: React.FC<StudioSectionProps> = ({
               className="studio-image"
               loading="lazy"
             />
+            <div
+              ref={leftImageOverlayRef}
+              className="studio-image-overlay"
+            ></div>
           </div>
 
           {/* Right side: Content and Image 2 */}
@@ -82,6 +132,10 @@ const StudioSection: React.FC<StudioSectionProps> = ({
                 className="studio-image"
                 loading="lazy"
               />
+              <div
+                ref={rightImageOverlayRef}
+                className="studio-image-overlay"
+              ></div>
             </div>
           </div>
         </div>

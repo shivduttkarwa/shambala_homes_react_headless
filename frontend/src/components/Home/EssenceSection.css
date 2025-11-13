@@ -1,0 +1,341 @@
+/* ESSENCE SECTION */
+.essence-section {
+  padding: 0;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.essence-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Two-column layout: 40% content, 60% image */
+.essence-layout {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+/* Left side: Content area */
+.essence-content {
+  background: var(--light-bg);
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.essence-logo {
+  margin-bottom: 40px;
+  max-width: 100px;
+}
+
+.essence-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.essence-tagline {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.essence-tagline .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.essence-heading {
+  font-family: "Cinzel", serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  max-width: 100%;
+}
+
+.essence-heading .mask {
+  overflow: hidden;
+  display: block;
+}
+
+.essence-heading .line {
+  display: block;
+  will-change: transform, opacity;
+}
+
+.essence-description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #4a4a4a;
+  margin-bottom: 35px;
+  max-width: 100%;
+  font-weight: 400;
+  opacity: 0.95;
+}
+
+.essence-description .mask {
+  overflow: hidden;
+  display: block;
+}
+
+.essence-description .line {
+  display: block;
+  will-change: transform, opacity;
+}
+
+.essence-cta {
+  display: inline-block;
+  padding: 14px 35px;
+  background: linear-gradient(
+    135deg,
+    #6b8e5f 0%,
+    var(--accent) 50%,
+    #4a6b3e 100%
+  );
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 0px;
+  transition: all 0.3s ease;
+  width: fit-content;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 8px,
+    rgba(91, 124, 79, 0.3) 0px 8px 16px -4px,
+    rgba(0, 0, 0, 0.1) 0px -3px 0px inset;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  will-change: transform, opacity;
+}
+
+.essence-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 12px,
+    rgba(91, 124, 79, 0.4) 0px 12px 20px -4px,
+    rgba(0, 0, 0, 0.1) 0px -3px 0px inset;
+}
+
+/* Right side: Full-bleed image */
+.essence-image {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.essence-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  display: block;
+}
+
+/* Image Reveal Overlay */
+.essence-image-overlay {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--light-bg);
+  z-index: 10;
+  transform-origin: left;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Video Subsection */
+.essence-video-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.essence-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.essence-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.essence-video-overlay:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.essence-video-play-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.essence-video-play-btn:hover {
+  transform: scale(1.15);
+}
+
+.essence-video-play-btn:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 8px;
+  border-radius: 50%;
+}
+
+.essence-video-play-btn svg {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+  transition: filter 0.3s ease;
+}
+
+.essence-video-play-btn:hover svg {
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.7));
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .essence-content {
+    padding: 60px 70px;
+  }
+
+  .essence-heading {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .essence-layout {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    height: auto;
+  }
+
+  .essence-content {
+    padding: 80px 50px;
+    min-height: 80vh;
+  }
+
+  .essence-image {
+    min-height: 60vh;
+  }
+
+  .essence-heading {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .essence-content {
+    padding: 60px 40px;
+    min-height: 70vh;
+  }
+
+  .essence-heading {
+    font-size: 2.2rem;
+  }
+
+  .essence-description {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+
+  .essence-image {
+    min-height: 50vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .essence-content {
+    padding: 50px 30px;
+    min-height: 60vh;
+  }
+
+  .essence-tagline {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+
+  .essence-heading {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .essence-description {
+    font-size: 0.9rem;
+    margin-bottom: 35px;
+  }
+
+  .essence-cta {
+    padding: 16px 40px;
+    font-size: 0.8rem;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .essence-image {
+    min-height: 40vh;
+  }
+
+  .essence-video-section {
+    height: 100vh;
+  }
+
+  .essence-video-play-btn svg {
+    width: 60px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .essence-video-section {
+    height: 100vh;
+  }
+
+  .essence-video-play-btn svg {
+    width: 50px;
+    height: 100px;
+  }
+}

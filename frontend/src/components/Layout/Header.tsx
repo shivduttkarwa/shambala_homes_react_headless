@@ -7,6 +7,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ settings }) => {
+  const publicUrl = import.meta.env.BASE_URL;
+
   // Transform settings from Wagtail API to StaggeredMenu format
   const menuItems = settings?.header?.menu_items?.length
     ? settings.header.menu_items.map(item => ({
@@ -69,8 +71,8 @@ const Header: React.FC<HeaderProps> = ({ settings }) => {
     <StaggeredMenu
       position="left"
       items={menuItems}
-      
-      
+      logoSrc={`${publicUrl}images/LOGO_final.png`}
+      logoAlt="Shambala Homes"
       displayItemNumbering={true}
       menuButtonColor="#2C2C2C"
       openMenuButtonColor="#FAF8F3"

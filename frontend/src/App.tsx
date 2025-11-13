@@ -1,12 +1,27 @@
 import './styles/App.css';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Header, Footer } from './components/Layout';
+import { Header, Footer, ModernPreloader } from './components/Layout';
 import HomePage from './pages/HomePage';
 import HouseDesignsRoute from './pages/HouseDesignsRoute';
 import { useSiteSettings } from './hooks/useSiteSettings';
 
 function App() {
   const { settings } = useSiteSettings();
+  const [showPreloader, setShowPreloader] = useState(true);
+
+  const handlePreloaderComplete = () => {
+    setShowPreloader(false);
+  };
+
+  if (showPreloader) {
+    return (
+      <ModernPreloader 
+        onComplete={handlePreloaderComplete}
+        minDuration={2000}
+      />
+    );
+  }
 
   return (
     <Router basename="/shambala_homes">

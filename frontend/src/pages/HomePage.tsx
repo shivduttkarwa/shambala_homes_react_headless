@@ -1,4 +1,5 @@
 import NewHeroSection from '../components/Home/NewHeroSection';
+import { EssenceSection, PortfolioSection } from '../components/Home';
 import BodyRenderer from '../components/BodyRenderer';
 import { useHome } from '../hooks/useHome';
 import { SiteSettings } from '../services/api';
@@ -13,6 +14,8 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
   return (
     <>
       <NewHeroSection />
+      <EssenceSection />
+      <PortfolioSection />
       <BodyRenderer blocks={bodyBlocks} />
     </>
   );

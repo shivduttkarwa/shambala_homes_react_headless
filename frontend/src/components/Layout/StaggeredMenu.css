@@ -68,6 +68,13 @@
   text-transform: uppercase;
 }
 
+.sm-logo-image {
+  height: 50px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+}
+
 /* Toggle Button */
 .sm-toggle {
   background: none;
