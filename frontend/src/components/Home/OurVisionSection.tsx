@@ -21,7 +21,7 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
   leftText = "OUR",
   rightText = "VISION",
   centerImage = {
-    src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2053&q=80",
+    src: `${publicUrl}images/3.jpg`,
     alt: "Modern architecture and design",
     overlayText: "Our approach",
   },
@@ -32,33 +32,37 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top", // pin as soon as section hits top of viewport
-          end: "+=60%", // control how long the scroll is "stuck" here
-          scrub: true,
-          pin: true, // <<< this pauses normal page scroll on this section
-          pinSpacing: true,
-          anticipatePin: 1,
-        },
-      });
+      const isMobile = window.innerWidth <= 968;
 
-      tl.to(
-        ".vision-image-container",
-        {
-          scale: 1.3, // 2X image size
-          ease: "none",
-        },
-        0
-      ).to(
-        ".vision-text-right .vision-large-text",
-        {
-          y: -450, // your existing value
-          ease: "none",
-        },
-        0
-      );
+      if (!isMobile) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top", // pin as soon as section hits top of viewport
+            end: "+=60%", // control how long the scroll is "stuck" here
+            scrub: true,
+            pin: true, // <<< this pauses normal page scroll on this section
+            pinSpacing: true,
+            anticipatePin: 1,
+          },
+        });
+
+        tl.to(
+          ".vision-image-container",
+          {
+            scale: 1.3, // 2X image size
+            ease: "none",
+          },
+          0
+        ).to(
+          ".vision-text-right .vision-large-text",
+          {
+            y: -450, // your existing value
+            ease: "none",
+          },
+          0
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();

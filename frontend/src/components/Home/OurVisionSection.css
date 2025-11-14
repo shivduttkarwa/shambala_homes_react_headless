@@ -103,13 +103,14 @@
 
 @media (max-width: 968px) {
   .our-vision-section {
-    padding: 80px 0;
+    padding: 48px 0; /* reduced from 80px (40% reduction) */
   }
 
   .vision-layout {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 24px; /* reduced from 40px */
     text-align: center;
+    min-height: 60vh; /* reduced overall height */
   }
 
   .vision-large-text {
@@ -117,7 +118,7 @@
   }
 
   .vision-image-container {
-    height: 350px;
+    height: 210px; /* reduced from 350px (40% reduction) */
     margin: 0 auto;
     max-width: 500px;
   }
@@ -125,7 +126,7 @@
 
 @media (max-width: 640px) {
   .our-vision-section {
-    padding: 60px 0;
+    padding: 36px 0; /* reduced from 60px (40% reduction) */
   }
 
   .vision-container {
@@ -133,7 +134,7 @@
   }
 
   .vision-layout {
-    gap: 30px;
+    gap: 6px; /* reduced gap */
   }
 
   .vision-large-text {
@@ -141,7 +142,7 @@
   }
 
   .vision-image-container {
-    height: 280px;
+    height: 280px; /* reduced from 280px (40% reduction) */
   }
 
   .vision-overlay {
@@ -152,5 +153,15 @@
 
   .overlay-text {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 968px) {
+  .vision-text-left {
+    padding-top: 25px; /* reduced from 220px (40% reduction) */
+  }
+
+  .vision-text-right {
+    padding-bottom: 25px; /* reduced from 200px (40% reduction) */
   }
 }
