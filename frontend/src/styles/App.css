@@ -9,6 +9,12 @@
 }
 
 html,body{overflow-x:hidden!important}
+
+/* Allow normal overflow when portfolio component is present for sticky behavior */
+body.portfolio-active {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
 body{
   margin:0; color:var(--text);
   background:var(--cream);

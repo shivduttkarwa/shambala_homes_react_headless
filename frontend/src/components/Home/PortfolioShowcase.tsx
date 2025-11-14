@@ -3,31 +3,22 @@ import "./PortfolioShowcase.css";
 
 const projects = [
   {
-    title: "Blueberry Hill ADU",
-    bg: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
-    thumb:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
-    tags: ["ADU", "Sleeping Loft", "1 Bath", "<500 Sqft"],
+    title: "Modern Zen Retreat",
+    bg: "/shambala_homes/images/project1.jpg",
+    thumb: "/shambala_homes/images/2.jpg",
+    tags: ["3 Bed", "2 Bath", "1,800 Sqft", "Garden View"],
   },
   {
-    title: "Break House",
-    bg: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=80",
-    thumb:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-    tags: ["Big Bar", "2 Bed", "3 Bath", "1,000-1,500 Sqft", "Hybrid Home"],
+    title: "Luxury Villa Estate",
+    bg: "/shambala_homes/images/project2.jpg",
+    thumb: "/shambala_homes/images/11.jpg",
+    tags: ["4 Bed", "3.5 Bath", "2,500 Sqft", "Pool", "Premium"],
   },
   {
-    title: "Mountain View Meadow",
-    bg: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1920&q=80",
-    thumb:
-      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80",
-    tags: [
-      "Big L",
-      "3 Bed",
-      "2.5 Bath",
-      "1,500-2,000 Sqft",
-      "Investment Property",
-    ],
+    title: "Cozy Family Home",
+    bg: "/shambala_homes/images/project3.jpg",
+    thumb: "/shambala_homes/images/3.jpg",
+    tags: ["2 Bed", "2 Bath", "1,200 Sqft", "Family Friendly", "Affordable"],
   },
 ];
 
@@ -38,13 +29,17 @@ const PortfolioShowcase: React.FC = () => {
     const featureSection = sectionRef.current;
     if (!featureSection) return;
 
+    // Add class to body to allow overflow for sticky behavior
+    document.body.classList.add("portfolio-active");
+
+    // PARALLAX – fully scoped to .project-feature
     const parallaxImages = featureSection.querySelectorAll<HTMLImageElement>(
       ".project > figure > img[data-speed]"
     );
 
-    if (!parallaxImages.length) return;
+    function handleParallax() {
+      if (!parallaxImages.length) return;
 
-    const handleParallax = () => {
       const viewportHeight = window.innerHeight;
 
       parallaxImages.forEach((img) => {
@@ -52,23 +47,27 @@ const PortfolioShowcase: React.FC = () => {
         const imgCenter = rect.top + rect.height / 2;
         const distanceFromCenter = imgCenter - viewportHeight / 2;
 
-        const speedAttr = img.getAttribute("data-speed");
-        const speed = speedAttr ? parseFloat(speedAttr) : 0.8;
+        const speed = parseFloat(img.dataset.speed || "0.8");
 
         const translateY = (-distanceFromCenter / viewportHeight) * 100 * speed;
 
         img.style.transform = `translate3d(0, ${translateY}%, 0) scale(1.2)`;
       });
-    };
-
-    // initial run
-    handleParallax();
+    }
 
     window.addEventListener("scroll", handleParallax);
+    window.addEventListener("load", handleParallax);
     window.addEventListener("resize", handleParallax);
 
+    // Initial run
+    handleParallax();
+
     return () => {
+      // Remove class from body
+      document.body.classList.remove("portfolio-active");
+
       window.removeEventListener("scroll", handleParallax);
+      window.removeEventListener("load", handleParallax);
       window.removeEventListener("resize", handleParallax);
     };
   }, []);
@@ -77,7 +76,7 @@ const PortfolioShowcase: React.FC = () => {
     <section className="project-feature" ref={sectionRef}>
       <div className="block-text">
         <div className="block-text-col">
-          <h3>...and we work with you to make it yours.</h3>
+          <h3>Discover Your Dream Home</h3>
         </div>
       </div>
 

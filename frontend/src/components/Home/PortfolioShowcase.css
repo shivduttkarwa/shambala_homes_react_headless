@@ -1,7 +1,21 @@
-* {
+/* Reset for portfolio component only */
+section.project-feature * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Force body to allow overflow for sticky behavior */
+body.portfolio-active {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
+/* Ensure no containment interferes with sticky */
+section.project-feature,
+section.project-feature * {
+  contain: none !important;
+  isolation: auto !important;
 }
 
 section.project-feature {
@@ -13,6 +27,9 @@ section.project-feature {
     Ubuntu, Cantarell, sans-serif;
   background: #e6e8e6;
   --grid-column-count: 12;
+  /* Force normal overflow for sticky positioning */
+  overflow: visible !important;
+  contain: none !important;
 }
 
 section.project-feature .block-text {
@@ -46,6 +63,8 @@ section.project-feature .projects-wrapper .project {
   display: block;
   position: relative;
   overflow: clip;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Ensures FULL background image height (100vh) */
