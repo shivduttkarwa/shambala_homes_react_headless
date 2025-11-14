@@ -5,6 +5,13 @@
   overflow: hidden;
 }
 
+/* Desktop only - compensate for pinSpacing: false */
+@media (min-width: 969px) {
+  .our-vision-section {
+    margin-bottom: 100vh;
+  }
+}
+
 .vision-container {
   max-width: 1400px;
   margin: 0 auto;

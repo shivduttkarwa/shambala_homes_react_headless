@@ -38,11 +38,11 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top top", // pin as soon as section hits top of viewport
-            end: "+=60%", // control how long the scroll is "stuck" here
+            start: "top top",
+            end: "+=100%", 
             scrub: true,
-            pin: true, // <<< this pauses normal page scroll on this section
-            pinSpacing: true,
+            pin: true,
+            pinSpacing: false, // This prevents artificial spacing that causes lag
             anticipatePin: 1,
           },
         });

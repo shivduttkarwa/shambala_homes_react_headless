@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smooth Portfolio Scroll</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: #0c310a;
+        --grid-column-count: 12;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .noscroll {
+        overflow: hidden;
+      }
+
+      section.project-feature {
+        z-index: 0;
+        padding-top: clamp(3rem, 3.38028vw + 2.20775rem, 5.25rem);
+        padding-bottom: clamp(3rem, 3.38028vw + 2.20775rem, 5.25rem);
+        position: relative;
+      }
+
+      section.project-feature div.block-text {
+        width: calc(
+          (
+              100vw -
+                (
+                  clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 2 +
+                    clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) *
+                    (var(--grid-column-count) - 1)
+                )
+            ) / var(--grid-column-count) * 8 +
+            clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) * 7 +
+            clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 0
+        );
+        text-align: center;
+        margin-bottom: clamp(2rem, 2.25352vw + 1.47183rem, 3.5rem);
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      section.project-feature div.block-text h3 {
+        color: #fffdf6;
+        font-size: clamp(1.5rem, 2vw, 2.5rem);
+        font-weight: 500;
+      }
+
+      section.project-feature div.projects-wrapper a.project {
+        height: 100vh;
+        display: block;
+        position: relative;
+        overflow: clip;
+      }
+
+      section.project-feature div.projects-wrapper a.project figure {
+        width: 100%;
+        height: 100%;
+      }
+
+      section.project-feature div.projects-wrapper a.project figure img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      section.project-feature div.projects-wrapper a.project div.content {
+        z-index: 2;
+        height: 300vh;
+        position: absolute;
+        top: -100vh;
+        left: 0;
+        right: 0;
+      }
+
+      section.project-feature
+        div.projects-wrapper
+        a.project
+        div.content
+        div.sticky {
+        height: 100vh;
+        padding: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+        position: sticky;
+        top: 0;
+      }
+
+      section.project-feature
+        div.projects-wrapper
+        a.project
+        div.content
+        div.sticky
+        div.info-wrapper {
+        width: calc(
+          (
+              100vw -
+                (
+                  clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 2 +
+                    clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) *
+                    (var(--grid-column-count) - 1)
+                )
+            ) / var(--grid-column-count) * 5 +
+            clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) * 4 +
+            clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 0
+        );
+        flex-direction: column;
+        row-gap: 1.5rem;
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      section.project-feature
+        div.projects-wrapper
+        a.project
+        div.content
+        div.sticky
+        div.info-wrapper
+        h2 {
+        text-wrap: balance;
+        color: #fffdf6;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 600;
+        margin: 0;
+      }
+
+      section.project-feature
+        div.projects-wrapper
+        a.project
+        div.content
+        div.sticky
+        div.info-wrapper
+        div.tag-wrapper {
+        flex-flow: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 0.5rem;
+        display: flex;
+      }
+
+      section.project-feature
+        div.projects-wrapper
+        a.project
+        div.content
+        div.sticky
+        div.info-wrapper
+        div.tag-wrapper
+        span.tag {
+        display: block;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 253, 246, 0.2);
+        color: #fffdf6;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        backdrop-filter: blur(10px);
+      }
+
+      section.project-feature
+        div.projects-wrapper
+        a.project
+        div.content
+        div.sticky
+        div.image-wrapper {
+        width: calc(
+          (
+              100vw -
+                (
+                  clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 2 +
+                    clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) *
+                    (var(--grid-column-count) - 1)
+                )
+            ) / var(--grid-column-count) * 5 +
+            clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) * 4 +
+            clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 0
+        );
+        aspect-ratio: 16/9;
+        border-radius: 16px;
+        flex-shrink: 0;
+        overflow: clip;
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+
+      section.project-feature
+        div.projects-wrapper
+        a.project
+        div.content
+        div.sticky
+        div.image-wrapper
+        figure {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      section.project-feature
+        div.projects-wrapper
+        a.project
+        div.content
+        div.sticky
+        div.image-wrapper
+        figure
+        img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      section.project-feature div.projects-wrapper :first-child div.content {
+        top: 0 !important;
+      }
+
+      section.project-feature div.projects-wrapper :first-child div.content,
+      section.project-feature div.projects-wrapper :last-child div.content {
+        height: 200vh !important;
+      }
+
+      section.project-feature div.cta-wrapper {
+        padding-left: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+        padding-right: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+        justify-content: center;
+        margin-top: 2.5rem;
+        display: flex;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 2rem;
+        background: #fffdf6;
+        color: #0c310a;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: transform 0.3s ease;
+      }
+
+      .button:hover {
+        transform: scale(1.05);
+      }
+
+      @media not (min-width: 58.75rem) {
+        section.project-feature div.block-text {
+          width: 100%;
+          padding-left: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+          padding-right: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+        }
+
+        section.project-feature div.projects-wrapper a.project div.content {
+          top: 0;
+        }
+
+        section.project-feature
+          div.projects-wrapper
+          a.project
+          div.content
+          div.sticky {
+          padding-left: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+          padding-right: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+          flex-direction: column;
+          align-items: start;
+          padding-top: 7rem;
+          padding-bottom: 3.5rem;
+          position: static;
+        }
+
+        section.project-feature
+          div.projects-wrapper
+          a.project
+          div.content
+          div.sticky
+          div.info-wrapper {
+          width: 100%;
+        }
+
+        section.project-feature
+          div.projects-wrapper
+          a.project
+          div.content
+          div.sticky
+          div.image-wrapper {
+          width: 100%;
+          max-height: 33vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="project-feature">
+      <div class="block-text">
+        <div class="block-text-col">
+          <h3>...and we work with you to make it yours.</h3>
+        </div>
+      </div>
+      <div class="projects-wrapper">
+        <a href="#" class="project">
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
+              alt="Blueberry Hill ADU Background"
+            />
+          </figure>
+          <div class="content">
+            <div class="sticky">
+              <div class="info-wrapper">
+                <h2>Blueberry Hill ADU</h2>
+                <div class="tag-wrapper">
+                  <span class="tag">ADU</span>
+                  <span class="tag">Sleeping Loft</span>
+                  <span class="tag">1 Bath</span>
+                  <span class="tag">&lt;500 Sqft</span>
+                </div>
+              </div>
+              <div class="image-wrapper">
+                <figure>
+                  <img
+                    src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80"
+                    alt="Blueberry Hill ADU Interior"
+                  />
+                </figure>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="project">
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=80"
+              alt="Break House Background"
+            />
+          </figure>
+          <div class="content">
+            <div class="sticky">
+              <div class="info-wrapper">
+                <h2>Break House</h2>
+                <div class="tag-wrapper">
+                  <span class="tag">Big Bar</span>
+                  <span class="tag">2 Bed</span>
+                  <span class="tag">3 Bath</span>
+                  <span class="tag">1,000-1,500 Sqft</span>
+                  <span class="tag">Hybrid Home</span>
+                </div>
+              </div>
+              <div class="image-wrapper">
+                <figure>
+                  <img
+                    src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
+                    alt="Break House Interior"
+                  />
+                </figure>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="#" class="project">
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1920&q=80"
+              alt="Mountain View Meadow Background"
+            />
+          </figure>
+          <div class="content">
+            <div class="sticky">
+              <div class="info-wrapper">
+                <h2>Mountain View Meadow</h2>
+                <div class="tag-wrapper">
+                  <span class="tag">Big L</span>
+                  <span class="tag">3 Bed</span>
+                  <span class="tag">2.5 Bath</span>
+                  <span class="tag">1,500-2,000 Sqft</span>
+                  <span class="tag">Investment Property</span>
+                </div>
+              </div>
+              <div class="image-wrapper">
+                <figure>
+                  <img
+                    src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80"
+                    alt="Mountain View Meadow Interior"
+                  />
+                </figure>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="cta-wrapper">
+        <a href="#" class="button">
+          <span>See More Projects</span>
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+
+    <script>
+      // The content is now stable and stays visible
+      // Only the background images scroll, creating a smooth parallax effect
+      // The sticky positioning keeps the text and small images in place
+
+      // Add smooth scrolling behavior for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

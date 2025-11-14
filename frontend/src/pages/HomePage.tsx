@@ -1,9 +1,9 @@
-import NewHeroSection from '../components/Home/NewHeroSection';
-import { EssenceSection, PortfolioSection } from '../components/Home';
-import OurVisionSection from '../components/Home/OurVisionSection';
-import BodyRenderer from '../components/BodyRenderer';
-import { useHome } from '../hooks/useHome';
-import { SiteSettings } from '../services/api';
+import NewHeroSection from "../components/Home/NewHeroSection";
+import { EssenceSection, PortfolioShowcase } from "../components/Home";
+import OurVisionSection from "../components/Home/OurVisionSection";
+import BodyRenderer from "../components/BodyRenderer";
+import { useHome } from "../hooks/useHome";
+import { SiteSettings } from "../services/api";
 
 interface HomePageProps {
   settings: SiteSettings | null;
@@ -11,15 +11,16 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
   const { bodyBlocks } = useHome();
-  
-  console.log('HomePage bodyBlocks:', bodyBlocks);
+
+  console.log("HomePage bodyBlocks:", bodyBlocks);
 
   return (
     <>
       <NewHeroSection />
+      <PortfolioShowcase />
       <EssenceSection />
       <OurVisionSection />
-      <PortfolioSection />
+
       <BodyRenderer blocks={bodyBlocks} />
     </>
   );
