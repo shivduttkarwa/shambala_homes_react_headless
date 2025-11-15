@@ -254,6 +254,7 @@
   position: relative;
   z-index: -1;
   overflow: hidden;
+  border-radius: 8px;
 }
 
 .right img {
@@ -304,24 +305,56 @@
   white-space: pre-line;
 }
 
-.arrow_link {
+.cta-link {
   display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-end;
+  gap: 0.6rem;
   color: #1a1a1a;
   text-decoration: none;
   font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #1a1a1a;
+  transition: gap 0.35s cubic-bezier(0.76, 0, 0.24, 1), color 0.3s ease;
   font-family: Arial, sans-serif;
-  transition: gap 0.3s ease;
 }
 
-.arrow_link:hover {
-  gap: 16px;
+.cta-text {
+  display: inline-block;
+  position: relative;
+  line-height: 1.2;
+  overflow: hidden;
 }
 
-.arrow_link svg {
-  width: 51px;
-  height: 14px;
+.cta-text > span {
+  display: block;
+  transform: translateY(0);
+  transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.cta-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.cta-link .arrow {
+  transition: transform 0.35s ease;
+  font-size: 18px;
+}
+
+.cta-link:hover {
+  gap: 1rem;
+}
+
+.cta-link:hover .cta-text > span {
+  transform: translateY(-100%);
+}
+
+.cta-link:hover .cta-text::after {
+  transform: translateY(-100%);
 }
 
 /* NAVIGATION */
