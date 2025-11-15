@@ -1,13 +1,11 @@
 import React from "react";
 import {
   BodyBlock,
-  MultiImageContentBlock,
   QualityHomesBlock,
-  DreamHomeJourneyBlock,
   BlogSectionBlock,
+  FeaturedPropertiesBlock,
 } from "../services/api";
-import { DreamHomeJourney, BlogSection } from "./Home";
-import StudioSection from "./Home/StudioSection";
+import { BlogSection, FeaturedProperties } from "./Home";
 import OurVisionSection from "./Home/OurVisionSection";
 
 interface BodyRendererProps {
@@ -23,58 +21,16 @@ const BodyRenderer: React.FC<BodyRendererProps> = ({ blocks }) => {
   const renderBlock = (block: BodyBlock) => {
     console.log('Rendering block type:', block.type, block);
     switch (block.type) {
-      case "multi_image_content":
-        return renderMultiImageContentBlock(block);
       case "quality_homes":
         return renderQualityHomesBlock(block);
-      case "dream_home_journey":
-        return renderDreamHomeJourneyBlock(block);
       case "blog_section":
         return renderBlogSectionBlock(block);
+      case "featured_properties":
+        return renderFeaturedPropertiesBlock(block);
       default:
         console.log('Unknown block type:', block.type);
         return null;
     }
-  };
-
-  const renderMultiImageContentBlock = (block: MultiImageContentBlock) => {
-    const { value } = block;
-
-    // Transform CTA data for StudioSection
-    let ctaHref = "#contact";
-    if (value.cta) {
-      if (value.cta.is_external_link && value.cta.external_url) {
-        ctaHref = value.cta.external_url;
-      } else if (!value.cta.is_external_link && value.cta.page_link?.url) {
-        ctaHref = value.cta.page_link.url;
-      }
-    }
-
-    // Update StudioSection to accept cta props by passing the button text and href
-    const updatedImages =
-      value.images.length >= 2
-        ? value.images
-        : [
-            ...value.images,
-            // Add default image if only one image provided
-            {
-              src: `${import.meta.env.BASE_URL || "/"}images/placeholder.jpg`,
-              alt: "Placeholder",
-            },
-          ];
-
-
-    return (
-      <StudioSection
-        key={block.id}
-        title={value.title}
-        subtitle={value.subtitle}
-        description={value.description}
-        images={updatedImages}
-        ctaText={value.cta?.button_text}
-        ctaHref={ctaHref}
-      />
-    );
   };
 
   const renderQualityHomesBlock = (block: QualityHomesBlock) => {
@@ -107,75 +63,6 @@ const BodyRenderer: React.FC<BodyRendererProps> = ({ blocks }) => {
     );
   };
 
-  const renderDreamHomeJourneyBlock = (block: DreamHomeJourneyBlock) => {
-    const { value } = block;
-    const API_BASE =
-      import.meta.env.VITE_API_URL?.replace("/api/v2", "") ||
-      "http://127.0.0.1:8000";
-
-    // Transform primary CTA data
-    let primaryCta = {
-      text: "Explore designs",
-      link: "#",
-    };
-
-    if (value.primary_cta) {
-      primaryCta.text = value.primary_cta.button_text;
-      if (
-        value.primary_cta.is_external_link &&
-        value.primary_cta.external_url
-      ) {
-        primaryCta.link = value.primary_cta.external_url;
-      } else if (
-        !value.primary_cta.is_external_link &&
-        value.primary_cta.page_link?.url
-      ) {
-        primaryCta.link = value.primary_cta.page_link.url;
-      }
-    }
-
-    // Transform secondary CTA data
-    let secondaryCta = {
-      text: "Explore house & land packages",
-      link: "#",
-    };
-
-    if (value.secondary_cta) {
-      secondaryCta.text = value.secondary_cta.button_text;
-      if (
-        value.secondary_cta.is_external_link &&
-        value.secondary_cta.external_url
-      ) {
-        secondaryCta.link = value.secondary_cta.external_url;
-      } else if (
-        !value.secondary_cta.is_external_link &&
-        value.secondary_cta.page_link?.url
-      ) {
-        secondaryCta.link = value.secondary_cta.page_link.url;
-      }
-    }
-
-    // Transform background image URL
-    let backgroundImage = `${
-      import.meta.env.BASE_URL || "/"
-    }images/wooden-bg.jpg`;
-    if (value.background_image?.src) {
-      backgroundImage = value.background_image.src.startsWith("http")
-        ? value.background_image.src
-        : `${API_BASE}${value.background_image.src}`;
-    }
-
-    return (
-      <DreamHomeJourney
-        key={block.id}
-        title={value.title}
-        description={value.description}
-        primaryCta={primaryCta}
-        secondaryCta={secondaryCta}
-        backgroundImage={backgroundImage}
-      />
-    );
-  };
 
   const renderBlogSectionBlock = (block: BlogSectionBlock) => {
     const { value } = block;
@@ -216,6 +103,39 @@ const BodyRenderer: React.FC<BodyRendererProps> = ({ blocks }) => {
         posts={transformedPosts}
         ctaText={ctaText}
         ctaLink={ctaLink}
+      />
+    );
+  };
+
+  const renderFeaturedPropertiesBlock = (block: FeaturedPropertiesBlock) => {
+    const { value } = block;
+    const API_BASE =
+      import.meta.env.VITE_API_URL?.replace("/api/v2", "") ||
+      "http://127.0.0.1:8000";
+
+    // Transform properties data to match PropertySlide interface
+    const transformedProperties = value.properties.map((property) => ({
+      id: property.id,
+      category: property.category,
+      title: property.title,
+      leftImage: property.leftImage.src?.startsWith("http")
+        ? property.leftImage.src
+        : `${API_BASE}${property.leftImage.src}`,
+      rightImage: property.rightImage.src?.startsWith("http")
+        ? property.rightImage.src
+        : `${API_BASE}${property.rightImage.src}`,
+      tabletImage: property.tabletImage.src?.startsWith("http")
+        ? property.tabletImage.src
+        : `${API_BASE}${property.tabletImage.src}`,
+      subtitle: property.subtitle,
+      description: property.description,
+      link: property.link,
+    }));
+
+    return (
+      <FeaturedProperties
+        key={block.id}
+        properties={transformedProperties}
       />
     );
   };

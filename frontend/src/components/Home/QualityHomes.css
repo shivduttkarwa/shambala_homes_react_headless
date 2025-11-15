@@ -118,7 +118,7 @@
 
 .feature-title {
   font-family: "Dream Avenue", cursive;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(3.5rem, 5vw, 4.5rem);
   font-weight: 500;
   color: var(--text);
   margin: 0;

@@ -150,34 +150,6 @@ export interface CommercialProjectsBlock {
   id: string;
 }
 
-// Multi Image Content Block Types
-export interface MultiImageContentBlock {
-  type: 'multi_image_content';
-  value: {
-    title: string;
-    subtitle?: string;
-    description: string[];
-    images: Array<{
-      src: string;
-      desktop?: string;
-      tablet?: string;
-      mobile?: string;
-      alt: string;
-    }>;
-    cta: {
-      button_text: string;
-      is_external_link: boolean;
-      external_url?: string;
-      page_link?: {
-        id: number;
-        title: string;
-        url: string;
-      };
-    };
-  };
-  id: string;
-}
-
 // Quality Homes Block Types
 export interface QualityHomesFeature {
   icon: string;
@@ -211,42 +183,6 @@ export interface QualityHomesBlock {
   id: string;
 }
 
-// Dream Home Journey Block Types
-export interface DreamHomeJourneyBlock {
-  type: 'dream_home_journey';
-  value: {
-    title: string;
-    description: string;
-    primary_cta?: {
-      button_text: string;
-      is_external_link: boolean;
-      external_url?: string;
-      page_link?: {
-        id: number;
-        title: string;
-        url: string;
-      };
-    } | null;
-    secondary_cta?: {
-      button_text: string;
-      is_external_link: boolean;
-      external_url?: string;
-      page_link?: {
-        id: number;
-        title: string;
-        url: string;
-      };
-    } | null;
-    background_image?: {
-      src: string;
-      desktop?: string;
-      tablet?: string;
-      mobile?: string;
-      alt: string;
-    } | null;
-  };
-  id: string;
-}
 
 // Blog Section Block Types
 export interface BlogPost {
@@ -279,8 +215,47 @@ export interface BlogSectionBlock {
   id: string;
 }
 
+// Featured Properties Block Types
+export interface FeaturedProperty {
+  id: number;
+  category: string;
+  title: string;
+  leftImage: {
+    src: string;
+    desktop?: string;
+    tablet?: string;
+    mobile?: string;
+    alt: string;
+  };
+  rightImage: {
+    src: string;
+    desktop?: string;
+    tablet?: string;
+    mobile?: string;
+    alt: string;
+  };
+  tabletImage: {
+    src: string;
+    desktop?: string;
+    tablet?: string;
+    mobile?: string;
+    alt: string;
+  };
+  subtitle: string;
+  description: string;
+  link: string;
+}
+
+export interface FeaturedPropertiesBlock {
+  type: 'featured_properties';
+  value: {
+    properties: FeaturedProperty[];
+  };
+  id: string;
+}
+
 // Body Content Types
-export type BodyBlock = HorizontalSliderBlock | ResidentialProjectsBlock | CommercialProjectsBlock | MultiImageContentBlock | QualityHomesBlock | DreamHomeJourneyBlock | BlogSectionBlock;
+export type BodyBlock = HorizontalSliderBlock | ResidentialProjectsBlock | CommercialProjectsBlock | QualityHomesBlock | BlogSectionBlock | FeaturedPropertiesBlock;
 
 export interface WagtailHomePage {
   id: number;

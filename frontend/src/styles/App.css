@@ -19,6 +19,49 @@
 
 html,body{overflow-x:hidden!important}
 
+/* Remove cursor/caret from all titles and headings */
+h1, h2, h3, h4, h5, h6,
+.essence-heading,
+.vision-large-text,
+.dream-title,
+.feature-title,
+.studio-title,
+.blog-section-title,
+.blog-title,
+.section-title,
+.quality-main-title,
+.hero-text h1,
+.hero-text-line-1,
+.hero-text-line-2 {
+  caret-color: transparent !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+/* Remove cursor pseudo-elements */
+h1::after, h1::before,
+h2::after, h2::before,
+h3::after, h3::before,
+h4::after, h4::before,
+h5::after, h5::before,
+h6::after, h6::before,
+.essence-heading::after, .essence-heading::before,
+.vision-large-text::after, .vision-large-text::before,
+.dream-title::after, .dream-title::before,
+.feature-title::after, .feature-title::before,
+.studio-title::after, .studio-title::before,
+.blog-section-title::after, .blog-section-title::before,
+.blog-title::after, .blog-title::before,
+.section-title::after, .section-title::before,
+.quality-main-title::after, .quality-main-title::before,
+.hero-text h1::after, .hero-text h1::before,
+.hero-text-line-1::after, .hero-text-line-1::before,
+.hero-text-line-2::after, .hero-text-line-2::before {
+  display: none !important;
+}
+
 /* Allow normal overflow when portfolio component is present for sticky behavior */
 body.portfolio-active {
   overflow-x: visible !important;

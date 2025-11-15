@@ -135,19 +135,44 @@
 .staggered-menu-panel {
   position: fixed;
   top: 0;
-  width: 70vw;
-  height: 100%;
-  background: #1e1e22;
+  left: 0;
+  right: -100vw;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/images/bg.png");
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-color: #1e1e22;
   z-index: 1000;
   overflow-y: auto;
   overflow-x: visible;
   color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.staggered-menu-panel.active {
+  right: 0;
+}
+
+.staggered-menu-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 30, 34, 0.8);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .sm-panel-inner {
   padding: 6rem 3rem 10rem;
   position: relative;
   min-height: 100%;
+  z-index: 2;
 }
 
 /* Panel List */
@@ -353,8 +378,13 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .staggered-menu-panel {
-    width: 100%;
+    width: 100vw;
     max-width: 100%;
+    right: -100vw;
+  }
+
+  .staggered-menu-panel.active {
+    right: 0;
   }
 
   .sm-panel-inner {
