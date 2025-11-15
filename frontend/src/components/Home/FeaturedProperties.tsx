@@ -134,34 +134,36 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
                       alt={property.subtitle}
                     />
                   </div>
-                  <h4>{property.subtitle}</h4>
-                  <div className="text">
-                    <p>{property.description}</p>
+                  <div className="content-wrapper">
+                    <h4>{property.subtitle}</h4>
+                    <div className="text">
+                      <p>{property.description}</p>
+                    </div>
+                    <a href={property.link} className="arrow_link">
+                      <span>Discover</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 50.987 14.208"
+                      >
+                        <g transform="translate(-1143 -7586.331)">
+                          <path
+                            d="M7.5,18H57.073"
+                            transform="translate(1135.5 -7575.435)"
+                            fill="none"
+                            stroke="#1a1a1a"
+                            strokeWidth="2"
+                          />
+                          <path
+                            d="M18,7.5l6.4,6.4-6.4,6.4"
+                            transform="translate(1168.175 7579.538)"
+                            fill="none"
+                            stroke="#1a1a1a"
+                            strokeWidth="2"
+                          />
+                        </g>
+                      </svg>
+                    </a>
                   </div>
-                  <a href={property.link} className="arrow_link">
-                    <span>Discover</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 50.987 14.208"
-                    >
-                      <g transform="translate(-1143 -7586.331)">
-                        <path
-                          d="M7.5,18H57.073"
-                          transform="translate(1135.5 -7575.435)"
-                          fill="none"
-                          stroke="#1a1a1a"
-                          strokeWidth="2"
-                        />
-                        <path
-                          d="M18,7.5l6.4,6.4-6.4,6.4"
-                          transform="translate(1168.175 7579.538)"
-                          fill="none"
-                          stroke="#1a1a1a"
-                          strokeWidth="2"
-                        />
-                      </g>
-                    </svg>
-                  </a>
                 </div>
               </SwiperSlide>
             ))}

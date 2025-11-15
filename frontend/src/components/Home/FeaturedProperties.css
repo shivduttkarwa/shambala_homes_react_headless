@@ -73,8 +73,8 @@
 .left-navigation {
   margin-bottom: 40px;
   display: flex;
-  gap: 60px;
-  margin-left: 80px;
+  gap: 90px;
+  margin-left: 120px;
   --_btn-size: 100px;
 }
 
@@ -277,18 +277,27 @@
   transform: scale(1);
 }
 
+.content-wrapper {
+  margin-left: -140px;
+  margin-top: -30px;
+  padding-right: 40px;
+  max-width: 750px;
+}
+
 .right h4 {
   margin: auto;
   margin-bottom: 22px;
-  font-size: 32px;
-  font-family: Arial, sans-serif;
-  font-weight: 400;
+  font-size: 52px;
+  font-family: "Dream Avenue", cursive;
+  font-weight: 300;
+  letter-spacing: -1px;
+  text-transform: uppercase;
 }
 
 .right .text p {
   margin: auto;
   margin-bottom: 35px;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.75;
   font-family: Arial, sans-serif;
   color: #333;
@@ -407,10 +416,18 @@
   .left h2 {
     font-size: 68px;
     margin-bottom: 40px;
+    margin-left: 0;
   }
 
   .left p {
     margin-bottom: 40px;
+  }
+
+  .left-navigation {
+    margin-left: 60px;
+    gap: 50px;
+    justify-content: flex-start;
+    --_btn-size: 120px;
   }
 
   .left img:not(.image-tablet) {
@@ -420,6 +437,23 @@
   .right {
     width: 100%;
     flex-basis: 100%;
+  }
+
+  .content-wrapper {
+    margin-left: 0;
+    margin-top: 0;
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .right h4 {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .right .text p {
+    font-size: 18px;
+    margin-bottom: 24px;
   }
 
   .right img {
@@ -445,6 +479,20 @@
 @media (max-width: 480px) {
   .left h2 {
     font-size: 50px;
+  }
+
+  .left-navigation {
+    margin-left: 50px;
+    gap: 40px;
+    --_btn-size: 110px;
+  }
+
+  .right h4 {
+    font-size: 28px;
+  }
+
+  .right .text p {
+    font-size: 16px;
   }
 
   .image-tablet {
