@@ -26,7 +26,7 @@ const publicUrl = import.meta.env.BASE_URL;
 
 const EssenceSection: React.FC<EssenceSectionProps> = ({
   logo,
-  tagline = "WHY SHAMBALA HOMES?",
+  tagline: _tagline = "WHY SHAMBALA HOMES?",
   heading = "WE SHAPE THE ESSENCE OF LIVING",
   description = "We envision spaces that are not just lived in, but felt — where every element has been curated to inspire connection, serenity, and belonging.",
   ctaText = "VIEW OUR DESIGNS",
@@ -65,7 +65,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
   };
 
   // Split text into characters for tagline
-  const splitTextIntoChars = (text: string) => {
+  const _splitTextIntoChars = (text: string) => {
     return text.split("").map((char, index) => (
       <span key={index} className="char">
         {char}

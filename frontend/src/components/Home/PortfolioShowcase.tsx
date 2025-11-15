@@ -40,7 +40,7 @@ const PortfolioShowcase: React.FC = () => {
     // Performance optimization variables
     let ticking = false;
     let lastScrollY = 0;
-    const isMobile = window.innerWidth < 940;
+    const _isMobile = window.innerWidth < 940;
 
     function handleParallax() {
       if (!parallaxImages.length) return;
@@ -103,7 +103,7 @@ const PortfolioShowcase: React.FC = () => {
       </div>
 
       <div className="projects-wrapper">
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <a href="#" className="project" key={project.title}>
             <figure>
               <img
