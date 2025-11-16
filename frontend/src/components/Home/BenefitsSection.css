@@ -1,14 +1,17 @@
 /* BENEFITS SECTION - UPDATED DESIGN */
 
-.benefits-section-wrapper {
-  /* Main wrapper for the benefits section */
-}
-
-/* SECTION TITLE */
-.benefits-header {
+/* TITLE INSIDE SECTION - STICKY BUT SLIDES UP */
+.benefits-inside-title {
   text-align: center;
-  margin-bottom: 40px;
   padding: 60px 0 40px;
+  background: #f5f5f4;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .benefits-section-title {
@@ -23,9 +26,8 @@
 }
 
 /* MAIN SECTION */
-.benefits-main-section {
-  min-height: 100vh;
-  overflow: hidden;
+section[data-block-type="blockBenefits"] {
+  /* Reset to normal scroll behavior */
 }
 
 /* Base Layout */
@@ -75,7 +77,7 @@
 .benefits-card {
   margin-top: -1px;
   position: sticky;
-  top: 0;
+  top: 200px;
   display: flex;
   aspect-ratio: 0.8;
   flex-direction: column;
@@ -89,6 +91,7 @@
   padding: 2rem;
   background: #f5f5f4;
   z-index: 1;
+  cursor: pointer;
 }
 
 /* Remove doubled borders between adjacent cards horizontally */
@@ -108,7 +111,7 @@
 .benefits-card-mobile {
   margin-top: -1px;
   position: sticky;
-  top: 0;
+  top: 200px;
   display: flex;
   aspect-ratio: 0.8;
   flex-direction: column;
@@ -122,6 +125,7 @@
   padding: 2rem;
   background: #f5f5f4;
   z-index: 1;
+  cursor: pointer;
 }
 
 .benefits-card-mobile:first-child {
@@ -176,8 +180,8 @@
 
 /* CTA */
 .benefits-cta-container {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  justify-content: center;
   padding-top: 4rem;
   padding-bottom: 4rem;
   background: #f5f5f4;
@@ -191,77 +195,57 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  user-select: none;
-  text-transform: uppercase;
-  height: 2.25rem;
-  border-top: 1px solid white;
-  padding: 0 0.5rem;
-  color: black;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  background: transparent;
+  gap: 0.75rem;
+  padding: 1.25rem 1.75rem;
+  border-top: 1px solid rgba(20, 20, 20, 0.12);
+  border-bottom: 1px solid rgba(20, 20, 20, 0.12);
   border-left: none;
   border-right: none;
-  border-bottom: none;
-  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
   text-decoration: none;
+  color: #141414;
+  overflow: hidden;
+  background: transparent;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
 }
 
-.benefits-cta-bg {
-  pointer-events: none;
+/* sliding light background */
+.benefits-cta-button::before {
+  content: "";
   position: absolute;
   inset: 0;
-  display: block;
-  transition: transform 1s ease-out;
   transform-origin: left;
   transform: scaleX(0);
-  background: #e7e5e4;
+  background: #e5e7eb;
+  transition: transform 0.8s ease-out;
   z-index: -1;
 }
 
-.benefits-cta-button:hover .benefits-cta-bg {
+/* arrow bubble – visible from the start */
+.benefits-cta-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(20, 20, 20, 0.12);
+  font-size: 1.1rem;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* hover effects */
+.benefits-cta-button:hover::before {
   transform: scaleX(1);
 }
 
-.benefits-cta-icon-wrapper {
-  display: flex;
-  width: 1.25rem;
-  height: 1.25rem;
-  flex-shrink: 0;
-  align-items: center;
-  overflow: hidden;
-  border-radius: 50%;
-  transition: all 1s ease-out;
-  background: #d6d3d1;
-  color: black;
-}
-
-.benefits-cta-button:hover .benefits-cta-icon-wrapper {
-  border-radius: 0;
-  background: #a8a29e;
-}
-
-.benefits-cta-icon {
-  display: flex;
-  width: 1.25rem;
-  height: 1.25rem;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  transition: transform 1s ease-out;
-  transform: translateX(-100%);
-}
-
 .benefits-cta-button:hover .benefits-cta-icon {
-  transform: translateX(0);
-}
-
-.benefits-icon-svg {
-  height: auto;
-  width: 100%;
+  transform: translateX(6px);
 }
 
 /* Responsive Design */
@@ -301,7 +285,7 @@
   .benefits-spacer {
     display: none;
   }
-  
+
   .benefits-header {
     padding: 40px 0 20px;
     margin-bottom: 20px;
@@ -309,5 +293,22 @@
 
   .benefits-section-title {
     font-size: clamp(2.5rem, 8vw, 3.5rem);
+  }
+
+  /* Stack mobile cards one by one */
+  .benefits-grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-col-start-2 {
+    grid-column-start: 1;
+  }
+
+  .benefits-card-mobile {
+    margin: 0 0 2rem 0;
+    position: relative;
+    top: auto;
+    aspect-ratio: auto;
+    min-height: 200px;
   }
 }

@@ -124,12 +124,8 @@ section.project-feature
   flex-direction: column;
   row-gap: 1.5rem;
   display: flex;
-  background: rgba(255, 253, 246, 0.08);
-  backdrop-filter: blur(20px);
   border-radius: 24px;
   padding: 2rem;
-  border: 1px solid rgba(255, 253, 246, 0.12);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 section.project-feature
@@ -144,6 +140,7 @@ section.project-feature
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 600;
   margin: 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0px 0px 12px rgba(0, 0, 0, 0.6);
 }
 
 section.project-feature
@@ -170,11 +167,12 @@ section.project-feature
   .tag {
   display: block;
   padding: 0.5rem 1rem;
-  background: rgba(255, 253, 246, 0.2);
-  color: #fffdf6;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1a1810;
   border-radius: 20px;
   font-size: 0.875rem;
-  backdrop-filter: blur(10px);
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 section.project-feature
@@ -245,20 +243,23 @@ section.project-feature .cta-wrapper {
 }
 
 /* renamed to be safer & avoid clashing with global .button */
-.pf-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 2rem;
-  background: #fffdf6;
-  color: #0c310a;
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: 500;
-  transition: transform 0.3s ease;
+section.project-feature .cta-wrapper a.pf-button.pf-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  padding: 1rem 2rem !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 253, 246, 0.2) !important;
+  color: #fffdf6 !important;
+  text-decoration: none !important;
+  border-radius: 50px !important;
+  font-weight: 500 !important;
+  transition: transform 0.3s ease !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
 }
 
-.pf-button:hover {
+section.project-feature .cta-wrapper .pf-button:hover {
   transform: scale(1.05);
 }
 

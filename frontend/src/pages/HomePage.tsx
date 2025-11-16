@@ -18,6 +18,7 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
     <>
       <NewHeroSection />
       <EssenceSection />
+      <BenefitsSection />
       <PortfolioShowcase />
 
       <OurVisionSection />
@@ -25,8 +26,6 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
       <FeaturedProperties />
 
       <BodyRenderer blocks={bodyBlocks} />
-
-      <BenefitsSection />
     </>
   );
 };

@@ -15,34 +15,41 @@ interface BenefitsSectionProps {
 }
 
 const BenefitsSection: React.FC<BenefitsSectionProps> = ({
-  sectionTitle = "Our Benefits",
+  sectionTitle = "Find your perfect home journey",
   benefits = [
     {
       id: 1,
-      title: "Emotional well-being",
-      description: "We design environments that inspire calm and balance."
+      title: "Build my first home",
+      description: "Transform your vision into reality with expert guidance through every step of your first home building experience."
     },
     {
       id: 2,
-      title: "Design that connects with you",
-      description: "Unique projects, designed to reflect your essence."
+      title: "Upgrade to a bigger home",
+      description: "Discover spacious designs that grow with your family's evolving needs and lifestyle aspirations."
     },
     {
       id: 3,
-      title: "Spaces that work and flow",
-      description: "We improve your everyday life with functional and harmonious design."
+      title: "Build an investment property",
+      description: "Create lasting wealth through strategic property development with our proven investment-focused approach."
     },
     {
       id: 4,
-      title: "Positive energy, always",
-      description: "We apply Feng Shui to enhance well-being in every corner."
+      title: "Downsize to a smaller home",
+      description: "Embrace efficient living with thoughtfully designed homes that maximize comfort and minimize maintenance."
     }
   ],
-  ctaText = "More about Shambala",
+  ctaText = "Start Your Journey Today",
   ctaLink = "#"
 }) => {
   return (
     <section data-block-type="blockBenefits">
+      {/* SECTION TITLE - INSIDE SECTION, BEFORE STICKY CONTEXT */}
+      <div className="benefits-inside-title">
+        <h1 className="benefits-section-title">
+          {sectionTitle}
+        </h1>
+      </div>
+      
       <div className="benefits-overflow-clip benefits-px-8">
         <div className="benefits-relative benefits-isolate benefits-size-full">
           {/* Background & Cards */}
@@ -201,51 +208,7 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
                 <span className="benefits-block">
                   <a href={ctaLink} className="benefits-cta-button">
                     <span>{ctaText}</span>
-                    <span className="benefits-cta-bg"></span>
-                    <span className="benefits-cta-icon-wrapper">
-                      <span className="benefits-cta-icon">
-                        <svg
-                          className="benefits-icon-svg"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 17 17"
-                        >
-                          <path
-                            fill="currentColor"
-                            fillRule="evenodd"
-                            d="M8.93 11.317a.333.333 0 0 1 0-.471l2.43-2.431-2.43-2.43a.333.333 0 0 1 .471-.472l2.667 2.666c.13.13.13.342 0 .472L9.4 11.317a.333.333 0 0 1-.471 0"
-                            clipRule="evenodd"
-                          ></path>
-                          <path
-                            fill="currentColor"
-                            fillRule="evenodd"
-                            d="M4.832 8.416c0-.184.15-.334.333-.334h6.667a.333.333 0 1 1 0 .667H5.165a.333.333 0 0 1-.333-.333"
-                            clipRule="evenodd"
-                          ></path>
-                        </svg>
-                      </span>
-                      <span className="benefits-cta-icon">
-                        <svg
-                          className="benefits-icon-svg"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 17 17"
-                        >
-                          <path
-                            fill="currentColor"
-                            fillRule="evenodd"
-                            d="M8.93 11.317a.333.333 0 0 1 0-.471l2.43-2.431-2.43-2.43a.333.333 0 0 1 .471-.472l2.667 2.666c.13.13.13.342 0 .472L9.4 11.317a.333.333 0 0 1-.471 0"
-                            clipRule="evenodd"
-                          ></path>
-                          <path
-                            fill="currentColor"
-                            fillRule="evenodd"
-                            d="M4.832 8.416c0-.184.15-.334.333-.334h6.667a.333.333 0 1 1 0 .667H5.165a.333.333 0 0 1-.333-.333"
-                            clipRule="evenodd"
-                          ></path>
-                        </svg>
-                      </span>
-                    </span>
+                    <span className="benefits-cta-icon">→</span>
                   </a>
                 </span>
               </div>
