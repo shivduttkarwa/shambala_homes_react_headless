@@ -1,6 +1,7 @@
 import NewHeroSection from "../components/Home/NewHeroSection";
 import { EssenceSection, PortfolioShowcase, FeaturedProperties, BenefitsSection } from "../components/Home";
 import OurVisionSection from "../components/Home/OurVisionSection";
+import CTASection from "../components/Home/CTASection";
 import BodyRenderer from "../components/BodyRenderer";
 import { useHome } from "../hooks/useHome";
 import { SiteSettings } from "../services/api";
@@ -26,6 +27,8 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
       <FeaturedProperties />
 
       <BodyRenderer blocks={bodyBlocks} />
+      
+      <CTASection />
     </>
   );
 };

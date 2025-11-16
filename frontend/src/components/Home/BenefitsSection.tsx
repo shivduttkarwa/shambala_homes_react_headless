@@ -1,5 +1,6 @@
 import React from 'react';
 import './BenefitsSection.css';
+import GlassButton from '../UI/GlassButton';
 
 interface Benefit {
   id: number;
@@ -206,10 +207,9 @@ const BenefitsSection: React.FC<BenefitsSectionProps> = ({
             <div className="benefits-cta-container">
               <div className="benefits-lg-col-start-2">
                 <span className="benefits-block">
-                  <a href={ctaLink} className="benefits-cta-button">
-                    <span>{ctaText}</span>
-                    <span className="benefits-cta-icon">→</span>
-                  </a>
+                  <GlassButton href={ctaLink}>
+                    {ctaText}
+                  </GlassButton>
                 </span>
               </div>
             </div>

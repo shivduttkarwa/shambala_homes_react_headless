@@ -1,5 +1,6 @@
 import React from "react";
 import "./QualityHomes.css";
+import GlassButton from '../UI/GlassButton';
 
 interface Feature {
   icon: string;
@@ -90,9 +91,9 @@ const QualityHomes: React.FC<QualityHomesProps> = ({
 
         {ctaText && (
           <div className="quality-cta">
-            <a href={ctaLink} className="quality-button">
+            <GlassButton href={ctaLink}>
               {ctaText}
-            </a>
+            </GlassButton>
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./PortfolioShowcase.css";
+import GlassButton from '../UI/GlassButton';
 
 const projects = [
   {
@@ -139,10 +140,9 @@ const PortfolioShowcase: React.FC = () => {
       </div>
 
       <div className="cta-wrapper">
-        <a href="#" className="pf-button">
-          <span>See More Projects</span>
-          <span>→</span>
-        </a>
+        <GlassButton href="#">
+          See More Projects
+        </GlassButton>
       </div>
     </section>
   );

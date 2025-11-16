@@ -3,6 +3,7 @@ import './BlogSection.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollVelocity from '../animations/ScrollVelocity';
+import GlassButton from '../UI/GlassButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -154,9 +155,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({
               {featuredPost.excerpt}
             </p>
             
-            <a href={featuredPost.link} className="blog-featured-cta">
+            <GlassButton href={featuredPost.link}>
               Read Full Article
-            </a>
+            </GlassButton>
           </div>
         </div>
       </section>
@@ -178,9 +179,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                 {post.excerpt}
               </p>
               
-              <a href={post.link} className="blog-read-more-btn">
+              <GlassButton href={post.link}>
                 Read More
-              </a>
+              </GlassButton>
             </article>
           ))}
         </div>

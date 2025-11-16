@@ -1,653 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anuc Home Benefits Section</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      :root {
-        --header-height: 5rem;
-        --columns: 4;
-      }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          sans-serif;
-        background: white;
-      }
-
-      /* Dummy Sections */
-      .dummy-section {
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .dummy-above {
-        background: linear-gradient(135deg, #fef3c7 0%, #e7e5e4 100%);
-      }
-
-      .dummy-below {
-        background: linear-gradient(135deg, #e7e5e4 0%, #fef3c7 100%);
-      }
-
-      .dummy-title {
-        font-size: 6rem;
-        font-family: Georgia, serif;
-        margin-bottom: 1rem;
-      }
-
-      .dummy-text {
-        font-size: 1.25rem;
-        color: #4b5563;
-      }
-
-      /* Main Section */
-      .overflow-x-clip {
-        overflow-x: clip;
-      }
-
-      .px-8 {
-        padding-left: 2rem;
-        padding-right: 2rem;
-      }
-
-      .relative {
-        position: relative;
-      }
-
-      .isolate {
-        isolation: isolate;
-      }
-
-      .size-full {
-        width: 100%;
-        height: 100%;
-      }
-
-      .border-x {
-        border-left: 1px solid rgba(212, 212, 216, 0.2);
-        border-right: 1px solid rgba(212, 212, 216, 0.2);
-      }
-
-      /* Grid Lines */
-      .pointer-events-none {
-        pointer-events: none;
-      }
-
-      .absolute {
-        position: absolute;
-      }
-
-      .inset-0 {
-        inset: 0;
-      }
-
-      .translate-x-sm {
-        transform: translateX(0.15rem);
-      }
-
-      .grid {
-        display: grid;
-      }
-
-      .grid-cols-2 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .grid-cols-4 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .gap-4 {
-        gap: 1rem;
-      }
-
-      .h-full {
-        height: 100%;
-      }
-
-      .hidden {
-        display: none;
-      }
-
-      .origin-top {
-        transform-origin: top;
-      }
-
-      .grid-line::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        right: 0;
-        transform: translateX(100%);
-        background: white;
-        width: 1px;
-      }
-
-      /* Background */
-      .bg-base-stone-20 {
-        background-color: #f5f5f4;
-      }
-
-      /* Cards Grid */
-      .w-full {
-        width: 100%;
-      }
-
-      .-mt-1 {
-        margin-top: -1px;
-      }
-
-      .first-mt-0:first-child {
-        margin-top: 0;
-      }
-
-      .sticky {
-        position: sticky;
-      }
-
-      .top-header {
-        top: var(--header-height);
-      }
-
-      .flex {
-        display: flex;
-      }
-
-      .aspect-square {
-        aspect-ratio: 1;
-      }
-
-      .aspect-0-7 {
-        aspect-ratio: 0.7;
-      }
-
-      .flex-col {
-        flex-direction: column;
-      }
-
-      .justify-between {
-        justify-content: space-between;
-      }
-
-      .gap-y-24 {
-        row-gap: 6rem;
-      }
-
-      .border-y {
-        border-top: 1px solid white;
-        border-bottom: 1px solid white;
-      }
-
-      .p-8 {
-        padding: 2rem;
-      }
-
-      .block {
-        display: block;
-      }
-
-      .whitespace-pre-line {
-        white-space: pre-line;
-      }
-
-      .text-balance {
-        text-wrap: balance;
-      }
-
-      .text-base {
-        font-size: 1.125rem;
-        color: #374151;
-        line-height: 1.75;
-      }
-
-      .font-serif {
-        font-family: Georgia, serif;
-      }
-
-      .text-title-20 {
-        font-size: 1.5rem;
-        line-height: 1.2;
-      }
-
-      .col-start-2 {
-        grid-column-start: 2;
-      }
-
-      /* CTA */
-      .py-96 {
-        padding-top: 24rem;
-        padding-bottom: 24rem;
-      }
-
-      .cta-button {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        cursor: pointer;
-        user-select: none;
-        text-transform: uppercase;
-        height: 2.25rem;
-        border-top: 1px solid white;
-        padding: 0 0.5rem;
-        color: black;
-        font-size: 0.75rem;
-        letter-spacing: 0.05em;
-        background: transparent;
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
-        font-family: inherit;
-      }
-
-      .cta-bg {
-        pointer-events: none;
-        position: absolute;
-        inset: 0;
-        display: block;
-        transition: transform 1s ease-out;
-        transform-origin: left;
-        transform: scaleX(0);
-        background: #e7e5e4;
-        z-index: -1;
-      }
-
-      .cta-button:hover .cta-bg {
-        transform: scaleX(1);
-      }
-
-      .cta-icon-wrapper {
-        display: flex;
-        width: 1.25rem;
-        height: 1.25rem;
-        flex-shrink: 0;
-        align-items: center;
-        overflow: hidden;
-        border-radius: 50%;
-        transition: all 1s ease-out;
-        background: #d6d3d1;
-        color: black;
-      }
-
-      .cta-button:hover .cta-icon-wrapper {
-        border-radius: 0;
-        background: #a8a29e;
-      }
-
-      .cta-icon {
-        display: flex;
-        width: 1.25rem;
-        height: 1.25rem;
-        flex-shrink: 0;
-        align-items: center;
-        justify-content: center;
-        transition: transform 1s ease-out;
-        transform: translateX(-100%);
-      }
-
-      .cta-button:hover .cta-icon {
-        transform: translateX(0);
-      }
-
-      .icon-svg {
-        height: auto;
-        width: 100%;
-      }
-
-      /* Responsive */
-      @media (min-width: 1024px) {
-        .lg-hidden {
-          display: none !important;
-        }
-
-        .lg-grid {
-          display: grid !important;
-        }
-
-        .lg-block {
-          display: block !important;
-        }
-
-        .lg-aspect-square {
-          aspect-ratio: 1;
-        }
-
-        .lg-p-24 {
-          padding: 6rem;
-        }
-
-        .lg-border-x-0 {
-          border-left: none;
-          border-right: none;
-        }
-
-        .lg-col-start-2 {
-          grid-column-start: 2;
-        }
-
-        .text-title-20 {
-          font-size: 3rem;
-        }
-
-        .dummy-title {
-          font-size: 6rem;
-        }
-      }
-
-      @media (max-width: 1023px) {
-        .dummy-title {
-          font-size: 4rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Dummy Above -->
-    <section class="dummy-section dummy-above">
-      <div style="text-align: center">
-        <h2 class="dummy-title">ANUC</h2>
-        <p class="dummy-text">Scroll down to see the benefits section</p>
-      </div>
-    </section>
-
-    <!-- Benefits Section - Exact Original Structure -->
-    <section data-block-type="blockBenefits">
-      <div class="overflow-x-clip px-8">
-        <div class="relative isolate size-full border-x lg-border-x-0">
-          <!-- Grid Lines -->
-          <div class="pointer-events-none absolute inset-0 translate-x-sm">
-            <!-- Mobile Grid -->
-            <div class="grid size-full grid-cols-2 gap-4 lg-hidden">
-              <div class="relative h-full origin-top grid-line"></div>
-              <div></div>
-            </div>
-            <!-- Desktop Grid -->
-            <div class="hidden size-full grid-cols-4 gap-4 lg-grid">
-              <div class="relative h-full origin-top grid-line"></div>
-              <div class="relative h-full origin-top grid-line"></div>
-              <div class="relative h-full origin-top grid-line"></div>
-              <div></div>
-            </div>
-          </div>
-
-          <!-- Background & Cards -->
-          <div class="bg-base-stone-20">
-            <!-- Desktop Layout -->
-            <div
-              class="hidden lg-grid"
-              style="
-                grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
-              "
+<section class="green_section section is-cta">
+  <div class="padding-global padding-section-medium">
+    <div class="container-large">
+      <div class="cta-component">
+        <div
+          data-w-id="e45ded08-260c-6486-a0e8-4a36eca29f13"
+          style="
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+              rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+            transform-style: preserve-3d;
+          "
+          class="header-wrapper"
+        >
+          <h2>On the <em>Inside</em></h2>
+        </div>
+        <div class="cta-form">
+          <p
+            data-w-id="433a9c05-9e4d-afb0-ed71-d1bbf475c3de"
+            style="
+              opacity: 1;
+              transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+              transform-style: preserve-3d;
+            "
+            class="text-size-medium"
+          >
+            Receive exclusive insights, inspiration and studio updates.
+          </p>
+          <div
+            data-w-id="6867d24a-ee30-a5f7-0bfc-7040f65ff706"
+            style="
+              opacity: 1;
+              transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1)
+                rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+              transform-style: preserve-3d;
+            "
+            class="cta-form-black w-form"
+          >
+            <form
+              id="email-form"
+              name="email-form"
+              data-name="Email Form"
+              method="get"
+              class="cta-form-wrapper"
+              data-wf-page-id="66d8f5bf0996182ebc0527ad"
+              data-wf-element-id="6867d24a-ee30-a5f7-0bfc-7040f65ff707"
+              data-turnstile-sitekey="0x4AAAAAAAQTptj2So4dx43e"
+              aria-label="Email Form"
             >
-              <!-- Column 1 -->
-              <div class="w-full">
-                <div
-                  class="-mt-1 sticky top-header flex aspect-0-7 lg-aspect-square flex-col justify-between gap-y-24 border-y p-8 lg-p-24 first-mt-0"
-                >
-                  <span class="block">
-                    <p class="whitespace-pre-line text-balance text-base">
-                      We design environments that inspire calm and balance.
-                    </p>
-                  </span>
-                  <span class="block">
-                    <h2 class="font-serif text-title-20">
-                      Emotional well-being
-                    </h2>
-                  </span>
-                </div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-              </div>
-
-              <!-- Column 2 -->
-              <div class="w-full">
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 sticky top-header flex aspect-0-7 lg-aspect-square flex-col justify-between gap-y-24 border-y p-8 lg-p-24 first-mt-0"
-                >
-                  <span class="block">
-                    <p class="whitespace-pre-line text-balance text-base">
-                      Unique projects, designed to reflect your essence.
-                    </p>
-                  </span>
-                  <span class="block">
-                    <h2 class="font-serif text-title-20">
-                      Design that connects with you
-                    </h2>
-                  </span>
-                </div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-              </div>
-
-              <!-- Column 3 -->
-              <div class="w-full">
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 sticky top-header flex aspect-0-7 lg-aspect-square flex-col justify-between gap-y-24 border-y p-8 lg-p-24 first-mt-0"
-                >
-                  <span class="block">
-                    <p class="whitespace-pre-line text-balance text-base">
-                      We improve your everyday life with functional and
-                      harmonious design.
-                    </p>
-                  </span>
-                  <span class="block">
-                    <h2 class="font-serif text-title-20">
-                      Spaces that work and flow
-                    </h2>
-                  </span>
-                </div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-              </div>
-
-              <!-- Column 4 -->
-              <div class="w-full">
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
-                ></div>
-                <div
-                  class="-mt-1 sticky top-header flex aspect-0-7 lg-aspect-square flex-col justify-between gap-y-24 border-y p-8 lg-p-24 first-mt-0"
-                >
-                  <span class="block">
-                    <p class="whitespace-pre-line text-balance text-base">
-                      We apply Feng Shui to enhance well-being in every corner.
-                    </p>
-                  </span>
-                  <span class="block">
-                    <h2 class="font-serif text-title-20">
-                      Positive energy, always
-                    </h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Mobile Layout -->
-            <div class="grid grid-cols-2 lg-hidden">
+              <input
+                class="field w-input"
+                maxlength="256"
+                name="email"
+                data-name="Email"
+                placeholder="EMAIL ADDRESS"
+                type="email"
+                id="email"
+                required=""
+                aria-label="EMAIL ADDRESS"
+              /><input
+                type="submit"
+                data-wait="Please wait..."
+                class="submit w-button"
+                value="Submit"
+              />
               <div>
-                <div
-                  class="-mt-1 sticky top-header flex aspect-0-7 flex-col justify-between gap-y-24 border-y p-8 first-mt-0"
-                >
-                  <span class="block">
-                    <p class="whitespace-pre-line text-balance text-base">
-                      We design environments that inspire calm and balance.
-                    </p>
-                  </span>
-                  <span class="block">
-                    <h2 class="font-serif text-title-20">
-                      Emotional well-being
-                    </h2>
-                  </span>
+                <div>
+                  <input
+                    type="hidden"
+                    name="cf-turnstile-response"
+                    id="cf-chl-widget-863l7_response"
+                    value="0.xbNBEycWvo91nPWadETNLpN8tOXJWXyaI3xHYPzW2mktzPP2683aAfhxPr5EPE4o8E-vwpm9CLuQ0UUQtY63iZgKLPTAyBeefmFsQnNTo2QRST4LDc7XisFGPvntFLuthdlB36kTrWjYX3oqLBNe6jzxijmOkNtItWQOvuu_VSbCwfISf85ONXNFsW5Zf6a-0iElcTNIM5EoPeHYZCIbSb6kCDB-gCKygG0W7bSvHYwlKKlxnRmKkn_B8lM8iiv0ck4KaI-pFOEcosjZK7cK4dsVU52ohoIXlLg9JqOaWu1MdkY7LXXEZkC_CN_4eGOoPzshLf7JQzotW_ykHTymBpmTUzknGSqxtjbXgZWrjFedCtqa8EEvHmelTRv4x0iEgP4Ur-qffXTxNYVsqsHKQONl8SaGjYjWTx7oTMs-3be8VRTl8pcrqPDQ-ob0Nr4YIwIHJB1j7I5VxsblvQWPTlet2fD9Hpo0rq4NbbJ1IKD_C6QjXpoCsPhfG4zzVl8DmPnd8LAup18s5TJDC7P1iGm3PMn79jbVAdJf2GFj-KKQJiCmS7N8ixosVN-1IW1fhJaxggI7w-JCB0u8TgSuFIOosGAKcBqgflaExDntd3Qbbi1iggZUfW206cHDgFMc7cKyX0n-ePWdv93aOC0R2BBYcx0hzYzllxOohXBpgmxHrFOuly1CsahbJVHJ07pTi69gLmlASfHHgw5N3OGSGPuojJMqHo828W7qvMQkzOcJeFahiaxLp9aARaPZwhF5TBO9RZNqaMgNPaUP3pYd3oR3pMWEB5p-aLYPN-zQTljes6RZGb4ZJQOxesSHr72DSf86j5H6-o58uNpIYRBZ7emyJFHUpBWwi_B0qPYhcgA1P8AtH9b4P7qH8NsIodMnYbe_zymRC08Dz4S8HG4_6iUKwoyL11MREGCrF_VjJCIKWFB_Ir6KaK0K7XjTeffxNi81OvcidfZwLfJm7PMliA.JVGeCZXBxgNYhPY-6k5gdA.ef09be00b9651df3f315973c430aad219a8604f7e7518367c73451cb2483f76e"
+                  />
                 </div>
               </div>
-            </div>
-
-            <div class="grid grid-cols-2 lg-hidden">
-              <div class="col-start-2">
-                <div
-                  class="-mt-1 sticky top-header flex aspect-0-7 flex-col justify-between gap-y-24 border-y p-8 first-mt-0"
-                >
-                  <span class="block">
-                    <p class="whitespace-pre-line text-balance text-base">
-                      Unique projects, designed to reflect your essence.
-                    </p>
-                  </span>
-                  <span class="block">
-                    <h2 class="font-serif text-title-20">
-                      Design that connects with you
-                    </h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 lg-hidden">
-              <div>
-                <div
-                  class="-mt-1 sticky top-header flex aspect-0-7 flex-col justify-between gap-y-24 border-y p-8 first-mt-0"
-                >
-                  <span class="block">
-                    <p class="whitespace-pre-line text-balance text-base">
-                      We improve your everyday life with functional and
-                      harmonious design.
-                    </p>
-                  </span>
-                  <span class="block">
-                    <h2 class="font-serif text-title-20">
-                      Spaces that work and flow
-                    </h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 lg-hidden">
-              <div class="col-start-2">
-                <div
-                  class="-mt-1 sticky top-header flex aspect-0-7 flex-col justify-between gap-y-24 border-y p-8 first-mt-0"
-                >
-                  <span class="block">
-                    <p class="whitespace-pre-line text-balance text-base">
-                      We apply Feng Shui to enhance well-being in every corner.
-                    </p>
-                  </span>
-                  <span class="block">
-                    <h2 class="font-serif text-title-20">
-                      Positive energy, always
-                    </h2>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- CTA -->
+            </form>
             <div
-              class="grid grid-cols-1 py-96"
-              style="
-                grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
-              "
+              class="success-message w-form-done"
+              tabindex="-1"
+              role="region"
+              aria-label="Email Form success"
             >
-              <div class="lg-col-start-2">
-                <span class="block">
-                  <button class="cta-button">
-                    <span>More about Anuc</span>
-                    <span class="cta-bg"></span>
-                    <span class="cta-icon-wrapper">
-                      <span class="cta-icon">
-                        <svg
-                          class="icon-svg"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 17 17"
-                        >
-                          <path
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                            d="M8.93 11.317a.333.333 0 0 1 0-.471l2.43-2.431-2.43-2.43a.333.333 0 0 1 .471-.472l2.667 2.666c.13.13.13.342 0 .472L9.4 11.317a.333.333 0 0 1-.471 0"
-                            clip-rule="evenodd"
-                          ></path>
-                          <path
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                            d="M4.832 8.416c0-.184.15-.334.333-.334h6.667a.333.333 0 1 1 0 .667H5.165a.333.333 0 0 1-.333-.333"
-                            clip-rule="evenodd"
-                          ></path>
-                        </svg>
-                      </span>
-                      <span class="cta-icon">
-                        <svg
-                          class="icon-svg"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 17 17"
-                        >
-                          <path
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                            d="M8.93 11.317a.333.333 0 0 1 0-.471l2.43-2.431-2.43-2.43a.333.333 0 0 1 .471-.472l2.667 2.666c.13.13.13.342 0 .472L9.4 11.317a.333.333 0 0 1-.471 0"
-                            clip-rule="evenodd"
-                          ></path>
-                          <path
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                            d="M4.832 8.416c0-.184.15-.334.333-.334h6.667a.333.333 0 1 1 0 .667H5.165a.333.333 0 0 1-.333-.333"
-                            clip-rule="evenodd"
-                          ></path>
-                        </svg>
-                      </span>
-                    </span>
-                  </button>
-                </span>
-              </div>
+              <div>You're in!</div>
+            </div>
+            <div
+              class="w-form-fail"
+              tabindex="-1"
+              role="region"
+              aria-label="Email Form failure"
+            >
+              <div>Oops! Something went wrong while submitting the form.</div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Dummy Below -->
-    <section class="dummy-section dummy-below">
-      <div style="text-align: center">
-        <h2 class="dummy-title">Continue Scrolling</h2>
-        <p class="dummy-text">More content below</p>
-      </div>
-    </section>
-  </body>
-</html>
+    </div>
+  </div>
+  <div class="main-bg is-green"></div>
+</section>
+<section clas="" class="footer_section"><div class="padding-global padding-section-medium"><div class="container-large"><div class="footer-grid"><div class="footer-menu"><a href="/" aria-current="page" class="w-inline-block w--current" aria-label="opaline logo"><img src="https://cdn.prod.website-files.com/66d8f5bf0996182ebc052748/66e8d6b6911413ae53a8b17b_Opaline%20logo%20small.svg" loading="lazy" alt="opaline logo"></a><div class="socials-container"><a href="https://www.instagram.com/opalineinteriorsstudio" target="_blank" class="social-link w-inline-block" aria-label=" - opens in new tab"><img src="https://cdn.prod.website-files.com/66d8f5bf0996182ebc052748/66e8d711267547363c2afba4_Logo%20Instagram.svg" loading="lazy" alt=""></a><a href="https://www.facebook.com/OpalineInteriorsStudio" target="_blank" class="social-link w-inline-block" aria-label=" - opens in new tab"><img src="https://cdn.prod.website-files.com/66d8f5bf0996182ebc052748/66e8d71014480c156172cefc_Facebook.svg" loading="lazy" alt=""></a><a href="https://www.houzz.com/professionals/interior-designers-and-decorators/opaline-interiors-studio-pfvwus-pf~1263008570/__public" target="_blank" class="social-link w-inline-block" aria-label=" - opens in new tab"><img src="https://cdn.prod.website-files.com/66d8f5bf0996182ebc052748/66e8d71061609a2663c21aad_Houzz.svg" loading="lazy" alt=""></a><a href="https://www.pinterest.com/opalineinteriorsstudio/" class="social-link w-inline-block" aria-label="/opalineinteriorsstudio/"><img src="https://cdn.prod.website-files.com/66d8f5bf0996182ebc052748/66e8d71091596dd7346627dd_Pinterest.svg" loading="lazy" alt=""></a><a href="https://www.linkedin.com/company/opaline-interiors-studio" target="_blank" class="social-link w-inline-block" aria-label=" - opens in new tab"><img src="https://cdn.prod.website-files.com/66d8f5bf0996182ebc052748/66e8d711267547363c2afbb4_Pinterest-1.svg" loading="lazy" alt=""></a></div></div><div class="footer-menu"><div class="footer-links"><a href="/portfolio" class="footer-link" aria-label="PORTFOLIO">PORTFOLIO</a><a href="/process" class="footer-link" aria-label="Process">Process</a><a href="/about" class="footer-link" aria-label="Studio">Studio</a><a href="/recognition" class="footer-link" aria-label="Recognition">Recognition</a><a href="/inquire" class="footer-link" aria-label="Inquire">Inquire</a></div></div><div class="footer-menu"><div class="footer-links is-right"><a href="#" class="footer-link hide" aria-label="BOSTON, MA" role="button" tabindex="0" id="f69c">BOSTON, MA</a><a href="#" class="footer-link" aria-label="124 Harvard Street, 8A Brookline, MA 02446" role="button" tabindex="0" id="e30f">124 Harvard Street, 8A Brookline, MA 02446</a><a href="tel:617.505.6938" class="footer-link" aria-label="617.505.6938">617.505.6938</a><a href="mailto:HELLO@OPALINEIS.com" class="footer-link" aria-label="HELLO@OPALINEIS.com">HELLO@OPALINEIS.com</a><a href="/privacy-policy" class="footer-link" aria-label="privacy policy">privacy policy</a></div></div></div></div></div></section>

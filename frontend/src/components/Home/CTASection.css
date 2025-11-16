@@ -1,0 +1,157 @@
+/* CTA SECTION - MATCHING OPALINE DESIGN */
+.cta-section {
+  background: #8da684;
+  padding: 120px 0;
+  position: relative;
+}
+
+.cta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.cta-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 800px;
+}
+
+.cta-title {
+  font-family: "Cinzel", serif;
+  font-size: 4rem;
+  font-weight: 300;
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.cta-title em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.cta-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.cta-description {
+  font-size: 1.125rem;
+  color: #2c3e50;
+  margin: 0;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.cta-form {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+.cta-email-input {
+  flex: 1;
+  padding: 16px 20px;
+  border: none;
+  background: #b5c4b0;
+  color: #2c3e50;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  outline: none;
+  font-family: inherit;
+}
+
+.cta-email-input::placeholder {
+  color: #4a5a4a;
+  opacity: 1;
+}
+
+.cta-email-input:focus {
+  background: #a8b8a3;
+}
+
+.cta-submit-button {
+  padding: 16px 24px;
+  border: none;
+  background: #2c3e50;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.cta-submit-button:hover {
+  background: #1a252f;
+}
+
+.cta-success-message {
+  color: #2c3e50;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 80px 0;
+  }
+
+  .cta-container {
+    padding: 0 24px;
+  }
+
+  .cta-title {
+    font-size: 2.5rem;
+  }
+
+  .cta-form {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cta-submit-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .cta-section {
+    padding: 60px 0;
+  }
+
+  .cta-container {
+    padding: 0 20px;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+  }
+
+  .cta-description {
+    font-size: 1rem;
+  }
+
+  .cta-content {
+    gap: 32px;
+  }
+
+  .cta-form-wrapper {
+    gap: 24px;
+  }
+}
