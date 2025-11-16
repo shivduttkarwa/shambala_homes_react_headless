@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import './BlogSection.css';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollVelocity from '../animations/ScrollVelocity';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface BlogPost {
   id: number;
@@ -26,8 +30,6 @@ interface BlogSectionProps {
   posts?: BlogPost[];
 }
 
-const publicUrl = import.meta.env.BASE_URL;
-
 const BlogSection: React.FC<BlogSectionProps> = ({
   sectionTitle = "Design Tips",
   ctaText = "View all blog posts",
@@ -35,141 +37,155 @@ const BlogSection: React.FC<BlogSectionProps> = ({
   posts = [
     {
       id: 1,
-      title: "Transform Your Outdoor Space: Complete Landscaping Guide",
-      date: "14 Oct, 2025",
-      category: "Design Tips",
-      excerpt: "Discover how to create the perfect outdoor living space with our comprehensive landscaping guide. From garden design to sustainable practices, learn everything you need to transform your backyard into a beautiful oasis.",
-      imageSrc: `${publicUrl}images/5.jpg`,
-      imageAlt: "Beautiful landscaped garden",
+      title: "Celebrating our new Associates: Callum, Fraser, Gavin & Sebastian",
+      date: "10 Sep 2025",
+      category: "Staff",
+      excerpt: "We are delighted to announce four associate-level promotions within Aitken Turnbull: Callum Ford has been promoted to Associate & Technical Lead, Fraser Hunter and Gavin Fallen to Associate & Studio...",
+      imageSrc: "https://www.aitken-turnbull.co.uk/wp-content/uploads/2025/09/Untitled-design-23.png",
+      imageAlt: "Team members",
       link: "#",
       featured: true
     },
     {
       id: 2,
-      title: "Sustainable Garden Design: Eco-Friendly Solutions",
-      date: "12 Oct, 2025",
-      category: "Sustainability",
-      excerpt: "Learn how to create an environmentally friendly garden that looks beautiful and helps the planet.",
-      imageSrc: `${publicUrl}images/6.jpg`,
-      imageAlt: "Sustainable garden design",
+      title: "How Landscaping Enhances Property Value in Australia",
+      date: "05 Oct 2025",
+      category: "Design",
+      excerpt: "Discover how strategic landscaping can significantly increase your property value while creating beautiful outdoor spaces.",
+      imageSrc: "https://images.unsplash.com/photo-1508599589920-14cfa1c1fe2c",
+      imageAlt: "Landscaping design",
       link: "#"
     },
     {
       id: 3,
-      title: "Modern Patio Ideas for Year-Round Enjoyment",
-      date: "10 Oct, 2025",
-      category: "Outdoor Living",
-      excerpt: "Explore contemporary patio designs that extend your living space and create the perfect entertainment area.",
-      imageSrc: `${publicUrl}images/7.jpg`,
-      imageAlt: "Modern patio design",
+      title: "Modern Australian Home Designs Inspired by Nature",
+      date: "03 Oct 2025",
+      category: "Homes",
+      excerpt: "Explore contemporary architectural designs that seamlessly blend with the natural Australian landscape.",
+      imageSrc: "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+      imageAlt: "Modern home design",
       link: "#"
     }
   ]
 }) => {
-  const featuredPost = posts.find(post => post.featured) || posts[0];
-  const sidebarPosts = posts.filter(post => !post.featured).slice(0, 2);
+  const sectionRef = useRef<HTMLElement>(null);
+  const featuredPost = posts[0]; // First blog for featured section
+  const gridPosts = posts.slice(1, 3); // Next 2 blogs for grid section
+
+  useLayoutEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // IMAGE SLIDE-IN
+      gsap.utils.toArray(".home-blog-reveal-img img").forEach((img) => {
+        gsap.to(img as HTMLElement, {
+          x: "0%",
+          duration: 1.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: img as HTMLElement,
+            start: "top 85%"
+          }
+        });
+      });
+
+      // TEXT HEADING REVEAL
+      document.querySelectorAll(".home-blog-heading").forEach((heading) => {
+        const words = (heading.textContent || '').trim().split(" ");
+        heading.innerHTML = "";
+
+        words.forEach(word => {
+          const span = document.createElement("span");
+          span.textContent = word + " ";
+          heading.appendChild(span);
+        });
+
+        gsap.to(heading.querySelectorAll("span"), {
+          y: "0%",
+          opacity: 1,
+          duration: 1.05,
+          ease: "power3.out",
+          stagger: 0.035,
+          scrollTrigger: {
+            trigger: heading,
+            start: "top 85%"
+          }
+        });
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="blog-section">
-      <div className="blog-container">
-        <div className="blog-header">
-          <div className="blog-title-container">
-            <div className="blog-title-line"></div>
-            <ScrollVelocity
-              texts={[`${sectionTitle} •`]}
-              velocity={30}
-              className="blog-scroll-title"
-              numCopies={4}
-              parallaxClassName="blog-parallax"
-              scrollerClassName="blog-scroller"
-            />
-            <div className="blog-title-line"></div>
-          </div>
+    <div className="blog-section-wrapper" ref={sectionRef}>
+      {/* SCROLL VELOCITY TITLE */}
+      <div className="blog-header">
+        <div className="blog-title-container">
+          <div className="blog-title-line"></div>
+          <ScrollVelocity
+            texts={[`${sectionTitle} •`]}
+            velocity={30}
+            className="blog-scroll-title"
+            numCopies={4}
+            parallaxClassName="blog-parallax"
+            scrollerClassName="blog-scroller"
+          />
+          <div className="blog-title-line"></div>
         </div>
+      </div>
 
-        <div className="blog-layout">
-          {/* Left Half - Featured Blog */}
-          <div className="blog-left">
-            <article className="blog-card blog-card-large">
-              <a href={featuredPost.link} className="blog-link">
-                <div className="blog-image-container">
-                  <img 
-                    src={featuredPost.imageSrc} 
-                    alt={featuredPost.imageAlt} 
-                    className="blog-image"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="blog-info">
-                  <div className="blog-meta">
-                    <span className="blog-date">{featuredPost.date}</span>
-                  </div>
-                  <h3 className="blog-title">{featuredPost.title}</h3>
-                  <p className="blog-description">{featuredPost.excerpt}</p>
-                  
-                  {/* Additional content for featured blog */}
-                  {(featuredPost.additional_text || featuredPost.additional_image) && (
-                    <div className="blog-additional-content">
-                      {featuredPost.additional_text && (
-                        <p className="blog-extra-text">
-                          {featuredPost.additional_text}
-                        </p>
-                      )}
-                      {featuredPost.additional_image && (
-                        <div className="blog-extra-image">
-                          <img 
-                            src={featuredPost.additional_image.src} 
-                            alt={featuredPost.additional_image.alt || 'Additional content'} 
-                            className="blog-small-image"
-                            loading="lazy"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  
-                  <span className="blog-read-more">Read More</span>
-                </div>
-              </a>
-            </article>
+      {/* FIRST SCREEN - 90VH HEIGHT WITH FEATURED BLOG */}
+      <section className="blog-featured-section">
+        <div className="blog-featured-container">
+          {/* Image Half */}
+          <div className="blog-featured-image home-blog-reveal-img">
+            <img src={featuredPost.imageSrc} alt={featuredPost.imageAlt} />
           </div>
-
-          {/* Right Half - Two Blogs */}
-          <div className="blog-right">
-            {sidebarPosts.map((post) => (
-              <article key={post.id} className="blog-card blog-card-small">
-                <a href={post.link} className="blog-link">
-                  <div className="blog-image-container">
-                    <img 
-                      src={post.imageSrc} 
-                      alt={post.imageAlt} 
-                      className="blog-image"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="blog-info">
-                    <div className="blog-meta">
-                      <span className="blog-date">{post.date}</span>
-                    </div>
-                    <h3 className="blog-title">{post.title}</h3>
-                    <p className="blog-description">{post.excerpt}</p>
-                    <span className="blog-read-more">Read More</span>
-                  </div>
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        {ctaText && (
-          <div className="blog-footer">
-            <a href={ctaLink} className="blog-cta">
-              {ctaText}
+          
+          {/* Content Half */}
+          <div className="blog-featured-content">
+            <h1 className="blog-featured-title home-blog-heading">
+              {featuredPost.title}
+            </h1>
+            
+            <p className="blog-featured-description">
+              {featuredPost.excerpt}
+            </p>
+            
+            <a href={featuredPost.link} className="blog-featured-cta">
+              Read Full Article
             </a>
           </div>
-        )}
-      </div>
-    </section>
+        </div>
+      </section>
+
+      {/* SECOND SCREEN - 2 BLOGS LAYOUT */}
+      <section className="blog-posts-section">
+        <div className="blog-posts-container">
+          {gridPosts.map((post, index) => (
+            <article key={post.id} className="blog-post-card">
+              <h3 className="blog-post-title home-blog-heading">
+                {post.title}
+              </h3>
+              
+              <div className="blog-post-image home-blog-reveal-img">
+                <img src={post.imageSrc} alt={post.imageAlt} />
+              </div>
+              
+              <p className="blog-post-description">
+                {post.excerpt}
+              </p>
+              
+              <a href={post.link} className="blog-read-more-btn">
+                Read More
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 };
 

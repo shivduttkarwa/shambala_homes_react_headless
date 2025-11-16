@@ -3,164 +3,651 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Anuc Home Benefits Section</title>
     <style>
-      :root {
-        --nav-text: rgba(0, 0, 0, 0.7);
-        --nav-text-soft: rgba(0, 0, 0, 0.55);
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      /* Button wrapper */
-      .nav-btn {
-        position: relative;
-        width: 120px;
-        height: 120px;
+      :root {
+        --header-height: 5rem;
+        --columns: 4;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: white;
+      }
+
+      /* Dummy Sections */
+      .dummy-section {
+        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-        background: transparent;
-        border: none;
-        outline: none;
-        transition: transform 0.2s ease;
       }
 
-      /* Blobby outlines */
-      .btn-outline {
-        position: absolute;
-        width: 120px;
-        height: 120px;
-        border: 1px solid rgba(0, 0, 0, 0.25);
-        pointer-events: none;
-        transition: border-color 0.3s ease, transform 0.3s ease;
+      .dummy-above {
+        background: linear-gradient(135deg, #fef3c7 0%, #e7e5e4 100%);
       }
 
-      .btn-outline-1 {
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        animation: nav-morph 4s linear infinite;
+      .dummy-below {
+        background: linear-gradient(135deg, #e7e5e4 0%, #fef3c7 100%);
       }
 
-      .btn-outline-2 {
-        border-radius: 53% 47% 43% 58% / 51% 39% 61% 49%;
+      .dummy-title {
+        font-size: 6rem;
+        font-family: Georgia, serif;
+        margin-bottom: 1rem;
       }
 
-      @keyframes nav-morph {
-        0% {
-          border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        }
-        50% {
-          border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-        }
-        100% {
-          border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        }
+      .dummy-text {
+        font-size: 1.25rem;
+        color: #4b5563;
       }
 
-      /* Arrow container */
-      .arrow-container {
+      /* Main Section */
+      .overflow-x-clip {
+        overflow-x: clip;
+      }
+
+      .px-8 {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+
+      .relative {
         position: relative;
+      }
+
+      .isolate {
+        isolation: isolate;
+      }
+
+      .size-full {
         width: 100%;
         height: 100%;
-        z-index: 2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
 
-      /* Base arrow */
-      .arrow {
-        position: relative;
-        width: 34px;
-        height: 2px;
-        background: var(--nav-text-soft);
-        border-radius: 999px;
-        transition: all 0.3s ease;
+      .border-x {
+        border-left: 1px solid rgba(212, 212, 216, 0.2);
+        border-right: 1px solid rgba(212, 212, 216, 0.2);
       }
 
-      .arrow::before,
-      .arrow::after {
+      /* Grid Lines */
+      .pointer-events-none {
+        pointer-events: none;
+      }
+
+      .absolute {
+        position: absolute;
+      }
+
+      .inset-0 {
+        inset: 0;
+      }
+
+      .translate-x-sm {
+        transform: translateX(0.15rem);
+      }
+
+      .grid {
+        display: grid;
+      }
+
+      .grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .gap-4 {
+        gap: 1rem;
+      }
+
+      .h-full {
+        height: 100%;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .origin-top {
+        transform-origin: top;
+      }
+
+      .grid-line::after {
         content: "";
         position: absolute;
-        width: 10px;
-        height: 2px;
-        background: var(--nav-text-soft);
-        border-radius: 999px;
-        transition: all 0.3s ease;
-      }
-
-      /* Left arrow */
-      .arrow-left {
-        transform-origin: center;
-      }
-
-      .arrow-left::before {
-        left: 0;
-        top: -4px;
-        transform: rotate(40deg);
-        transform-origin: left center;
-      }
-
-      .arrow-left::after {
-        left: 0;
-        top: 4px;
-        transform: rotate(-40deg);
-        transform-origin: left center;
-      }
-
-      /* Right arrow */
-      .arrow-right {
-        transform-origin: center;
-      }
-
-      .arrow-right::before {
+        inset: 0;
         right: 0;
-        top: -4px;
-        transform: rotate(-40deg);
-        transform-origin: right center;
+        transform: translateX(100%);
+        background: white;
+        width: 1px;
       }
 
-      .arrow-right::after {
-        right: 0;
-        top: 4px;
-        transform: rotate(40deg);
-        transform-origin: right center;
+      /* Background */
+      .bg-base-stone-20 {
+        background-color: #f5f5f4;
       }
 
-      /* Hover / active states */
-      .nav-btn:hover .btn-outline {
-        border-color: rgba(0, 0, 0, 0.55);
-        transform: scale(0.94); /* outlines shrink slightly on hover */
+      /* Cards Grid */
+      .w-full {
+        width: 100%;
       }
 
-      .nav-btn:hover .arrow,
-      .nav-btn:hover .arrow::before,
-      .nav-btn:hover .arrow::after {
-        background: var(--nav-text);
+      .-mt-1 {
+        margin-top: -1px;
       }
 
-      .nav-btn:hover .arrow-right {
-        transform: translateX(3px);
+      .first-mt-0:first-child {
+        margin-top: 0;
       }
 
-      .nav-btn:hover .arrow-left {
-        transform: translateX(-3px);
+      .sticky {
+        position: sticky;
       }
 
-      .nav-btn:active {
-        transform: scale(0.95); /* whole button shrinks a bit on click */
+      .top-header {
+        top: var(--header-height);
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .aspect-square {
+        aspect-ratio: 1;
+      }
+
+      .aspect-0-7 {
+        aspect-ratio: 0.7;
+      }
+
+      .flex-col {
+        flex-direction: column;
+      }
+
+      .justify-between {
+        justify-content: space-between;
+      }
+
+      .gap-y-24 {
+        row-gap: 6rem;
+      }
+
+      .border-y {
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+      }
+
+      .p-8 {
+        padding: 2rem;
+      }
+
+      .block {
+        display: block;
+      }
+
+      .whitespace-pre-line {
+        white-space: pre-line;
+      }
+
+      .text-balance {
+        text-wrap: balance;
+      }
+
+      .text-base {
+        font-size: 1.125rem;
+        color: #374151;
+        line-height: 1.75;
+      }
+
+      .font-serif {
+        font-family: Georgia, serif;
+      }
+
+      .text-title-20 {
+        font-size: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .col-start-2 {
+        grid-column-start: 2;
+      }
+
+      /* CTA */
+      .py-96 {
+        padding-top: 24rem;
+        padding-bottom: 24rem;
+      }
+
+      .cta-button {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        user-select: none;
+        text-transform: uppercase;
+        height: 2.25rem;
+        border-top: 1px solid white;
+        padding: 0 0.5rem;
+        color: black;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        background: transparent;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        font-family: inherit;
+      }
+
+      .cta-bg {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        display: block;
+        transition: transform 1s ease-out;
+        transform-origin: left;
+        transform: scaleX(0);
+        background: #e7e5e4;
+        z-index: -1;
+      }
+
+      .cta-button:hover .cta-bg {
+        transform: scaleX(1);
+      }
+
+      .cta-icon-wrapper {
+        display: flex;
+        width: 1.25rem;
+        height: 1.25rem;
+        flex-shrink: 0;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 50%;
+        transition: all 1s ease-out;
+        background: #d6d3d1;
+        color: black;
+      }
+
+      .cta-button:hover .cta-icon-wrapper {
+        border-radius: 0;
+        background: #a8a29e;
+      }
+
+      .cta-icon {
+        display: flex;
+        width: 1.25rem;
+        height: 1.25rem;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        transition: transform 1s ease-out;
+        transform: translateX(-100%);
+      }
+
+      .cta-button:hover .cta-icon {
+        transform: translateX(0);
+      }
+
+      .icon-svg {
+        height: auto;
+        width: 100%;
+      }
+
+      /* Responsive */
+      @media (min-width: 1024px) {
+        .lg-hidden {
+          display: none !important;
+        }
+
+        .lg-grid {
+          display: grid !important;
+        }
+
+        .lg-block {
+          display: block !important;
+        }
+
+        .lg-aspect-square {
+          aspect-ratio: 1;
+        }
+
+        .lg-p-24 {
+          padding: 6rem;
+        }
+
+        .lg-border-x-0 {
+          border-left: none;
+          border-right: none;
+        }
+
+        .lg-col-start-2 {
+          grid-column-start: 2;
+        }
+
+        .text-title-20 {
+          font-size: 3rem;
+        }
+
+        .dummy-title {
+          font-size: 6rem;
+        }
+      }
+
+      @media (max-width: 1023px) {
+        .dummy-title {
+          font-size: 4rem;
+        }
       }
     </style>
   </head>
   <body>
-    <button class="nav-btn">
-      <div class="btn-outline btn-outline-1"></div>
-      <div class="btn-outline btn-outline-2"></div>
-      <div class="arrow-container">
-        <div class="arrow arrow-left"></div>
-        <!-- or arrow-right -->
+    <!-- Dummy Above -->
+    <section class="dummy-section dummy-above">
+      <div style="text-align: center">
+        <h2 class="dummy-title">ANUC</h2>
+        <p class="dummy-text">Scroll down to see the benefits section</p>
       </div>
-    </button>
+    </section>
+
+    <!-- Benefits Section - Exact Original Structure -->
+    <section data-block-type="blockBenefits">
+      <div class="overflow-x-clip px-8">
+        <div class="relative isolate size-full border-x lg-border-x-0">
+          <!-- Grid Lines -->
+          <div class="pointer-events-none absolute inset-0 translate-x-sm">
+            <!-- Mobile Grid -->
+            <div class="grid size-full grid-cols-2 gap-4 lg-hidden">
+              <div class="relative h-full origin-top grid-line"></div>
+              <div></div>
+            </div>
+            <!-- Desktop Grid -->
+            <div class="hidden size-full grid-cols-4 gap-4 lg-grid">
+              <div class="relative h-full origin-top grid-line"></div>
+              <div class="relative h-full origin-top grid-line"></div>
+              <div class="relative h-full origin-top grid-line"></div>
+              <div></div>
+            </div>
+          </div>
+
+          <!-- Background & Cards -->
+          <div class="bg-base-stone-20">
+            <!-- Desktop Layout -->
+            <div
+              class="hidden lg-grid"
+              style="
+                grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+              "
+            >
+              <!-- Column 1 -->
+              <div class="w-full">
+                <div
+                  class="-mt-1 sticky top-header flex aspect-0-7 lg-aspect-square flex-col justify-between gap-y-24 border-y p-8 lg-p-24 first-mt-0"
+                >
+                  <span class="block">
+                    <p class="whitespace-pre-line text-balance text-base">
+                      We design environments that inspire calm and balance.
+                    </p>
+                  </span>
+                  <span class="block">
+                    <h2 class="font-serif text-title-20">
+                      Emotional well-being
+                    </h2>
+                  </span>
+                </div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+              </div>
+
+              <!-- Column 2 -->
+              <div class="w-full">
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 sticky top-header flex aspect-0-7 lg-aspect-square flex-col justify-between gap-y-24 border-y p-8 lg-p-24 first-mt-0"
+                >
+                  <span class="block">
+                    <p class="whitespace-pre-line text-balance text-base">
+                      Unique projects, designed to reflect your essence.
+                    </p>
+                  </span>
+                  <span class="block">
+                    <h2 class="font-serif text-title-20">
+                      Design that connects with you
+                    </h2>
+                  </span>
+                </div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+              </div>
+
+              <!-- Column 3 -->
+              <div class="w-full">
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 sticky top-header flex aspect-0-7 lg-aspect-square flex-col justify-between gap-y-24 border-y p-8 lg-p-24 first-mt-0"
+                >
+                  <span class="block">
+                    <p class="whitespace-pre-line text-balance text-base">
+                      We improve your everyday life with functional and
+                      harmonious design.
+                    </p>
+                  </span>
+                  <span class="block">
+                    <h2 class="font-serif text-title-20">
+                      Spaces that work and flow
+                    </h2>
+                  </span>
+                </div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+              </div>
+
+              <!-- Column 4 -->
+              <div class="w-full">
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 pointer-events-none hidden aspect-square first-mt-0 lg-block"
+                ></div>
+                <div
+                  class="-mt-1 sticky top-header flex aspect-0-7 lg-aspect-square flex-col justify-between gap-y-24 border-y p-8 lg-p-24 first-mt-0"
+                >
+                  <span class="block">
+                    <p class="whitespace-pre-line text-balance text-base">
+                      We apply Feng Shui to enhance well-being in every corner.
+                    </p>
+                  </span>
+                  <span class="block">
+                    <h2 class="font-serif text-title-20">
+                      Positive energy, always
+                    </h2>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mobile Layout -->
+            <div class="grid grid-cols-2 lg-hidden">
+              <div>
+                <div
+                  class="-mt-1 sticky top-header flex aspect-0-7 flex-col justify-between gap-y-24 border-y p-8 first-mt-0"
+                >
+                  <span class="block">
+                    <p class="whitespace-pre-line text-balance text-base">
+                      We design environments that inspire calm and balance.
+                    </p>
+                  </span>
+                  <span class="block">
+                    <h2 class="font-serif text-title-20">
+                      Emotional well-being
+                    </h2>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 lg-hidden">
+              <div class="col-start-2">
+                <div
+                  class="-mt-1 sticky top-header flex aspect-0-7 flex-col justify-between gap-y-24 border-y p-8 first-mt-0"
+                >
+                  <span class="block">
+                    <p class="whitespace-pre-line text-balance text-base">
+                      Unique projects, designed to reflect your essence.
+                    </p>
+                  </span>
+                  <span class="block">
+                    <h2 class="font-serif text-title-20">
+                      Design that connects with you
+                    </h2>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 lg-hidden">
+              <div>
+                <div
+                  class="-mt-1 sticky top-header flex aspect-0-7 flex-col justify-between gap-y-24 border-y p-8 first-mt-0"
+                >
+                  <span class="block">
+                    <p class="whitespace-pre-line text-balance text-base">
+                      We improve your everyday life with functional and
+                      harmonious design.
+                    </p>
+                  </span>
+                  <span class="block">
+                    <h2 class="font-serif text-title-20">
+                      Spaces that work and flow
+                    </h2>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 lg-hidden">
+              <div class="col-start-2">
+                <div
+                  class="-mt-1 sticky top-header flex aspect-0-7 flex-col justify-between gap-y-24 border-y p-8 first-mt-0"
+                >
+                  <span class="block">
+                    <p class="whitespace-pre-line text-balance text-base">
+                      We apply Feng Shui to enhance well-being in every corner.
+                    </p>
+                  </span>
+                  <span class="block">
+                    <h2 class="font-serif text-title-20">
+                      Positive energy, always
+                    </h2>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div
+              class="grid grid-cols-1 py-96"
+              style="
+                grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+              "
+            >
+              <div class="lg-col-start-2">
+                <span class="block">
+                  <button class="cta-button">
+                    <span>More about Anuc</span>
+                    <span class="cta-bg"></span>
+                    <span class="cta-icon-wrapper">
+                      <span class="cta-icon">
+                        <svg
+                          class="icon-svg"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 17 17"
+                        >
+                          <path
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M8.93 11.317a.333.333 0 0 1 0-.471l2.43-2.431-2.43-2.43a.333.333 0 0 1 .471-.472l2.667 2.666c.13.13.13.342 0 .472L9.4 11.317a.333.333 0 0 1-.471 0"
+                            clip-rule="evenodd"
+                          ></path>
+                          <path
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M4.832 8.416c0-.184.15-.334.333-.334h6.667a.333.333 0 1 1 0 .667H5.165a.333.333 0 0 1-.333-.333"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </span>
+                      <span class="cta-icon">
+                        <svg
+                          class="icon-svg"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 17 17"
+                        >
+                          <path
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M8.93 11.317a.333.333 0 0 1 0-.471l2.43-2.431-2.43-2.43a.333.333 0 0 1 .471-.472l2.667 2.666c.13.13.13.342 0 .472L9.4 11.317a.333.333 0 0 1-.471 0"
+                            clip-rule="evenodd"
+                          ></path>
+                          <path
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M4.832 8.416c0-.184.15-.334.333-.334h6.667a.333.333 0 1 1 0 .667H5.165a.333.333 0 0 1-.333-.333"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </span>
+                    </span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dummy Below -->
+    <section class="dummy-section dummy-below">
+      <div style="text-align: center">
+        <h2 class="dummy-title">Continue Scrolling</h2>
+        <p class="dummy-text">More content below</p>
+      </div>
+    </section>
   </body>
 </html>

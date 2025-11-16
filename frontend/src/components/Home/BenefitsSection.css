@@ -1,0 +1,297 @@
+/* BENEFITS SECTION - UPDATED DESIGN */
+
+.benefits-section-wrapper {
+  /* Main wrapper for the benefits section */
+}
+
+/* SECTION TITLE */
+.benefits-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 60px 0 40px;
+}
+
+.benefits-section-title {
+  font-family: "Dream Avenue", cursive;
+  font-size: clamp(3.5rem, 6vw, 5rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+/* MAIN SECTION */
+.benefits-main-section {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Base Layout */
+.benefits-overflow-clip {
+  overflow-x: clip;
+}
+
+.benefits-px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.benefits-relative {
+  position: relative;
+}
+
+.benefits-isolate {
+  isolation: isolate;
+}
+
+.benefits-size-full {
+  width: 100%;
+  height: 100%;
+}
+
+/* Background */
+.benefits-bg-base-stone-20 {
+  background-color: #f5f5f4;
+  min-height: 100vh;
+}
+
+/* Desktop Grid */
+.benefits-hidden {
+  display: none;
+}
+
+.benefits-desktop-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-height: 100vh;
+}
+
+/* Cards */
+.benefits-w-full {
+  width: 100%;
+}
+
+.benefits-card {
+  margin-top: -1px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  aspect-ratio: 0.8;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 2rem 2rem 2rem 2rem;
+  background: #f5f5f4;
+}
+
+.benefits-card:first-child {
+  margin-top: 0;
+}
+
+.benefits-card-mobile {
+  margin-top: -1px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  aspect-ratio: 0.8;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 2rem 2rem 2rem 2rem;
+  background: #f5f5f4;
+}
+
+.benefits-card-mobile:first-child {
+  margin-top: 0;
+}
+
+.benefits-spacer {
+  margin-top: -1px;
+  pointer-events: none;
+  aspect-ratio: 1;
+  background: #f5f5f4;
+}
+
+.benefits-spacer:first-child {
+  margin-top: 0;
+}
+
+.benefits-block {
+  display: block;
+}
+
+.benefits-description {
+  white-space: pre-line;
+  text-wrap: balance;
+  font-size: 1.125rem;
+  color: #374151;
+  line-height: 1.75;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 1rem;
+}
+
+.benefits-title {
+  font-family: "Dream Avenue", cursive;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.benefits-grid {
+  display: grid;
+}
+
+.benefits-grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.benefits-col-start-2 {
+  grid-column-start: 2;
+}
+
+/* CTA */
+.benefits-cta-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background: #f5f5f4;
+}
+
+.benefits-lg-col-start-2 {
+  /* Will be applied at lg breakpoint */
+}
+
+.benefits-cta-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+  height: 2.25rem;
+  border-top: 1px solid white;
+  padding: 0 0.5rem;
+  color: black;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  font-family: "Inter", sans-serif;
+  text-decoration: none;
+}
+
+.benefits-cta-bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: block;
+  transition: transform 1s ease-out;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: #e7e5e4;
+  z-index: -1;
+}
+
+.benefits-cta-button:hover .benefits-cta-bg {
+  transform: scaleX(1);
+}
+
+.benefits-cta-icon-wrapper {
+  display: flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  transition: all 1s ease-out;
+  background: #d6d3d1;
+  color: black;
+}
+
+.benefits-cta-button:hover .benefits-cta-icon-wrapper {
+  border-radius: 0;
+  background: #a8a29e;
+}
+
+.benefits-cta-icon {
+  display: flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1s ease-out;
+  transform: translateX(-100%);
+}
+
+.benefits-cta-button:hover .benefits-cta-icon {
+  transform: translateX(0);
+}
+
+.benefits-icon-svg {
+  height: auto;
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (min-width: 1024px) {
+  .benefits-lg-hidden {
+    display: none !important;
+  }
+
+  .benefits-lg-grid {
+    display: grid !important;
+  }
+
+  .benefits-lg-block {
+    display: block !important;
+  }
+
+  .benefits-lg-col-start-2 {
+    grid-column-start: 2;
+  }
+
+  .benefits-card {
+    aspect-ratio: 1;
+    padding: 4rem;
+    gap: 4rem;
+  }
+
+  .benefits-title {
+    font-size: 2.5rem;
+  }
+
+  .benefits-spacer {
+    display: block !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .benefits-spacer {
+    display: none;
+  }
+  
+  .benefits-header {
+    padding: 40px 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .benefits-section-title {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+  }
+}

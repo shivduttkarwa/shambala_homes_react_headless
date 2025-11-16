@@ -50,14 +50,14 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
         tl.to(
           ".vision-image-container",
           {
-            scale: 1.3, // 2X image size
+            scale: 1.6, // 2X image size
             ease: "none",
           },
           0
         ).to(
           ".vision-text-right .vision-large-text",
           {
-            y: -450, // your existing value
+            y: -550, // your existing value
             ease: "none",
           },
           0
