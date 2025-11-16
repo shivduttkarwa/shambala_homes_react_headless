@@ -168,11 +168,30 @@
   pointer-events: none;
 }
 
+/* Panel Content Layout */
+.sm-panel-content {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
 .sm-panel-inner {
-  padding: 6rem 3rem 10rem;
+  flex: 1;
+  padding: 6rem 3rem 4rem;
   position: relative;
   min-height: 100%;
-  z-index: 2;
+}
+
+/* Right Side Container */
+.sm-panel-right {
+  flex: 0 0 500px;
+  padding: 6rem 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Panel List */
@@ -184,10 +203,32 @@
   flex-direction: column;
 }
 
+/* Remove all focus indicators globally for menu */
+.staggered-menu-panel * {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+.staggered-menu-panel *:focus,
+.staggered-menu-panel *:focus-visible,
+.staggered-menu-panel *:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 .sm-panel-itemWrap {
   position: relative;
   margin: 0.25rem 0;
   transition: transform 0.3s ease;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
 }
 
 .sm-panel-itemWrap:first-child {
@@ -209,7 +250,10 @@
 }
 
 .sm-panel-item {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 0 0 auto;
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 500;
   text-decoration: none;
@@ -222,10 +266,18 @@
   letter-spacing: -0.02em;
   font-family: "Dream Avenue", cursive;
   line-height: 1.2;
+  outline: none;
 }
 
 .sm-panel-item:hover {
   color: var(--sm-accent, #5b7c4f);
+}
+
+.sm-panel-item:focus,
+.sm-panel-item:focus-visible,
+.sm-panel-item:active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .sm-panel-itemLabel {
@@ -266,10 +318,18 @@
   letter-spacing: -0.02em;
   position: relative;
   line-height: 1.2;
+  outline: none;
 }
 
 .sm-panel-item-button:hover {
   color: var(--sm-accent, #5b7c4f);
+}
+
+.sm-panel-item-button:focus,
+.sm-panel-item-button:focus-visible,
+.sm-panel-item-button:active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .sm-panel-item-button:hover .sm-submenu-arrow {
@@ -334,7 +394,80 @@
   padding-left: 0;
 }
 
-/* Socials */
+/* Contact Section */
+.sm-contact-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sm-contact-title {
+  font-family: "Dream Avenue", cursive;
+  font-size: 4.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0;
+  color: #fff;
+  opacity: 0.8;
+}
+
+.sm-contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sm-contact-item {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+  font-weight: 300;
+}
+
+.sm-contact-item:hover {
+  color: var(--sm-accent, #5b7c4f);
+}
+
+/* Social Section */
+.sm-social-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sm-social-title {
+  font-family: "Dream Avenue", cursive;
+  font-size: 2rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0;
+  color: #fff;
+  opacity: 0.8;
+}
+
+.sm-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sm-social-link {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: 300;
+}
+
+.sm-social-link:hover {
+  color: var(--sm-accent, #5b7c4f);
+}
+
+/* Legacy Socials (kept for backward compatibility) */
 .sm-socials {
   position: absolute;
   bottom: 2rem;
@@ -387,8 +520,30 @@
     right: 0;
   }
 
+  .sm-panel-content {
+    flex-direction: column;
+  }
+
   .sm-panel-inner {
     padding: 5rem 2rem 2rem;
+  }
+
+  .sm-panel-right {
+    flex: none;
+    padding: 2rem;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 3rem;
+  }
+
+  .sm-contact-title,
+  .sm-social-title {
+    font-size: 1.5rem;
+  }
+
+  .sm-contact-item,
+  .sm-social-link {
+    font-size: 1.1rem;
   }
 
   .sm-panel-item {

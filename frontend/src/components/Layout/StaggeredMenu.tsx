@@ -523,94 +523,125 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         className="staggered-menu-panel"
         aria-hidden={!open}
       >
-        <div className="sm-panel-inner">
-          <ul
-            className="sm-panel-list"
-            role="list"
-            data-numbering={displayItemNumbering || undefined}
-          >
-            {items && items.length ? (
-              items.map((it, idx) => (
-                <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  {it.subItems && it.subItems.length > 0 ? (
-                    <div
-                      className="sm-panel-item-with-submenu"
-                      data-index={idx + 1}
-                    >
-                      <button
-                        className="sm-panel-item sm-panel-item-button"
-                        onClick={() => handleSubmenuToggle(idx)}
+        <div className="sm-panel-content">
+          <div className="sm-panel-inner">
+            <ul
+              className="sm-panel-list"
+              role="list"
+              data-numbering={displayItemNumbering || undefined}
+            >
+              {items && items.length ? (
+                items.map((it, idx) => (
+                  <li className="sm-panel-itemWrap" key={it.label + idx}>
+                    {it.subItems && it.subItems.length > 0 ? (
+                      <div
+                        className="sm-panel-item-with-submenu"
+                        data-index={idx + 1}
+                      >
+                        <button
+                          className="sm-panel-item sm-panel-item-button"
+                          onClick={() => handleSubmenuToggle(idx)}
+                          aria-label={it.ariaLabel}
+                          aria-expanded={openSubmenu === idx}
+                        >
+                          <span className="sm-panel-itemLabel">
+                            {it.label}
+                            <span
+                              style={{
+                                marginLeft: "2rem",
+                                fontSize: "1.2rem",
+                                fontWeight: 400,
+                                opacity: 0.7,
+                                color: "rgba(250, 248, 243, 0.6)",
+                              }}
+                            >
+                              {displayItemNumbering ? `0${idx + 1}` : ""}
+                            </span>
+                            <span
+                              ref={(el) => {
+                                if (el) submenuArrowRefs.current.set(idx, el);
+                              }}
+                              className="sm-submenu-arrow"
+                            >
+                              +
+                            </span>
+                          </span>
+                        </button>
+                        <ul
+                          ref={(el) => {
+                            if (el) submenuRefs.current.set(idx, el);
+                          }}
+                          className="sm-submenu"
+                          role="list"
+                          style={{
+                            overflow: "hidden",
+                            height: openSubmenu === idx ? "auto" : 0,
+                            opacity: openSubmenu === idx ? 1 : 0,
+                            display: openSubmenu === idx ? "flex" : "none",
+                          }}
+                        >
+                          {it.subItems.map((subItem, subIdx) => (
+                            <li
+                              key={subItem.label + subIdx}
+                              className="sm-submenu-item"
+                            >
+                              <a href={subItem.link} className="sm-submenu-link">
+                                {subItem.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : (
+                      <a
+                        className="sm-panel-item"
+                        href={it.link}
                         aria-label={it.ariaLabel}
-                        aria-expanded={openSubmenu === idx}
+                        data-index={idx + 1}
                       >
-                        <span className="sm-panel-itemLabel">
-                          {it.label}
-                          <span
-                            style={{
-                              marginLeft: "2rem",
-                              fontSize: "1.2rem",
-                              fontWeight: 400,
-                              opacity: 0.7,
-                              color: "rgba(250, 248, 243, 0.6)",
-                            }}
-                          >
-                            {displayItemNumbering ? `0${idx + 1}` : ""}
-                          </span>
-                          <span
-                            ref={(el) => {
-                              if (el) submenuArrowRefs.current.set(idx, el);
-                            }}
-                            className="sm-submenu-arrow"
-                          >
-                            +
-                          </span>
-                        </span>
-                      </button>
-                      <ul
-                        ref={(el) => {
-                          if (el) submenuRefs.current.set(idx, el);
-                        }}
-                        className="sm-submenu"
-                        role="list"
-                        style={{
-                          overflow: "hidden",
-                          height: openSubmenu === idx ? "auto" : 0,
-                          opacity: openSubmenu === idx ? 1 : 0,
-                          display: openSubmenu === idx ? "flex" : "none",
-                        }}
-                      >
-                        {it.subItems.map((subItem, subIdx) => (
-                          <li
-                            key={subItem.label + subIdx}
-                            className="sm-submenu-item"
-                          >
-                            <a href={subItem.link} className="sm-submenu-link">
-                              {subItem.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
-                    <a
-                      className="sm-panel-item"
-                      href={it.link}
-                      aria-label={it.ariaLabel}
-                      data-index={idx + 1}
-                    >
-                      <span className="sm-panel-itemLabel">{it.label}</span>
-                    </a>
-                  )}
+                        <span className="sm-panel-itemLabel">{it.label}</span>
+                      </a>
+                    )}
+                  </li>
+                ))
+              ) : (
+                <li className="sm-panel-itemWrap" aria-hidden="true">
+                  <span className="sm-panel-item">
+                    <span className="sm-panel-itemLabel">No items</span>
+                  </span>
                 </li>
-              ))
-            ) : (
-              <li className="sm-panel-itemWrap" aria-hidden="true">
-                <span className="sm-panel-item">
-                  <span className="sm-panel-itemLabel">No items</span>
-                </span>
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
+          </div>
+
+          {/* Right Side Container */}
+          <div className="sm-panel-right">
+            <div className="sm-contact-section">
+              <h3 className="sm-contact-title">Contact</h3>
+              <div className="sm-contact-details">
+                <a href="tel:+1234567890" className="sm-contact-item">
+                  +1 234 567 890
+                </a>
+                <a href="mailto:hello@shambalahomes.com" className="sm-contact-item">
+                  hello@shambalahomes.com
+                </a>
+                <div className="sm-contact-item">
+                  123 Dream Avenue<br />
+                  Sydney, NSW 2000
+                </div>
+              </div>
+            </div>
+
+            <div className="sm-social-section">
+              <h3 className="sm-social-title">Follow</h3>
+              <div className="sm-social-links">
+                <a href="#" className="sm-social-link">Instagram</a>
+                <a href="#" className="sm-social-link">Facebook</a>
+                <a href="#" className="sm-social-link">LinkedIn</a>
+                <a href="#" className="sm-social-link">Pinterest</a>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
     </div>
