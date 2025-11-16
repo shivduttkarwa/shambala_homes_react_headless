@@ -210,7 +210,7 @@
 
 .sm-panel-item {
   display: block;
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 500;
   text-decoration: none;
   color: inherit;
@@ -256,7 +256,7 @@
   align-items: center;
   gap: 1rem;
   flex: 0 0 auto;
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 500;
   color: inherit;
   padding: 0;
@@ -303,7 +303,7 @@
   will-change: height, opacity, transform;
   position: absolute;
   top: 0;
-  left: 65%;
+  left: 30%;
   min-width: 250px;
   background: transparent;
   z-index: 10;

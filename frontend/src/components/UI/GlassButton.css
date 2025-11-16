@@ -18,6 +18,31 @@
   background: rgba(20, 20, 20, 0.02);
   transition: color 0.3s ease, background 0.3s ease;
   cursor: pointer;
+  
+  /* Reset any inherited styles */
+  all: unset;
+  box-sizing: border-box;
+  
+  /* Reapply our specific styles */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.75rem;
+  border-top: 1px solid rgba(20, 20, 20, 0.12);
+  border-bottom: 1px solid rgba(20, 20, 20, 0.12);
+  border-left: none;
+  border-right: none;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  color: #141414;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  background: rgba(20, 20, 20, 0.02);
+  transition: color 0.3s ease, background 0.3s ease;
+  cursor: pointer;
 }
 
 /* slide-in glass color overlay */

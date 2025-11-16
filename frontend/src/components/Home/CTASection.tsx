@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './CTASection.css';
-import GlassButton from '../UI/GlassButton';
 
 const CTASection: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -30,7 +29,7 @@ const CTASection: React.FC = () => {
               Receive exclusive insights, inspiration and studio updates.
             </p>
             
-            <div className="cta-form">
+            <form className="cta-form" onSubmit={handleSubmit}>
               <input
                 type="email"
                 value={email}
@@ -39,10 +38,10 @@ const CTASection: React.FC = () => {
                 className="cta-email-input"
                 required
               />
-              <GlassButton onClick={handleSubmit}>
+              <button type="submit" className="cta-submit-button">
                 SUBMIT
-              </GlassButton>
-            </div>
+              </button>
+            </form>
             
             {isSubmitted && (
               <div className="cta-success-message">

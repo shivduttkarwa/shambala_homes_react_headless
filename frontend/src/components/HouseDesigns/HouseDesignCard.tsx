@@ -90,7 +90,6 @@ const HouseDesignCard: React.FC<HouseDesignCardProps> = ({
           <div className="house-card-price">{design.pricing.display}</div>
           <GlassButton 
             onClick={() => onCompare?.(design)}
-            className={`compare-btn ${isComparing ? 'active' : ''}`}
           >
             Compare
           </GlassButton>

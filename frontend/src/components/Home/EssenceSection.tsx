@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./EssenceSection.css";
+import GlassButton from '../UI/GlassButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +44,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
   const sectionRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
   const imageOverlayRef = useRef<HTMLDivElement>(null);
 
   const handlePlayClick = () => {
@@ -215,9 +216,11 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
 
             <p className="essence-description">{description}</p>
 
-            <a href={ctaHref} className="essence-cta" ref={ctaRef}>
-              {ctaText}
-            </a>
+            <div ref={ctaRef}>
+              <GlassButton href={ctaHref}>
+                {ctaText}
+              </GlassButton>
+            </div>
           </div>
 
           {/* Right side: Large image */}

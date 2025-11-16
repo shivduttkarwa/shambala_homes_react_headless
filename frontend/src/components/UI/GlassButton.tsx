@@ -30,7 +30,7 @@ const GlassButton: React.FC<GlassButtonProps> = ({
     return (
       <a
         href={href}
-        className={`home-benefits-cta ${className}`}
+        className="home-benefits-cta"
         target={target}
         rel={rel}
       >
@@ -41,7 +41,7 @@ const GlassButton: React.FC<GlassButtonProps> = ({
 
   return (
     <button
-      className={`home-benefits-cta ${className}`}
+      className="home-benefits-cta"
       onClick={onClick}
     >
       {buttonContent}

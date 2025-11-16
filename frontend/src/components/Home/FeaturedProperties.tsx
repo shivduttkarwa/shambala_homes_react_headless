@@ -4,6 +4,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "./FeaturedProperties.css";
+import GlassButton from '../UI/GlassButton';
 
 interface PropertySlide {
   id: number;
@@ -139,15 +140,9 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
                     <div className="text">
                       <p>{property.description}</p>
                     </div>
-                    <a href={property.link} className="cta-link">
-                      <span
-                        className="cta-text"
-                        data-text="Discover"
-                      >
-                        <span>Discover</span>
-                      </span>
-                      <span className="arrow">→</span>
-                    </a>
+                    <GlassButton href={property.link}>
+                      Discover
+                    </GlassButton>
                   </div>
                 </div>
               </SwiperSlide>
@@ -156,9 +151,9 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
         </Swiper>
       </div>
 
-      <a href="#" className="discover-all-link">
-        <span>Discover All</span>
-      </a>
+      <GlassButton href="#">
+        Discover All
+      </GlassButton>
     </section>
   );
 };
