@@ -81,11 +81,24 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2rem;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  padding: 2rem 2rem 2rem 2rem;
+  gap: 1rem;
+  border-top: 3px solid white;
+  border-bottom: 3px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  padding: 2rem;
   background: #f5f5f4;
+  z-index: 1;
+}
+
+/* Remove doubled borders between adjacent cards horizontally */
+.benefits-w-full:not(:last-child) .benefits-card {
+  border-right: 1px solid white;
+}
+
+/* Last column gets full right border */
+.benefits-w-full:last-child .benefits-card {
+  border-right: 2px solid white;
 }
 
 .benefits-card:first-child {
@@ -101,11 +114,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2rem;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  padding: 2rem 2rem 2rem 2rem;
+  gap: 1rem;
+  border-top: 3px solid white;
+  border-bottom: 3px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  padding: 2rem;
   background: #f5f5f4;
+  z-index: 1;
 }
 
 .benefits-card-mobile:first-child {
@@ -269,7 +285,7 @@
   .benefits-card {
     aspect-ratio: 1;
     padding: 4rem;
-    gap: 4rem;
+    gap: 2rem;
   }
 
   .benefits-title {
