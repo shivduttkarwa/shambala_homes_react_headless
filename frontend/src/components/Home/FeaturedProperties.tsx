@@ -182,8 +182,6 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
           </div>
         </Swiper>
       </div>
-
-      <GlassButton href="#">Discover All</GlassButton>
     </section>
   );
 };
