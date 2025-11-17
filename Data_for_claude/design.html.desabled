@@ -1,1145 +1,1710 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Project List with Filters</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root {
-      --black-100: #111111;
-      --white-0: #ffffff;
-      --petrol-dark: #0c3d3a;
-      --timeline-bg: #d6dbd5;
-      /* card background as requested */
-      --card-green: #5b7c4f;
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Helvetica Neue", Arial, sans-serif;
-      --font-serif: "Times New Roman", Georgia, serif;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: var(--font-sans);
-      background: #f5f5f5;
-    }
-
-    /* SIMPLE TEST SECTIONS */
-
-    .test-section {
-      padding: 5rem 6vw;
-    }
-
-    .test-section--top {
-      background: #f0ede8;
-    }
-
-    .test-section--bottom {
-      background: #e1e6dd;
-    }
-
-    .test-section h2 {
-      font-size: clamp(2rem, 3vw, 2.4rem);
-      margin-bottom: 1rem;
-      font-family: var(--font-serif);
-    }
-
-    .test-section p {
-      max-width: 40rem;
-      line-height: 1.6;
-      font-size: 0.98rem;
-    }
-
-    /* SECTION WRAPPER */
-
-    .section_project-list {
-      grid-column-gap: 3rem;
-      grid-row-gap: 3rem;
-      flex-flow: column;
-      margin-top: 1rem;
-      padding: 6rem 6vw;
-      display: flex;
-      position: relative;
-      overflow: visible;
-      background-color: var(--timeline-bg);
-    }
-
-    /* Extra bottom space so last card never goes under next section on desktop */
-    @media (min-width: 992px) {
-      .section_project-list {
-        padding-bottom: 18rem;
-      }
-    }
-
-    .title_component {
-      margin-bottom: 1.5rem;
-    }
-
-    .title_heading-wrapper {
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    .title_heading-main {
-      font-family: var(--font-serif);
-      font-size: clamp(2.6rem, 4vw, 3.5rem);
-      font-weight: 500;
-      letter-spacing: 0.05em;
-    }
-
-    /* FILTER ROW */
-
-    .project-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 2.25rem;
-    }
-
-    .project-filter-btn {
-      padding: 0.4rem 1.1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      background: rgba(255, 255, 255, 0.9);
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition:
-        background-color 0.22s ease,
-        color 0.22s ease,
-        box-shadow 0.22s ease,
-        transform 0.22s ease,
-        border-color 0.22s ease;
-    }
-
-    .project-filter-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 9px 22px rgba(0, 0, 0, 0.12);
-    }
-
-    .project-filter-btn.is-active {
-      background: var(--card-green);
-      color: var(--white-0);
-      border-color: transparent;
-      box-shadow: 0 9px 24px rgba(0, 0, 0, 0.2);
-    }
-
-    /* PROJECT LIST BASE */
-
-    .project-list_component {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .project-list_item {
-      flex-flow: column;
-      position: relative;
-      cursor: pointer;
-      max-height: 1000px; /* for smooth collapsing during filter */
-      transition:
-        opacity 0.35s ease,
-        transform 0.35s ease,
-        max-height 0.45s ease,
-        margin 0.35s ease;
-    }
-
-    .project-list_item + .project-list_item .project-list_header {
-      border-top: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .project-list_item.is-front {
-      z-index: 999;
-    }
-
-    /* HIDDEN BY FILTER */
-
-    .project-list_item.is-filter-hidden {
-      opacity: 0;
-      transform: translateY(-12px);
-      max-height: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-      pointer-events: none;
-    }
-
-    .project-list_header {
-      z-index: 0;
-      width: 100%;
-      padding: 0.75rem 1.5rem 0.75rem 0.75rem;
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-
-    .project-list_label {
-      width: 20vw;
-      min-width: 110px;
-      font-family: var(--font-serif);
-      font-size: 1.45rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .project-list_title {
-      font-family: var(--font-serif);
-      font-size: 1.45rem;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: text-decoration-color 0.25s ease;
-    }
-
-    /* LINE & BULLETS */
-
-    .project-list_line-idle {
-      background-color: var(--black-100);
-      opacity: 0.2;
-      height: 1px;
-      position: absolute;
-      inset: 0 0 auto;
-    }
-
-    .project-list_line {
-      background-color: var(--black-100);
-      height: 1px;
-      position: absolute;
-      inset: 0 0 auto;
-      width: 0%;
-      transform-origin: left center;
-      transition: width 0.35s ease;
-    }
-
-    .project-list_bullets {
-      justify-content: center;
-      align-items: center;
-      width: 2rem;
-      margin-left: auto;
-      display: flex;
-      position: relative;
-    }
-
-    .project-list_bullets-inner {
-      justify-content: center;
-      align-items: center;
-      display: flex;
-      position: relative;
-      width: 2rem;
-      transition: width 0.35s ease;
-    }
-
-    .project-list_bullet {
-      aspect-ratio: 1;
-      background-color: var(--black-100);
-      border-radius: 999rem;
-      height: 0.35rem;
-      position: absolute;
-      transform: scale(0.85);
-      opacity: 0.4;
-      transition:
-        transform 0.25s ease,
-        opacity 0.25s ease;
-    }
-
-    .project-list_bullet.is-first {
-      inset: auto auto auto 0;
-    }
-
-    .project-list_bullet.is-middle {
-      inset: auto calc(50% - 0.175rem) auto auto;
-    }
-
-    .project-list_bullet.is-right {
-      inset: auto 0 auto auto;
-    }
-
-    /* CARD / BODY CONTENT (DESKTOP DEFAULT) */
-
-    .project-list_body {
-      z-index: 10;
-      grid-column-gap: 1.25rem;
-      grid-row-gap: 0.5rem;
-      background-color: var(--card-green);
-      color: var(--white-0);
-      border-radius: 0.75rem;
-      padding: 1rem 1rem 1rem 1.1rem;
-      display: flex;
-      align-items: stretch;
-      position: absolute;
-      inset: 4.3rem auto auto calc(20vw + 0.75rem);
-      max-width: min(900px, 70vw);
-
-      opacity: 0;
-      pointer-events: none;
-      transform: translate3d(-7%, 0, 0) scale(0.95);
-      transition:
-        opacity 0.35s ease,
-        transform 0.35s ease;
-    }
-
-    /* Left side content inside card */
-    .project-card_content {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      max-width: 22rem;
-    }
-
-    .project-card_heading {
-      font-family: var(--font-serif);
-      font-size: 1.2rem;
-      margin: 0 0 0.35rem;
-    }
-
-    .project-card_desc {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin: 0 0 0.75rem;
-    }
-
-    .project-card_btn {
-      align-self: flex-start;
-      padding: 0.45rem 1.3rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      background: transparent;
-      color: #ffffff;
-      font-size: 0.85rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition:
-        background-color 0.22s ease,
-        color 0.22s ease,
-        transform 0.22s ease,
-        box-shadow 0.22s ease;
-    }
-
-    .project-card_btn::after {
-      content: "→";
-      font-size: 0.85rem;
-      transform: translateX(0);
-      transition: transform 0.22s ease;
-    }
-
-    .project-card_btn:hover {
-      background-color: rgba(0, 0, 0, 0.16);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-      transform: translateY(-1px);
-    }
-
-    .project-card_btn:hover::after {
-      transform: translateX(3px);
-    }
-
-    .project-list_images {
-      grid-column-gap: 0.5rem;
-      grid-row-gap: 0.5rem;
-      flex-flow: row;
-      display: flex;
-    }
-
-    .project-list_image-item {
-      height: 20vw;
-      max-height: 260px;
-      min-height: 170px;
-    }
-
-    .project-list_image-wrapper {
-      aspect-ratio: 3 / 2;
-      object-fit: cover;
-      border-radius: 0.5rem;
-      flex: none;
-      height: calc(100% - 1.4rem);
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .project-list_image {
-      object-fit: cover;
-      width: auto;
-      height: 100%;
-      transform: scale(1.5);
-      transition: transform 0.35s ease;
-    }
-
-    .project-list_caption-wrapper {
-      justify-content: flex-start;
-      align-items: flex-end;
-      height: 1.4rem;
-      display: flex;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .project-list_caption {
-      color: var(--petrol-dark);
-      flex: none;
-      font-size: 0.75rem;
-      font-style: italic;
-    }
-
-    /* HOVER + ACTIVE (DESKTOP) */
-
-    .project-list_item:hover .project-list_line {
-      width: 100%;
-    }
-
-    .project-list_item:hover .project-list_bullets-inner {
-      width: 2.6rem;
-    }
-
-    /* 3 dots -> 1 dot animation */
-    .project-list_item:hover .project-list_bullet.is-first,
-    .project-list_item:hover .project-list_bullet.is-right {
-      transform: scale(0);
-      opacity: 0;
-    }
-
-    .project-list_item:hover .project-list_bullet.is-middle {
-      transform: scale(1.6);
-      opacity: 1;
-    }
-
-    .project-list_item:hover .project-list_title {
-      text-decoration: underline;
-      text-underline-offset: 0.35em;
-    }
-
-    .project-list_item:hover .project-list_body {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translate3d(-7%, 0, 0) scale(1);
-    }
-
-    .project-list_item:hover .project-list_image {
-      transform: scale(1.35);
-    }
-
-    .project-list_item:hover .project-list_caption-wrapper {
-      opacity: 1;
-    }
-
-    /* Active (used on mobile via JS) */
-
-    .project-list_item.is-active .project-list_line {
-      width: 100%;
-    }
-
-    .project-list_item.is-active .project-list_bullets-inner {
-      width: 2.6rem;
-    }
-
-    .project-list_item.is-active .project-list_bullet.is-first,
-    .project-list_item.is-active .project-list_bullet.is-right {
-      transform: scale(0);
-      opacity: 0;
-    }
-
-    .project-list_item.is-active .project-list_bullet.is-middle {
-      transform: scale(1.6);
-      opacity: 1;
-    }
-
-    .project-list_item.is-active .project-list_title {
-      text-decoration: underline;
-      text-underline-offset: 0.35em;
-    }
-
-    /* RESPONSIVE OVERRIDES FOR TABLET / MOBILE */
-
-    @media (max-width: 991px) {
-      .section_project-list {
-        padding: 4rem 5vw;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Booking Slider Demo</title>
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
 
-      .title_heading-main {
-        text-align: left;
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        background: #05060a;
+        color: #ffffff;
+        line-height: 1.5;
       }
 
-      .project-list_label {
-        width: auto;
-        margin-right: 1.25rem;
-        font-size: 1.2rem;
-      }
-
-      .project-list_title {
-        font-size: 1.2rem;
-        white-space: normal;
-      }
-
-      /* Accordion behaviour on mobile */
-      .project-list_body {
-        position: relative;
-        inset: auto;
-        max-width: 100%;
-        transform: none;
-        margin-top: 0;
-        opacity: 0;
-        pointer-events: none;
-        max-height: 0;
-        overflow: hidden;
-        flex-direction: column;
-        transition:
-          opacity 0.3s ease,
-          max-height 0.4s ease;
-      }
-
-      /* Disable hover-open on mobile */
-      .project-list_item:hover .project-list_body {
-        opacity: 0;
-        pointer-events: none;
-        transform: none;
-      }
-
-      /* Active (clicked) state on mobile/tablet */
-      .project-list_item.is-active .project-list_body {
-        opacity: 1;
-        pointer-events: auto;
-        margin-top: 0.75rem;
-        transform: none;
-      }
-
-      .project-card_content {
-        max-width: none;
-        margin-bottom: 0.75rem;
-      }
-
-      .project-list_images {
-        margin-top: 0.25rem;
-      }
-
-      /* MOBILE IMAGE UNIFORM SIZE */
-      .project-list_image-item {
-        height: auto;
-        max-height: none;
-        min-height: 0;
-      }
-
-      .project-list_image-wrapper {
-        height: auto;
+      .wrapper {
         width: 100%;
-        aspect-ratio: 4 / 3; /* even cards */
+        max-width: 1560px;
+        margin: 0 auto;
+        padding-inline: 20px;
       }
 
-      .project-list_image {
+      section {
+        padding-block: 80px;
+      }
+
+      /* ===== Minimal Sections (top & bottom) ===== */
+
+      .minimal-section {
+        border-block: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .minimal-section__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .minimal-section__eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 8px;
+      }
+
+      .minimal-section__title {
+        font-size: clamp(26px, 3vw, 32px);
+        font-weight: 600;
+      }
+
+      .minimal-section__text {
+        max-width: 520px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .minimal-section__tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 8px 14px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.04),
+          rgba(255, 255, 255, 0)
+        );
+      }
+
+      .minimal-section__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #74f089;
+      }
+
+      /* ===== Base Template / Slider Section ===== */
+
+      .base-template__wrapper {
+        max-width: 1560px;
+      }
+
+      .base-template__title {
+        font-size: clamp(32px, 3.6vw, 44px);
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .base-template__text {
+        margin-bottom: 60px;
+        max-width: 640px;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /**
+       * Slider Instance
+       */
+
+      .swiper {
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .booking-slider {
+        --color-gray: #b3b3b3;
+        --color-gray-dark: #1e222a;
+        --color-gray-bright: #d0d4d4;
+        --color-gray-light: #bbbcbf;
+
+        padding-inline: 98px;
+        position: relative;
+      }
+
+      .booking-slider__slide {
+        display: flex;
+        align-items: center;
+        min-height: 650px;
+      }
+
+      @media screen and (max-width: 991.9px) {
+        .booking-slider {
+          padding: 0;
+          margin-inline: -20px;
+        }
+      }
+
+      /**
+       * Slider Navigation
+       */
+
+      .slider-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        translate: 0 -50%;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .slider-nav__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1;
+        width: 48px;
+        pointer-events: auto;
+        cursor: pointer;
+        transform-origin: center;
+        transition: all 0.3s ease-out;
+        color: #ffffff;
+      }
+
+      .slider-nav__item.disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+      }
+
+      .slider-nav__item path {
+        stroke: currentColor;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .slider-nav__item:not(.disabled):hover {
+          transform: scale(1.1);
+        }
+      }
+
+      @media (hover: none) {
+        .slider-nav__item:not(.disabled):active {
+          transform: scale(1.1);
+        }
+      }
+
+      @media screen and (max-width: 991.9px) {
+        .slider-nav {
+          display: none;
+        }
+      }
+
+      /**
+       * Slider Pagination
+       */
+
+      .slider-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 40px;
+      }
+
+      .swiper-pagination-lock {
+        display: none !important;
+      }
+
+      .slider-pagination__item {
+        width: 8px;
+        height: 8px;
+        border-radius: 99px;
+        background: #fff;
+        transition: all 0.3s ease-out;
+        opacity: 0.2;
+      }
+
+      .slider-pagination__item.active {
+        width: 30px;
+        opacity: 1;
+      }
+
+      /**
+       * Slider Item
+       */
+
+      .swiper-slide {
+        width: auto;
+        height: auto;
+      }
+
+      @keyframes btn-arrow-move {
+        0% {
+          translate: 0;
+        }
+
+        100% {
+          translate: 100% -100%;
+        }
+      }
+
+      .booking-slider-item {
+        background: var(--color-gray-dark);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .booking-slider-item__badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: calc(24 / 14);
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        z-index: 1;
+      }
+
+      .booking-slider-item__badge::before {
+        content: "";
+        flex-shrink: 0;
+        display: block;
+        aspect-ratio: 1;
+        width: 18px;
+        background: url("https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-stars.svg")
+          center center no-repeat;
+        background-size: 100%;
+      }
+
+      .booking-slider-item__image {
+        display: block;
+        height: 244px;
+        transition: height 0.6s ease-out;
+        overflow: hidden;
+      }
+
+      .booking-slider-item__image img {
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transform: scale(1.15);
+        object-position: center;
+        transform-origin: center;
+        transition: transform 0.6s ease-out;
       }
 
-      .project-list_caption-wrapper {
+      @media (hover: hover) and (pointer: fine) {
+        .booking-slider-item__image:hover img {
+          transform: scale(1.05);
+        }
+      }
+
+      .booking-slider-item__content {
+        padding: 30px;
+      }
+
+      @media screen and (max-width: 574.9px) {
+        .booking-slider-item__content {
+          padding: 30px 20px;
+        }
+      }
+
+      .booking-slider-item__price {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 16px;
+      }
+
+      .booking-slider-item__price small {
+        font-weight: 400;
+        font-size: 18px;
+      }
+
+      .booking-slider-item__title {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.3;
+        margin-bottom: 16px;
+      }
+
+      .booking-slider-item__title a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        transition: opacity 0.3s ease-out;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .booking-slider-item__title a:hover {
+          opacity: 0.75;
+        }
+      }
+
+      .booking-slider-item__address {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        color: var(--color-gray);
+        margin-bottom: 16px;
+      }
+
+      .booking-slider-item__address-icon {
+        flex-shrink: 0;
+        width: 16px;
+      }
+
+      .booking-slider-item__address-icon img {
+        display: block;
+        width: 100%;
         height: auto;
       }
-    }
 
-    @media (max-width: 600px) {
-      .project-list_header {
-        padding-inline: 0.25rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-<section class="test-section test-section--top">
-  <h2>Section Above Projects</h2>
-  <p>
-    Simple test section above the project list. Use this to see how the page
-    flows as you scroll, on both desktop and mobile.
-  </p>
-</section>
-
-<section class="section_project-list">
-  <div class="title_component">
-    <div class="title_heading-wrapper">
-      <h2 class="title_heading-main">PROJECTS IN TANDEM</h2>
-    </div>
-  </div>
-
-  <!-- FILTER BUTTONS -->
-  <div class="project-filters">
-    <button class="project-filter-btn is-active" data-filter="all">
-      All
-    </button>
-    <button class="project-filter-btn" data-filter="house">
-      House Design
-    </button>
-    <button class="project-filter-btn" data-filter="commercial">
-      Commercial Project
-    </button>
-    <button class="project-filter-btn" data-filter="landscape">
-      Landcapes
-    </button>
-    <button class="project-filter-btn" data-filter="resizing">
-      Resizing
-    </button>
-  </div>
-
-  <div class="project-list_component">
-    <!-- PROJECT 1 -->
-    <div class="project-list_item" data-categories="house">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 01</h3>
-        <h3 class="project-list_title">Hillside Courtyard Home</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">A split-level retreat for a steep site</h4>
-          <p class="project-card_desc">
-            A layered home stepping gently down a hillside, with planted courtyards
-            stitching together living, sleeping, and quiet work spaces.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/3.jpg" alt="Hillside courtyard home" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Morning light across the courtyard</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 2 -->
-    <div class="project-list_item" data-categories="house,landscape">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 02</h3>
-        <h3 class="project-list_title">Garden Ribbon Residence</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">House and landscape as one continuous line</h4>
-          <p class="project-card_desc">
-            A low, horizontal home that folds in and out of planted mounds, with
-            paths and decks weaving a soft ribbon between rooms and garden rooms.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/4.jpg" alt="Garden ribbon residence" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Green bands wrapping the home</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 3 -->
-    <div class="project-list_item" data-categories="commercial">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 03</h3>
-        <h3 class="project-list_title">Neighbourhood Work Hub</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">Flexible working in a small high street shell</h4>
-          <p class="project-card_desc">
-            A compact commercial space turned into a quiet, sunlit work hub with
-            shared tables, booths and planting that softens street noise.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/5.jpg" alt="Neighbourhood work hub" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Soft light over shared desks</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 4 -->
-    <div class="project-list_item" data-categories="landscape">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 04</h3>
-        <h3 class="project-list_title">Creekside Native Garden</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">Restoring a steep bank with native planting</h4>
-          <p class="project-card_desc">
-            Terraced decks, stone steps and native understory planting stabilise
-            a creek bank while creating shaded outdoor sitting and gathering spots.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/6.jpg" alt="Creekside native garden" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Shaded paths along the water</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 5 -->
-    <div class="project-list_item" data-categories="resizing,house">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 05</h3>
-        <h3 class="project-list_title">Rear Lane Re-size</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">Turning a long, dark plan into a bright short one</h4>
-          <p class="project-card_desc">
-            A deep terrace house is edited down, carving out a courtyard and
-            bringing daylight and trees into the middle of the plan.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/3.jpg" alt="Rear lane resize" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Courtyard cut into the terrace</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 6 -->
-    <div class="project-list_item" data-categories="commercial,landscape">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 06</h3>
-        <h3 class="project-list_title">Courtyard Hospitality Wing</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">Dining, shade and planting in a tight footprint</h4>
-          <p class="project-card_desc">
-            A small commercial extension wraps around an existing tree, creating
-            new outdoor dining courts framed by timber, brick and climbing plants.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/4.jpg" alt="Courtyard hospitality wing" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Tree at the centre of the plan</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 7 -->
-    <div class="project-list_item" data-categories="house,resizing">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 07</h3>
-        <h3 class="project-list_title">Brick Courtyard Addition</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">A compact brick wing for a growing family</h4>
-          <p class="project-card_desc">
-            A new wing creates a sheltered courtyard, gently resizing the home
-            with extra bedrooms and a quiet study facing the garden.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/5.jpg" alt="Brick courtyard addition" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Brick, light and planted edges</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 8 -->
-    <div class="project-list_item" data-categories="landscape">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 08</h3>
-        <h3 class="project-list_title">Terrace Pool Plateau</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">Carving a pool into a stepped garden</h4>
-          <p class="project-card_desc">
-            A small yard is terraced into planted levels with a pool sitting
-            quietly between stone walls and low native hedging.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/6.jpg" alt="Terrace pool plateau" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Water sitting inside the garden</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 9 -->
-    <div class="project-list_item" data-categories="resizing,commercial">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 09</h3>
-        <h3 class="project-list_title">Laneway Studio Compress</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">Resizing a deep commercial shell into a studio</h4>
-          <p class="project-card_desc">
-            A long-form tenancy is compressed into a bright studio, with the
-            remainder converted into a planted service court and loading bay.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/3.jpg" alt="Laneway studio compress" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">A smaller, sharper plan</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 10 -->
-    <div class="project-list_item" data-categories="house,commercial">
-      <div class="project-list_header">
-        <div class="project-list_line-idle"></div>
-        <div class="project-list_line"></div>
-
-        <h3 class="project-list_label">Project 10</h3>
-        <h3 class="project-list_title">Mixed Court Row</h3>
-
-        <div class="project-list_bullets">
-          <div class="project-list_bullets-inner">
-            <div class="project-list_bullet is-first"></div>
-            <div class="project-list_bullet is-middle"></div>
-            <div class="project-list_bullet is-right"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-list_body">
-        <div class="project-card_content">
-          <h4 class="project-card_heading">Homes and small tenancies sharing a single lane</h4>
-          <p class="project-card_desc">
-            A row of dwellings and shopfronts stitched together by a shared
-            service lane, planted courts, and a consistent brick and timber rhythm.
-          </p>
-          <button class="project-card_btn" type="button">Know more</button>
-        </div>
-
-        <div class="project-list_images">
-          <div class="project-list_image-item">
-            <div class="project-list_image-wrapper">
-              <img class="project-list_image" src="images/4.jpg" alt="Mixed court row" />
-            </div>
-            <div class="project-list_caption-wrapper">
-              <div class="project-list_caption">Shops and homes sharing one language</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section class="test-section test-section--bottom">
-  <h2>Section Below Projects</h2>
-  <p>
-    Another simple section to test scroll and spacing after the project list.
-    On mobile, tap a project above and watch this section move down smoothly.
-  </p>
-</section>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const items = Array.from(
-      document.querySelectorAll(".project-list_component .project-list_item")
-    );
-    if (!items.length) return;
-
-    const bodies = items
-      .map((i) => i.querySelector(".project-list_body"))
-      .filter(Boolean);
-
-    const filterButtons = Array.from(
-      document.querySelectorAll(".project-filter-btn")
-    );
-
-    let equalHeight = 0;
-
-    function isMobile() {
-      return window.innerWidth <= 991;
-    }
-
-    function computeMobileHeights() {
-      if (!isMobile()) {
-        // Desktop: clear inline max-heights and active states.
-        equalHeight = 0;
-        bodies.forEach((b) => {
-          b.style.maxHeight = "";
-        });
-        items.forEach((i) => i.classList.remove("is-active"));
-        return;
+      .booking-slider-item__text {
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.35;
+        color: var(--color-gray-bright);
       }
 
-      // Mobile: measure tallest card and use that for all.
-      equalHeight = 0;
-      bodies.forEach((b) => {
-        if (!b) return;
+      .booking-slider-item__footer {
+        max-height: 150px;
+        overflow: hidden;
+        transition: max-height 0.6s ease-in;
+      }
 
-        const prevTransition = b.style.transition;
-        b.style.transition = "none";
-        b.style.maxHeight = "none";
-        b.style.opacity = "1";
+      .booking-slider-item__footer-inner {
+        padding-top: 24px;
+      }
 
-        const h = b.scrollHeight;
-        if (h > equalHeight) equalHeight = h;
+      .booking-slider-item__amenities {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding-block: 20px;
+        border: 1px solid #ffffff1a;
+        border-left: 0;
+        border-right: 0;
+        margin-bottom: 24px;
+      }
 
-        b.style.maxHeight = "0px";
-        b.style.opacity = "";
-        setTimeout(() => {
-          b.style.transition = prevTransition;
-        }, 0);
-      });
+      .booking-slider-item__amenity {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.4;
+        color: var(--color-gray-light);
+      }
 
-      // Start all closed
-      items.forEach((i) => i.classList.remove("is-active"));
-      bodies.forEach((b) => {
-        b.style.maxHeight = "0px";
-      });
-    }
+      .booking-slider-item__amenity-icon {
+        flex-shrink: 0;
+        width: 20px;
+      }
 
-    computeMobileHeights();
-    window.addEventListener("load", computeMobileHeights);
+      .booking-slider-item__amenity-icon img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
 
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(computeMobileHeights, 150);
-    });
+      .booking-slider-item__amenity-text {
+        padding-top: 2px;
+      }
 
-    // Click behaviour for mobile / tablet
-    items.forEach((item) => {
-      const header = item.querySelector(".project-list_header");
-      const body = item.querySelector(".project-list_body");
-      if (!header || !body) return;
+      @media screen and (max-width: 574.9px) {
+        .booking-slider-item__amenity {
+          gap: 6px;
+          font-size: 12px;
+        }
 
-      header.addEventListener("click", () => {
-        if (!isMobile()) return; // desktop stays hover-only
+        .booking-slider-item__amenity-icon {
+          width: 16px;
+        }
 
-        const isActive = item.classList.contains("is-active");
+        .booking-slider-item__amenity-text {
+          padding-top: 1px;
+        }
+      }
 
-        // Close all
-        items.forEach((it) => {
-          it.classList.remove("is-active");
-          const b = it.querySelector(".project-list_body");
-          if (b) b.style.maxHeight = "0px";
+      .booking-slider-item__btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-weight: 500;
+        font-size: 18px;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .booking-slider-item__btn-icon {
+        flex-shrink: 0;
+        display: block;
+        aspect-ratio: 1;
+        width: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .booking-slider-item__btn-icon::before,
+      .booking-slider-item__btn-icon::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: url("https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-btn-arrow.svg")
+          center center no-repeat;
+        background-size: 100%;
+      }
+
+      .booking-slider-item__btn-icon::after {
+        position: absolute;
+        top: 100%;
+        right: 100%;
+      }
+
+      .booking-slider__slide:not(.swiper-slide-active)
+        .booking-slider-item__image {
+        height: 204px;
+      }
+
+      .booking-slider__slide:not(.swiper-slide-active)
+        .booking-slider-item__footer {
+        max-height: 0;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .booking-slider-item__btn:hover .booking-slider-item__btn-icon::before,
+        .booking-slider-item__btn:hover .booking-slider-item__btn-icon::after {
+          animation: btn-arrow-move 0.4s ease forwards;
+        }
+      }
+
+      @media (hover: none) {
+        .booking-slider-item__btn:active
+          .booking-slider-item__btn-icon::before,
+        .booking-slider-item__btn:active
+          .booking-slider-item__btn-icon::after {
+          animation: btn-arrow-move 0.4s ease forwards;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Minimal Section Above -->
+    <section class="minimal-section">
+      <div class="wrapper minimal-section__inner">
+        <div>
+          <div class="minimal-section__eyebrow">For modern travellers</div>
+          <h2 class="minimal-section__title">
+            Curated stays designed for real life.
+          </h2>
+        </div>
+        <div class="minimal-section__text">
+          Stay in homes that feel considered, calm and easy. Every listing in
+          our collection is vetted for comfort, neighbourhood charm and
+          long-term livability.
+        </div>
+        <div class="minimal-section__tag">
+          <span class="minimal-section__dot"></span>
+          Book flexible monthly stays
+        </div>
+      </div>
+    </section>
+
+    <!-- Slider Section -->
+    <section class="base-template">
+      <div class="base-template__wrapper wrapper">
+        <h1 class="base-template__title">
+          Find Your Perfect Home Away From Home
+        </h1>
+        <div class="base-template__text">
+          Explore a wide selection of rental homes designed to suit your
+          lifestyle. <br />
+          Experience comfort, convenience, and unforgettable moments in
+          beautifully crafted spaces.
+        </div>
+
+        <div class="base-template__content">
+          <div class="booking-slider">
+            <!-- Slider Navigation -->
+            <div class="booking-slider__nav slider-nav">
+              <div
+                title="Newest offers"
+                tabindex="0"
+                class="slider-nav__item slider-nav__item_prev"
+              >
+                <svg
+                  width="16"
+                  height="28"
+                  viewBox="0 0 16 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 26L2 14L14 2"
+                    stroke="white"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div
+                title="Oldest offers"
+                tabindex="0"
+                class="slider-nav__item slider-nav__item_next"
+              >
+                <svg
+                  width="16"
+                  height="28"
+                  viewBox="0 0 16 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 26L14 14L2 2"
+                    stroke="white"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Slider Content -->
+            <div class="booking-slider__slider swiper">
+              <div class="booking-slider__wrapper swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <div
+                      title="The most popular option"
+                      class="booking-slider-item__badge"
+                    >
+                      Popular
+                    </div>
+
+                    <a
+                      title="Luxury Detached Home in Bournemouth"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-1.jpg"
+                        alt="Luxury Detached Home in Bournemouth"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £3,500<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Luxury Detached Home in Bournemouth"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Luxury Detached Home in Bournemouth
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        29 Terrace Rd, BH2 5EL
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        Ideal for seaside enthusiasts, offering comfort and easy
+                        access to the promenade.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                4 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                3 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                8x10 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <a
+                      title="Tranquil Cottage in the Countryside"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-2.jpg"
+                        alt="Tranquil Cottage in the Countryside"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £2,800<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Tranquil Cottage in the Countryside"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Tranquil Cottage in the Countryside
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        12 Meadow Lane, PE32 1BX
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        Surrounded by nature, this charming cottage provides
+                        tranquility and beautiful scenic views.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                6x8 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <a
+                      title="Spacious Country Retreat in Yorkshire"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-3.jpg"
+                        alt="Spacious Country Retreat in Yorkshire"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £4,200<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Spacious Country Retreat in Yorkshire"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Spacious Country Retreat in Yorkshire
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        45 Oakwood Drive, YO23 2LD
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        A serene getaway with expansive views, ideal for
+                        families seeking nature and comfort.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                5 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                8x16 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <div
+                      title="The most popular option"
+                      class="booking-slider-item__badge"
+                    >
+                      Popular
+                    </div>
+
+                    <a
+                      title="Luxury Detached Home in Bournemouth"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-1.jpg"
+                        alt="Luxury Detached Home in Bournemouth"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £3,500<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Luxury Detached Home in Bournemouth"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Luxury Detached Home in Bournemouth
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        29 Terrace Rd, BH2 5EL
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        Ideal for seaside enthusiasts, offering comfort and easy
+                        access to the promenade.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                4 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                3 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                8x10 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <a
+                      title="Tranquil Cottage in the Countryside"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-2.jpg"
+                        alt="Tranquil Cottage in the Countryside"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £2,800<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Tranquil Cottage in the Countryside"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Tranquil Cottage in the Countryside
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        12 Meadow Lane, PE32 1BX
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        Surrounded by nature, this charming cottage provides
+                        tranquility and beautiful scenic views.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                6x8 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 6 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <a
+                      title="Spacious Country Retreat in Yorkshire"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-3.jpg"
+                        alt="Spacious Country Retreat in Yorkshire"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £4,200<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Spacious Country Retreat in Yorkshire"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Spacious Country Retreat in Yorkshire
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        45 Oakwood Drive, YO23 2LD
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        A serene getaway with expansive views, ideal for
+                        families seeking nature and comfort.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                5 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                8x16 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 7 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <div
+                      title="The most popular option"
+                      class="booking-slider-item__badge"
+                    >
+                      Popular
+                    </div>
+
+                    <a
+                      title="Luxury Detached Home in Bournemouth"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-1.jpg"
+                        alt="Luxury Detached Home in Bournemouth"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £3,500<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Luxury Detached Home in Bournemouth"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Luxury Detached Home in Bournemouth
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        29 Terrace Rd, BH2 5EL
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        Ideal for seaside enthusiasts, offering comfort and easy
+                        access to the promenade.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                4 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                3 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                8x10 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 8 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <a
+                      title="Tranquil Cottage in the Countryside"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-2.jpg"
+                        alt="Tranquil Cottage in the Countryside"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £2,800<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Tranquil Cottage in the Countryside"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Tranquil Cottage in the Countryside
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        12 Meadow Lane, PE32 1BX
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        Surrounded by nature, this charming cottage provides
+                        tranquility and beautiful scenic views.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                6x8 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 9 -->
+                <div class="booking-slider__slide swiper-slide">
+                  <div class="booking-slider__item booking-slider-item">
+                    <a
+                      title="Spacious Country Retreat in Yorkshire"
+                      href="/"
+                      class="booking-slider-item__image"
+                      onclick="event.preventDefault();"
+                    >
+                      <img
+                        src="https://bato-web-agency.github.io/bato-shared/img/slider-2/slide-3.jpg"
+                        alt="Spacious Country Retreat in Yorkshire"
+                      />
+                    </a>
+
+                    <div class="booking-slider-item__content">
+                      <div class="booking-slider-item__price">
+                        £4,200<small>/month</small>
+                      </div>
+
+                      <h2 class="booking-slider-item__title">
+                        <a
+                          title="Spacious Country Retreat in Yorkshire"
+                          href="/"
+                          onclick="event.preventDefault();"
+                        >
+                          Spacious Country Retreat in Yorkshire
+                        </a>
+                      </h2>
+
+                      <div
+                        title="Address"
+                        class="booking-slider-item__address"
+                      >
+                        <span class="booking-slider-item__address-icon">
+                          <img
+                            src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-address.svg"
+                            alt="Address"
+                          />
+                        </span>
+                        45 Oakwood Drive, YO23 2LD
+                      </div>
+
+                      <div class="booking-slider-item__text">
+                        A serene getaway with expansive views, ideal for
+                        families seeking nature and comfort.
+                      </div>
+
+                      <div class="booking-slider-item__footer">
+                        <div class="booking-slider-item__footer-inner">
+                          <div class="booking-slider-item__amenities">
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-beds.svg"
+                                  alt="Beds"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                5 Beds
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-bathrooms.svg"
+                                  alt="Bathrooms"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                2 Bathrooms
+                              </div>
+                            </div>
+
+                            <div class="booking-slider-item__amenity">
+                              <div
+                                class="booking-slider-item__amenity-icon"
+                              >
+                                <img
+                                  src="https://bato-web-agency.github.io/bato-shared/img/slider-2/icon-squares.svg"
+                                  alt="Squares"
+                                />
+                              </div>
+                              <div class="booking-slider-item__amenity-text">
+                                8x16 m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <a
+                            class="booking-slider-item__btn"
+                            href="/"
+                            onclick="event.preventDefault();"
+                          >
+                            <span class="booking-slider-item__btn-text"
+                              >Explore more</span
+                            >
+                            <span
+                              class="booking-slider-item__btn-icon"
+                            ></span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slider Pagination -->
+            <div class="booking-slider__pagination slider-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Minimal Section Below -->
+    <section class="minimal-section">
+      <div class="wrapper minimal-section__inner">
+        <div>
+          <div class="minimal-section__eyebrow">Stay with confidence</div>
+          <h2 class="minimal-section__title">
+            Local support, flexible terms, simple bookings.
+          </h2>
+        </div>
+        <div class="minimal-section__text">
+          Our team is on-ground to help you settle in, extend your stay or move
+          to another home in our network with minimal friction.
+        </div>
+        <div class="minimal-section__tag">
+          <span class="minimal-section__dot"></span>
+          24/7 guest assistance
+        </div>
+      </div>
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const sliders = document.querySelectorAll(".booking-slider");
+
+        if (!sliders.length) return;
+
+        const list = [];
+
+        sliders.forEach((element) => {
+          const [slider, prevEl, nextEl, pagination] = [
+            element.querySelector(".swiper"),
+            element.querySelector(".slider-nav__item_prev"),
+            element.querySelector(".slider-nav__item_next"),
+            element.querySelector(".slider-pagination"),
+          ];
+
+          list.push(
+            new Swiper(slider, {
+              slidesPerView: 1.15,
+              spaceBetween: 20,
+              slidesOffsetBefore: 20,
+              slidesOffsetAfter: 20,
+              speed: 600,
+              observer: true,
+              watchOverflow: true,
+              watchSlidesProgress: true,
+              navigation: { nextEl, prevEl, disabledClass: "disabled" },
+              pagination: {
+                el: pagination,
+                type: "bullets",
+                modifierClass: "slider-pagination",
+                bulletClass: "slider-pagination__item",
+                bulletActiveClass: "active",
+                clickable: true,
+              },
+              breakpoints: {
+                575: {
+                  slidesPerView: 1.5,
+                },
+                992: {
+                  slidesPerView: 2,
+                  slidesOffsetBefore: 0,
+                  slidesOffsetAfter: 0,
+                },
+                1366: {
+                  slidesPerView: 3,
+                  spaceBetween: 40,
+                  slidesOffsetBefore: 0,
+                  slidesOffsetAfter: 0,
+                },
+              },
+            })
+          );
         });
-
-        // If tapped one was closed, open it
-        if (!isActive) {
-          item.classList.add("is-active");
-          const targetHeight =
-            equalHeight > 0 ? equalHeight : body.scrollHeight;
-          body.style.maxHeight = targetHeight + "px";
-        }
       });
-    });
-
-    // FILTER LOGIC
-    function applyFilter(filter) {
-      // Set active state on buttons
-      filterButtons.forEach((btn) => {
-        btn.classList.toggle("is-active", btn.dataset.filter === filter);
-      });
-
-      // Close any open mobile cards when filter changes
-      items.forEach((it) => {
-        it.classList.remove("is-active");
-        const b = it.querySelector(".project-list_body");
-        if (b && isMobile()) {
-          b.style.maxHeight = "0px";
-        }
-      });
-
-      items.forEach((item) => {
-        const catsAttr = (item.dataset.categories || "").toLowerCase();
-        const cats = catsAttr.split(",").map((c) => c.trim());
-        const match =
-          filter === "all" || cats.includes(filter.toLowerCase());
-
-        if (match) {
-          item.classList.remove("is-filter-hidden");
-        } else {
-          item.classList.add("is-filter-hidden");
-        }
-      });
-    }
-
-    filterButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const filter = btn.dataset.filter || "all";
-        applyFilter(filter);
-      });
-    });
-  });
-</script>
-
-</body>
+    </script>
+  </body>
 </html>
