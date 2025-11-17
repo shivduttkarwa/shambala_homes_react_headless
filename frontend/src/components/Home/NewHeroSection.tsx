@@ -31,8 +31,7 @@ class HeroErrorBoundary extends Component<
     return { hasError: true };
   }
 
-  componentDidCatch() {
-  }
+  componentDidCatch() {}
 
   render() {
     if (this.state.hasError) {
@@ -79,7 +78,6 @@ const NewHeroSectionContent: React.FC = () => {
         "#new-hero-section .heroSwiper"
       );
 
-
       if (!swiperElement || swiperRef.current) return;
 
       // Check if we have slides
@@ -93,21 +91,23 @@ const NewHeroSectionContent: React.FC = () => {
         // HERO SWIPER - use specific selector
         swiperRef.current = new Swiper("#new-hero-section .heroSwiper", {
           loop: slides.length > 1, // Only loop if we have multiple slides
-          speed: 900,
-          effect: "creative",
-          creativeEffect: {
-            prev: { translate: ["-20%", 0, -1], opacity: 0 },
-            next: { translate: ["100%", 0, 0], opacity: 0 },
-          },
+          speed: 400,
+          slidesPerView: 1,
+          spaceBetween: 0,
           navigation: {
             nextEl: "#new-hero-section #rs-next",
             prevEl: "#new-hero-section #rs-prev",
+          },
+          pagination: {
+            el: "#new-hero-section #hero-pagination",
+            type: "fraction",
           },
           autoplay:
             heroData?.settings.autoplay_enabled !== false
               ? {
                   delay: heroData?.settings.autoplay_delay || 5000,
                   disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
                 }
               : false,
           on: {
@@ -116,24 +116,21 @@ const NewHeroSectionContent: React.FC = () => {
                 swiper.activeIndex
               ] as HTMLElement;
               const bar = activeSlide?.querySelector(
-                ".slide-progress-fill"
+                ".hero-news-progress-fill"
               ) as HTMLElement;
               if (bar) bar.style.width = `${(1 - progress) * 100}%`;
             },
             slideChange() {
               document
-                .querySelectorAll("#new-hero-section .slide-progress-fill")
+                .querySelectorAll("#new-hero-section .hero-news-progress-fill")
                 .forEach((b: Element) => {
                   (b as HTMLElement).style.width = "0%";
                 });
             },
-            init() {
-            },
+            init() {},
           },
         });
-
-      } catch (error) {
-      }
+      } catch (error) {}
     };
 
     // Initialize with proper timing - increased delays to ensure DOM is ready
@@ -151,8 +148,7 @@ const NewHeroSectionContent: React.FC = () => {
         try {
           swiperRef.current.destroy(true, true);
           swiperRef.current = null;
-        } catch (error) {
-        }
+        } catch (error) {}
       }
     };
   }, [heroData]);
@@ -250,176 +246,155 @@ const NewHeroSectionContent: React.FC = () => {
               </a>
             </div>
 
-            <div className="slider-container">
-              <div className="c-carousel-news_controls">
-                <button
-                  className="c-button -icon c-carousel_news_button -next"
-                  id="rs-next"
-                  aria-label="Next"
-                >
-                  <span className="c-button_inner">
-                    <span className="u-screen-reader-text">Next</span>
-                    <span className="c-button_icon">
-                      <svg
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <path
-                          d="M8 4l8 8-8 8"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </span>
-                </button>
-                <button
-                  className="c-button -icon c-carousel_news_button -prev"
-                  id="rs-prev"
-                  aria-label="Previous"
-                >
-                  <span className="c-button_inner">
-                    <span className="u-screen-reader-text">Previous</span>
-                    <span className="c-button_icon">
-                      <svg
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <path
-                          d="M16 4L8 12l8 8"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </span>
-                </button>
-              </div>
-
-              <div className="swiper heroSwiper">
+            <div className="hero-news-carousel">
+              <div className="hero-news-carousel-element swiper heroSwiper">
                 <div className="swiper-wrapper">
-                  {heroData?.slides &&
-                  heroData.slides.length > 0 &&
-                  heroData.slides.some((slide) => slide.image?.desktop) ? (
-                    heroData.slides
-                      .filter((slide) => slide.image?.desktop)
-                      .map((slide) => (
-                        <div key={slide.id} className="swiper-slide">
-                          <div className="slide-wrapper">
-                            <img
-                              className="slide-image"
-                              src={slide.image.desktop}
-                              srcSet={`${slide.image.mobile} 700w, ${slide.image.tablet} 1000w, ${slide.image.desktop} 1200w`}
-                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
-                              alt={slide.image.alt || slide.title}
-                              loading="lazy"
-                              key={`${slide.id}-${Date.now()}`}
-                            />
-                            <div className="slide-progress-bar">
-                              <div className="slide-progress-fill"></div>
-                            </div>
-                            <div className="slide-content">
-                              <h3 className="slide-title">{slide.title}</h3>
-                              {slide.button && (
-                                <a
-                                  href={slide.button.url}
-                                  className="slide-link"
-                                  target={
-                                    slide.button.is_external
-                                      ? "_blank"
-                                      : "_self"
-                                  }
-                                  rel={
-                                    slide.button.is_external
-                                      ? "noopener noreferrer"
-                                      : undefined
-                                  }
-                                >
-                                  {slide.button.text}{" "}
-                                  <span className="arrow">→</span>
-                                </a>
-                              )}
-                            </div>
+                  {heroData?.slides && heroData.slides.length > 0 ? (
+                    heroData.slides.map((slide) => (
+                      <div
+                        key={slide.id}
+                        className="swiper-slide hero-news-item"
+                      >
+                        <article className="hero-news-card">
+                          <h3 className="hero-news-title">{slide.title}</h3>
+                          <div className="hero-news-cta">
+                            <span className="hero-news-cta-text" data-text="Read more">
+                              <span>Read more</span>
+                            </span>
+                            <span className="hero-news-cta-arrow">→</span>
                           </div>
-                        </div>
-                      ))
+                          <div className="hero-news-progress-bar">
+                            <div className="hero-news-progress-fill"></div>
+                          </div>
+                          {slide.button && (
+                            <a
+                              className="hero-news-url"
+                              href={slide.button.url}
+                              target={
+                                slide.button.is_external ? "_blank" : "_self"
+                              }
+                              rel={
+                                slide.button.is_external
+                                  ? "noopener noreferrer"
+                                  : undefined
+                              }
+                              title={slide.title}
+                            >
+                              <span className="u-screen-reader-text">
+                                Read more
+                              </span>
+                            </a>
+                          )}
+                        </article>
+                      </div>
+                    ))
                   ) : (
                     // Fallback slides if no data
                     <>
-                      <div className="swiper-slide">
-                        <div className="slide-wrapper">
-                          <img
-                            className="slide-image"
-                            src={`${import.meta.env.BASE_URL}images/1.jpg`}
-                            alt="Garden Design"
-                            loading="lazy"
-                          />
-                          <div className="slide-progress-bar">
-                            <div className="slide-progress-fill"></div>
+                      <div className="swiper-slide hero-news-item">
+                        <article className="hero-news-card">
+                          <h3 className="hero-news-title">
+                            Premium Home Construction
+                          </h3>
+                          <div className="hero-news-cta">
+                            <span className="hero-news-cta-text" data-text="Read more">
+                              <span>Read more</span>
+                            </span>
+                            <span className="hero-news-cta-arrow">→</span>
                           </div>
-                          <div className="slide-content">
-                            <h3 className="slide-title">
-                              Garden Design & Installation
-                            </h3>
-                            <a href="#" className="slide-link">
-                              Read more <span className="arrow">→</span>
-                            </a>
+                          <div className="hero-news-progress-bar">
+                            <div className="hero-news-progress-fill"></div>
                           </div>
-                        </div>
+                          <a
+                            className="hero-news-url"
+                            href="#contact"
+                            title="Premium Home Construction"
+                          >
+                            <span className="u-screen-reader-text">
+                              Read more
+                            </span>
+                          </a>
+                        </article>
                       </div>
-                      <div className="swiper-slide">
-                        <div className="slide-wrapper">
-                          <img
-                            className="slide-image"
-                            src={`${import.meta.env.BASE_URL}images/2.jpg`}
-                            alt="Landscaping Project"
-                            loading="lazy"
-                          />
-                          <div className="slide-progress-bar">
-                            <div className="slide-progress-fill"></div>
+                      <div className="swiper-slide hero-news-item">
+                        <article className="hero-news-card">
+                          <h3 className="hero-news-title">
+                            Custom Home Designs
+                          </h3>
+                          <div className="hero-news-cta">
+                            <span className="hero-news-cta-text" data-text="Read more">
+                              <span>Read more</span>
+                            </span>
+                            <span className="hero-news-cta-arrow">→</span>
                           </div>
-                          <div className="slide-content">
-                            <h3 className="slide-title">
-                              Outdoor Living Spaces
-                            </h3>
-                            <a href="#" className="slide-link">
-                              Read more <span className="arrow">→</span>
-                            </a>
+                          <div className="hero-news-progress-bar">
+                            <div className="hero-news-progress-fill"></div>
                           </div>
-                        </div>
+                          <a
+                            className="hero-news-url"
+                            href="#designs"
+                            title="Custom Home Designs"
+                          >
+                            <span className="u-screen-reader-text">
+                              Read more
+                            </span>
+                          </a>
+                        </article>
                       </div>
-                      <div className="swiper-slide">
-                        <div className="slide-wrapper">
-                          <img
-                            className="slide-image"
-                            src={`${import.meta.env.BASE_URL}images/3.jpg`}
-                            alt="Sustainable Landscaping"
-                            loading="lazy"
-                          />
-                          <div className="slide-progress-bar">
-                            <div className="slide-progress-fill"></div>
+                      <div className="swiper-slide hero-news-item">
+                        <article className="hero-news-card">
+                          <h3 className="hero-news-title">
+                            Sustainable Building
+                          </h3>
+                          <div className="hero-news-cta">
+                            <span className="hero-news-cta-text" data-text="Read more">
+                              <span>Read more</span>
+                            </span>
+                            <span className="hero-news-cta-arrow">→</span>
                           </div>
-                          <div className="slide-content">
-                            <h3 className="slide-title">
-                              Sustainable Eco-Friendly Gardens
-                            </h3>
-                            <a href="#" className="slide-link">
-                              Read more <span className="arrow">→</span>
-                            </a>
+                          <div className="hero-news-progress-bar">
+                            <div className="hero-news-progress-fill"></div>
                           </div>
-                        </div>
+                          <a
+                            className="hero-news-url"
+                            href="#sustainability"
+                            title="Sustainable Building"
+                          >
+                            <span className="u-screen-reader-text">
+                              Read more
+                            </span>
+                          </a>
+                        </article>
                       </div>
                     </>
                   )}
                 </div>
+
+                <div
+                  className="hero-news-pagination swiper-pagination"
+                  id="hero-pagination"
+                ></div>
+              </div>
+
+              <div className="hero-news-controls">
+                <button
+                  className="c-button -icon hero-news-button -next"
+                  id="rs-next"
+                >
+                  <span className="c-button_inner">
+                    <span className="u-screen-reader-text">Next</span>
+                    <span className="c-button_icon">→</span>
+                  </span>
+                </button>
+                <button
+                  className="c-button -icon hero-news-button -prev"
+                  id="rs-prev"
+                >
+                  <span className="c-button_inner">
+                    <span className="u-screen-reader-text">Previous</span>
+                    <span className="c-button_icon">←</span>
+                  </span>
+                </button>
               </div>
             </div>
           </div>

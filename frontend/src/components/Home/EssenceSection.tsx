@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./EssenceSection.css";
-import GlassButton from '../UI/GlassButton';
+import GlassButton from "../UI/GlassButton";
+import GsapVideoText from "../UI/GsapVideoText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,32 +39,11 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
   },
   videoUrl = `${publicUrl}images/hero1.mp4`,
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [showOverlay, setShowOverlay] = useState(true);
-
   const sectionRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const imageOverlayRef = useRef<HTMLDivElement>(null);
-
-  const handlePlayClick = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0; // Restart from beginning
-      videoRef.current.muted = false; // Unmute
-      videoRef.current.controls = true; // Show controls
-      videoRef.current.play();
-      setShowOverlay(false);
-    }
-  };
-
-  const handleVideoPause = () => {
-    // Video paused
-  };
-
-  const handleVideoEnded = () => {
-    setShowOverlay(true);
-  };
 
   // Split text into characters for tagline
   const _splitTextIntoChars = (text: string) => {
@@ -192,6 +172,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
           },
         });
       }
+
     }, sectionRef);
 
     return () => ctx.revert();
@@ -209,17 +190,14 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
               </div>
             )}
 
-
             <h2 className="essence-heading" ref={headingRef}>
               {splitTextIntoLines(heading)}
             </h2>
 
             <p className="essence-description">{description}</p>
 
-            <div ref={ctaRef}>
-              <GlassButton href={ctaHref}>
-                {ctaText}
-              </GlassButton>
+            <div ref={ctaRef} className="essence-cta-desktop">
+              <GlassButton href={ctaHref}>{ctaText}</GlassButton>
             </div>
           </div>
 
@@ -243,55 +221,22 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
             {/* Image reveal overlay */}
             <div className="essence-image-overlay" ref={imageOverlayRef}></div>
           </div>
+
+          {/* Mobile CTA - only visible on mobile after image */}
+          <div className="essence-cta-mobile">
+            <GlassButton href={ctaHref}>{ctaText}</GlassButton>
+          </div>
         </div>
       </div>
 
-      {/* Video Subsection */}
+      {/* Video Text Animation Section */}
       {videoUrl && (
-        <div className="essence-video-section">
-          <video
-            ref={videoRef}
-            className="essence-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            onPause={handleVideoPause}
-            onEnded={handleVideoEnded}
-          >
-            <source src={videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-
-          {/* Overlay with Play Button */}
-          {showOverlay && (
-            <div className="essence-video-overlay">
-              <button
-                className="essence-video-play-btn"
-                onClick={handlePlayClick}
-                aria-label="Play video with sound"
-              >
-                <svg
-                  width="80"
-                  height="80"
-                  viewBox="0 0 80 80"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="38"
-                    stroke="white"
-                    strokeWidth="2"
-                    fill="rgba(255, 255, 255, 0.15)"
-                  />
-                  <path d="M32 25L32 55L55 40L32 25Z" fill="white" />
-                </svg>
-              </button>
-            </div>
-          )}
-        </div>
+        <GsapVideoText
+          leftText="OUR"
+          rightText="VISION"
+          videoSrc={videoUrl}
+          backgroundColor="var(--light-bg)"
+        />
       )}
     </section>
   );
