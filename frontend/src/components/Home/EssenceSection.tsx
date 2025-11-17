@@ -137,9 +137,9 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
           headingLines,
           {
             yPercent: 0,
-            duration: 0.8,
-            stagger: 0.3,
-            ease: "power3.out",
+            duration: 1.8,
+            stagger: 0.8,
+            ease: "power1.out",
           },
           0.2
         );
@@ -172,7 +172,6 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
           },
         });
       }
-
     }, sectionRef);
 
     return () => ctx.revert();
@@ -232,8 +231,8 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
       {/* Video Text Animation Section */}
       {videoUrl && (
         <GsapVideoText
-          leftText="OUR"
-          rightText="VISION"
+          leftText="Latest"
+          rightText="Project"
           videoSrc={videoUrl}
           backgroundColor="var(--light-bg)"
         />

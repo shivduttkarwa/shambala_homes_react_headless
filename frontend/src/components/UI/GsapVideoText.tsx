@@ -13,8 +13,8 @@ interface GsapVideoTextProps {
 }
 
 const GsapVideoText: React.FC<GsapVideoTextProps> = ({
-  leftText = "OUR",
-  rightText = "VISION",
+  leftText = "Latest",
+  rightText = "Project",
   videoSrc = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
   backgroundColor = "var(--light-bg)",
 }) => {
@@ -24,7 +24,12 @@ const GsapVideoText: React.FC<GsapVideoTextProps> = ({
   const textRightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!wrapperRef.current || !videoContainerRef.current || !textLeftRef.current || !textRightRef.current) {
+    if (
+      !wrapperRef.current ||
+      !videoContainerRef.current ||
+      !textLeftRef.current ||
+      !textRightRef.current
+    ) {
       return;
     }
 
@@ -69,7 +74,7 @@ const GsapVideoText: React.FC<GsapVideoTextProps> = ({
           0
         )
         // Reduced pause duration
-        .to({}, { duration: 0.4 });
+        .to({}, { duration: 0.05 });
     }, wrapperRef);
 
     return () => ctx.revert();
