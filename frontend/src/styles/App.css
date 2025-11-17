@@ -123,6 +123,27 @@ body {
   border-bottom: 1px solid rgba(91, 124, 79, 0.1);
   border-radius: 0 0 12px 12px;
 }
+
+/* When hero preloader is active, hide the header to prevent it from appearing above the preloader */
+.hero-preloading .header {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Also hide staggered menu header and its toggle/logo during the intro */
+.hero-preloading .staggered-menu-header,
+.hero-preloading .staggered-menu-wrapper,
+.hero-preloading .staggered-menu,
+.hero-preloading .sm-toggle,
+.hero-preloading .sm-logo,
+.hero-preloading .sm-logo-image,
+.hero-preloading .sm-logo-text {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  display: none !important;
+}
 .logo {
   font-family: "Cinzel", serif, "Bebas Neue", sans-serif;
   font-size: 18px;
