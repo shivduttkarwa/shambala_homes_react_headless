@@ -1,85 +1,1145 @@
-<div class="c-hero-alpha_footer || o-grid -col-2 -gutters-x">
-                                    <div class="o-grid_item u-gc-1/2@from-sm">
-                                                    <div class="u-anim-mask">
-                    <div class="u-anim-mask_inner">
-                        <button class="c-button -background -big c-hero-alpha_cta" data-player-open="" data-player-id="videoHero">
-        <span class="c-button_inner">
-                    <span class="u-screen-reader-text">Discover the world of GKC</span>
-            <span class="c-button_label_wrapper" aria-hidden="true">
-                <span class="c-button_label" data-label="Discover the world of GKC">Discover the world of GKC</span>
-            </span>
-                    </span>
-    </button>
-                    </div>
-                </div>
-                                        </div>
-                                                    <div class="o-grid_item u-gc-2/3@from-sm">
-                                    <div class="u-anim-mask">
-                <div class="u-anim-mask_inner">
-                        <div class="c-carousel-news c-hero-alpha_news is-inview" data-module-carousel="m8" data-carousel-type="hero-news" data-scroll="" data-scroll-call="onInview, Carousel" data-scroll-call-self="" data-scroll-repeat="">
-        <div class="c-carousel-news_element || swiper swiper-initialized swiper-horizontal swiper-backface-hidden" data-carousel="swiper" style="--autoplay-progress: 0.6639999999999999;">
-            <ul class="c-carousel-news_list || swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(-832px, 0px, 0px); transition-delay: 0ms;">
-                                    
-                                    
-                                    
-                            <li class="c-carousel-news_item || swiper-slide swiper-slide-next" data-swiper-slide-index="2" style="width: 416px;">
-                        <article class="c-card-quicknews c-carousel-news_card">
-    <h3 class="c-card-quicknews_title || c-heading -h4">GKC Unveils its New Brand Identity</h3>
-    <p class="c-card-quicknews_label || c-text -t1" aria-hidden="true">Read more</p>
-    <a class="c-card-quicknews_url" href="en/news/gkc-unveils-its-new-brand-identity" target="_self" title="GKC Unveils its New Brand Identity" tabindex="-1">
-        <span class="u-screen-reader-text">Read more</span>
-    </a>
-</article>
-                    </li><li class="c-carousel-news_item || swiper-slide swiper-slide-prev" style="width: 416px;" data-swiper-slide-index="0">
-                        <article class="c-card-quicknews c-carousel-news_card">
-    <h3 class="c-card-quicknews_title || c-heading -h4">Honouring the Past, Embracing the Future</h3>
-    <p class="c-card-quicknews_label || c-text -t1" aria-hidden="true">Read more</p>
-    <a class="c-card-quicknews_url" href="en/news/honouring-the-past-embracing-the-future" target="_self" title="Honouring the Past, Embracing the Future" tabindex="-1">
-        <span class="u-screen-reader-text">Read more</span>
-    </a>
-</article>
-                    </li><li class="c-carousel-news_item || swiper-slide swiper-slide-active" style="width: 416px;" data-swiper-slide-index="1">
-                        <article class="c-card-quicknews c-carousel-news_card">
-    <h3 class="c-card-quicknews_title || c-heading -h4">GKC Architecture &amp; Design at Montréal du Futur</h3>
-    <p class="c-card-quicknews_label || c-text -t1" aria-hidden="true">Read more</p>
-    <a class="c-card-quicknews_url" href="en/news/gkc-architecture-amp-design-at-montreal-du-futur" target="_self" title="GKC Architecture &amp; Design at Montréal du Futur">
-        <span class="u-screen-reader-text">Read more</span>
-    </a>
-</article>
-                    </li></ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Project List with Filters</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --black-100: #111111;
+      --white-0: #ffffff;
+      --petrol-dark: #0c3d3a;
+      --timeline-bg: #d6dbd5;
+      /* card background as requested */
+      --card-green: #5b7c4f;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Helvetica Neue", Arial, sans-serif;
+      --font-serif: "Times New Roman", Georgia, serif;
+    }
 
-            <div class="c-carousel-news_pagination || c-text-condensed -t4 swiper-pagination-fraction swiper-pagination-horizontal" data-carousel="pagination"><span class="swiper-pagination-current">02</span> / <span class="swiper-pagination-total">03</span></div>
-        </div>
-        <div class="c-carousel-news_controls">
-            <button class="c-button -icon c-carousel_news_button -next" data-carousel="next">
-        <span class="c-button_inner">
-                    <span class="u-screen-reader-text">Next</span>
-            <span class="c-button_label_wrapper" aria-hidden="true">
-                <span class="c-button_label" data-label="Next">Next</span>
-            </span>
-                                <span class="o-icon c-button_icon">
-        <svg class="svg-arrow-right" focusable="false" aria-hidden="true">
-            <use xlink:href="assets/images/sprite.svg?=5#arrow-right"></use>
-        </svg>
-    </span>
-            </span>
-    </button>
-            <button class="c-button -icon c-carousel_news_button -prev" data-carousel="prev">
-        <span class="c-button_inner">
-                    <span class="u-screen-reader-text">Previous</span>
-            <span class="c-button_label_wrapper" aria-hidden="true">
-                <span class="c-button_label" data-label="Previous">Previous</span>
-            </span>
-                                <span class="o-icon c-button_icon">
-        <svg class="svg-arrow-left" focusable="false" aria-hidden="true">
-            <use xlink:href="assets/images/sprite.svg?=5#arrow-left"></use>
-        </svg>
-    </span>
-            </span>
-    </button>
-        </div>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: #f5f5f5;
+    }
+
+    /* SIMPLE TEST SECTIONS */
+
+    .test-section {
+      padding: 5rem 6vw;
+    }
+
+    .test-section--top {
+      background: #f0ede8;
+    }
+
+    .test-section--bottom {
+      background: #e1e6dd;
+    }
+
+    .test-section h2 {
+      font-size: clamp(2rem, 3vw, 2.4rem);
+      margin-bottom: 1rem;
+      font-family: var(--font-serif);
+    }
+
+    .test-section p {
+      max-width: 40rem;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    /* SECTION WRAPPER */
+
+    .section_project-list {
+      grid-column-gap: 3rem;
+      grid-row-gap: 3rem;
+      flex-flow: column;
+      margin-top: 1rem;
+      padding: 6rem 6vw;
+      display: flex;
+      position: relative;
+      overflow: visible;
+      background-color: var(--timeline-bg);
+    }
+
+    /* Extra bottom space so last card never goes under next section on desktop */
+    @media (min-width: 992px) {
+      .section_project-list {
+        padding-bottom: 18rem;
+      }
+    }
+
+    .title_component {
+      margin-bottom: 1.5rem;
+    }
+
+    .title_heading-wrapper {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .title_heading-main {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 4vw, 3.5rem);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* FILTER ROW */
+
+    .project-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .project-filter-btn {
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition:
+        background-color 0.22s ease,
+        color 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease,
+        border-color 0.22s ease;
+    }
+
+    .project-filter-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 9px 22px rgba(0, 0, 0, 0.12);
+    }
+
+    .project-filter-btn.is-active {
+      background: var(--card-green);
+      color: var(--white-0);
+      border-color: transparent;
+      box-shadow: 0 9px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    /* PROJECT LIST BASE */
+
+    .project-list_component {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .project-list_item {
+      flex-flow: column;
+      position: relative;
+      cursor: pointer;
+      max-height: 1000px; /* for smooth collapsing during filter */
+      transition:
+        opacity 0.35s ease,
+        transform 0.35s ease,
+        max-height 0.45s ease,
+        margin 0.35s ease;
+    }
+
+    .project-list_item + .project-list_item .project-list_header {
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .project-list_item.is-front {
+      z-index: 999;
+    }
+
+    /* HIDDEN BY FILTER */
+
+    .project-list_item.is-filter-hidden {
+      opacity: 0;
+      transform: translateY(-12px);
+      max-height: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      pointer-events: none;
+    }
+
+    .project-list_header {
+      z-index: 0;
+      width: 100%;
+      padding: 0.75rem 1.5rem 0.75rem 0.75rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .project-list_label {
+      width: 20vw;
+      min-width: 110px;
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .project-list_title {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: text-decoration-color 0.25s ease;
+    }
+
+    /* LINE & BULLETS */
+
+    .project-list_line-idle {
+      background-color: var(--black-100);
+      opacity: 0.2;
+      height: 1px;
+      position: absolute;
+      inset: 0 0 auto;
+    }
+
+    .project-list_line {
+      background-color: var(--black-100);
+      height: 1px;
+      position: absolute;
+      inset: 0 0 auto;
+      width: 0%;
+      transform-origin: left center;
+      transition: width 0.35s ease;
+    }
+
+    .project-list_bullets {
+      justify-content: center;
+      align-items: center;
+      width: 2rem;
+      margin-left: auto;
+      display: flex;
+      position: relative;
+    }
+
+    .project-list_bullets-inner {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      position: relative;
+      width: 2rem;
+      transition: width 0.35s ease;
+    }
+
+    .project-list_bullet {
+      aspect-ratio: 1;
+      background-color: var(--black-100);
+      border-radius: 999rem;
+      height: 0.35rem;
+      position: absolute;
+      transform: scale(0.85);
+      opacity: 0.4;
+      transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+    }
+
+    .project-list_bullet.is-first {
+      inset: auto auto auto 0;
+    }
+
+    .project-list_bullet.is-middle {
+      inset: auto calc(50% - 0.175rem) auto auto;
+    }
+
+    .project-list_bullet.is-right {
+      inset: auto 0 auto auto;
+    }
+
+    /* CARD / BODY CONTENT (DESKTOP DEFAULT) */
+
+    .project-list_body {
+      z-index: 10;
+      grid-column-gap: 1.25rem;
+      grid-row-gap: 0.5rem;
+      background-color: var(--card-green);
+      color: var(--white-0);
+      border-radius: 0.75rem;
+      padding: 1rem 1rem 1rem 1.1rem;
+      display: flex;
+      align-items: stretch;
+      position: absolute;
+      inset: 4.3rem auto auto calc(20vw + 0.75rem);
+      max-width: min(900px, 70vw);
+
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(-7%, 0, 0) scale(0.95);
+      transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+    }
+
+    /* Left side content inside card */
+    .project-card_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 22rem;
+    }
+
+    .project-card_heading {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      margin: 0 0 0.35rem;
+    }
+
+    .project-card_desc {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0 0 0.75rem;
+    }
+
+    .project-card_btn {
+      align-self: flex-start;
+      padding: 0.45rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      background: transparent;
+      color: #ffffff;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition:
+        background-color 0.22s ease,
+        color 0.22s ease,
+        transform 0.22s ease,
+        box-shadow 0.22s ease;
+    }
+
+    .project-card_btn::after {
+      content: "→";
+      font-size: 0.85rem;
+      transform: translateX(0);
+      transition: transform 0.22s ease;
+    }
+
+    .project-card_btn:hover {
+      background-color: rgba(0, 0, 0, 0.16);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .project-card_btn:hover::after {
+      transform: translateX(3px);
+    }
+
+    .project-list_images {
+      grid-column-gap: 0.5rem;
+      grid-row-gap: 0.5rem;
+      flex-flow: row;
+      display: flex;
+    }
+
+    .project-list_image-item {
+      height: 20vw;
+      max-height: 260px;
+      min-height: 170px;
+    }
+
+    .project-list_image-wrapper {
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      flex: none;
+      height: calc(100% - 1.4rem);
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .project-list_image {
+      object-fit: cover;
+      width: auto;
+      height: 100%;
+      transform: scale(1.5);
+      transition: transform 0.35s ease;
+    }
+
+    .project-list_caption-wrapper {
+      justify-content: flex-start;
+      align-items: flex-end;
+      height: 1.4rem;
+      display: flex;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-list_caption {
+      color: var(--petrol-dark);
+      flex: none;
+      font-size: 0.75rem;
+      font-style: italic;
+    }
+
+    /* HOVER + ACTIVE (DESKTOP) */
+
+    .project-list_item:hover .project-list_line {
+      width: 100%;
+    }
+
+    .project-list_item:hover .project-list_bullets-inner {
+      width: 2.6rem;
+    }
+
+    /* 3 dots -> 1 dot animation */
+    .project-list_item:hover .project-list_bullet.is-first,
+    .project-list_item:hover .project-list_bullet.is-right {
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    .project-list_item:hover .project-list_bullet.is-middle {
+      transform: scale(1.6);
+      opacity: 1;
+    }
+
+    .project-list_item:hover .project-list_title {
+      text-decoration: underline;
+      text-underline-offset: 0.35em;
+    }
+
+    .project-list_item:hover .project-list_body {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate3d(-7%, 0, 0) scale(1);
+    }
+
+    .project-list_item:hover .project-list_image {
+      transform: scale(1.35);
+    }
+
+    .project-list_item:hover .project-list_caption-wrapper {
+      opacity: 1;
+    }
+
+    /* Active (used on mobile via JS) */
+
+    .project-list_item.is-active .project-list_line {
+      width: 100%;
+    }
+
+    .project-list_item.is-active .project-list_bullets-inner {
+      width: 2.6rem;
+    }
+
+    .project-list_item.is-active .project-list_bullet.is-first,
+    .project-list_item.is-active .project-list_bullet.is-right {
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    .project-list_item.is-active .project-list_bullet.is-middle {
+      transform: scale(1.6);
+      opacity: 1;
+    }
+
+    .project-list_item.is-active .project-list_title {
+      text-decoration: underline;
+      text-underline-offset: 0.35em;
+    }
+
+    /* RESPONSIVE OVERRIDES FOR TABLET / MOBILE */
+
+    @media (max-width: 991px) {
+      .section_project-list {
+        padding: 4rem 5vw;
+      }
+
+      .title_heading-main {
+        text-align: left;
+      }
+
+      .project-list_label {
+        width: auto;
+        margin-right: 1.25rem;
+        font-size: 1.2rem;
+      }
+
+      .project-list_title {
+        font-size: 1.2rem;
+        white-space: normal;
+      }
+
+      /* Accordion behaviour on mobile */
+      .project-list_body {
+        position: relative;
+        inset: auto;
+        max-width: 100%;
+        transform: none;
+        margin-top: 0;
+        opacity: 0;
+        pointer-events: none;
+        max-height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        transition:
+          opacity 0.3s ease,
+          max-height 0.4s ease;
+      }
+
+      /* Disable hover-open on mobile */
+      .project-list_item:hover .project-list_body {
+        opacity: 0;
+        pointer-events: none;
+        transform: none;
+      }
+
+      /* Active (clicked) state on mobile/tablet */
+      .project-list_item.is-active .project-list_body {
+        opacity: 1;
+        pointer-events: auto;
+        margin-top: 0.75rem;
+        transform: none;
+      }
+
+      .project-card_content {
+        max-width: none;
+        margin-bottom: 0.75rem;
+      }
+
+      .project-list_images {
+        margin-top: 0.25rem;
+      }
+
+      /* MOBILE IMAGE UNIFORM SIZE */
+      .project-list_image-item {
+        height: auto;
+        max-height: none;
+        min-height: 0;
+      }
+
+      .project-list_image-wrapper {
+        height: auto;
+        width: 100%;
+        aspect-ratio: 4 / 3; /* even cards */
+      }
+
+      .project-list_image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.15);
+      }
+
+      .project-list_caption-wrapper {
+        height: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .project-list_header {
+        padding-inline: 0.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<section class="test-section test-section--top">
+  <h2>Section Above Projects</h2>
+  <p>
+    Simple test section above the project list. Use this to see how the page
+    flows as you scroll, on both desktop and mobile.
+  </p>
+</section>
+
+<section class="section_project-list">
+  <div class="title_component">
+    <div class="title_heading-wrapper">
+      <h2 class="title_heading-main">PROJECTS IN TANDEM</h2>
     </div>
-                </div>
+  </div>
+
+  <!-- FILTER BUTTONS -->
+  <div class="project-filters">
+    <button class="project-filter-btn is-active" data-filter="all">
+      All
+    </button>
+    <button class="project-filter-btn" data-filter="house">
+      House Design
+    </button>
+    <button class="project-filter-btn" data-filter="commercial">
+      Commercial Project
+    </button>
+    <button class="project-filter-btn" data-filter="landscape">
+      Landcapes
+    </button>
+    <button class="project-filter-btn" data-filter="resizing">
+      Resizing
+    </button>
+  </div>
+
+  <div class="project-list_component">
+    <!-- PROJECT 1 -->
+    <div class="project-list_item" data-categories="house">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 01</h3>
+        <h3 class="project-list_title">Hillside Courtyard Home</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">A split-level retreat for a steep site</h4>
+          <p class="project-card_desc">
+            A layered home stepping gently down a hillside, with planted courtyards
+            stitching together living, sleeping, and quiet work spaces.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/3.jpg" alt="Hillside courtyard home" />
             </div>
-                            </div>
-                            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Morning light across the courtyard</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-list_item" data-categories="house,landscape">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 02</h3>
+        <h3 class="project-list_title">Garden Ribbon Residence</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">House and landscape as one continuous line</h4>
+          <p class="project-card_desc">
+            A low, horizontal home that folds in and out of planted mounds, with
+            paths and decks weaving a soft ribbon between rooms and garden rooms.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/4.jpg" alt="Garden ribbon residence" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Green bands wrapping the home</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-list_item" data-categories="commercial">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 03</h3>
+        <h3 class="project-list_title">Neighbourhood Work Hub</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">Flexible working in a small high street shell</h4>
+          <p class="project-card_desc">
+            A compact commercial space turned into a quiet, sunlit work hub with
+            shared tables, booths and planting that softens street noise.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/5.jpg" alt="Neighbourhood work hub" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Soft light over shared desks</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 -->
+    <div class="project-list_item" data-categories="landscape">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 04</h3>
+        <h3 class="project-list_title">Creekside Native Garden</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">Restoring a steep bank with native planting</h4>
+          <p class="project-card_desc">
+            Terraced decks, stone steps and native understory planting stabilise
+            a creek bank while creating shaded outdoor sitting and gathering spots.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/6.jpg" alt="Creekside native garden" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Shaded paths along the water</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 5 -->
+    <div class="project-list_item" data-categories="resizing,house">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 05</h3>
+        <h3 class="project-list_title">Rear Lane Re-size</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">Turning a long, dark plan into a bright short one</h4>
+          <p class="project-card_desc">
+            A deep terrace house is edited down, carving out a courtyard and
+            bringing daylight and trees into the middle of the plan.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/3.jpg" alt="Rear lane resize" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Courtyard cut into the terrace</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 6 -->
+    <div class="project-list_item" data-categories="commercial,landscape">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 06</h3>
+        <h3 class="project-list_title">Courtyard Hospitality Wing</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">Dining, shade and planting in a tight footprint</h4>
+          <p class="project-card_desc">
+            A small commercial extension wraps around an existing tree, creating
+            new outdoor dining courts framed by timber, brick and climbing plants.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/4.jpg" alt="Courtyard hospitality wing" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Tree at the centre of the plan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 7 -->
+    <div class="project-list_item" data-categories="house,resizing">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 07</h3>
+        <h3 class="project-list_title">Brick Courtyard Addition</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">A compact brick wing for a growing family</h4>
+          <p class="project-card_desc">
+            A new wing creates a sheltered courtyard, gently resizing the home
+            with extra bedrooms and a quiet study facing the garden.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/5.jpg" alt="Brick courtyard addition" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Brick, light and planted edges</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 8 -->
+    <div class="project-list_item" data-categories="landscape">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 08</h3>
+        <h3 class="project-list_title">Terrace Pool Plateau</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">Carving a pool into a stepped garden</h4>
+          <p class="project-card_desc">
+            A small yard is terraced into planted levels with a pool sitting
+            quietly between stone walls and low native hedging.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/6.jpg" alt="Terrace pool plateau" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Water sitting inside the garden</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 9 -->
+    <div class="project-list_item" data-categories="resizing,commercial">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 09</h3>
+        <h3 class="project-list_title">Laneway Studio Compress</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">Resizing a deep commercial shell into a studio</h4>
+          <p class="project-card_desc">
+            A long-form tenancy is compressed into a bright studio, with the
+            remainder converted into a planted service court and loading bay.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/3.jpg" alt="Laneway studio compress" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">A smaller, sharper plan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 10 -->
+    <div class="project-list_item" data-categories="house,commercial">
+      <div class="project-list_header">
+        <div class="project-list_line-idle"></div>
+        <div class="project-list_line"></div>
+
+        <h3 class="project-list_label">Project 10</h3>
+        <h3 class="project-list_title">Mixed Court Row</h3>
+
+        <div class="project-list_bullets">
+          <div class="project-list_bullets-inner">
+            <div class="project-list_bullet is-first"></div>
+            <div class="project-list_bullet is-middle"></div>
+            <div class="project-list_bullet is-right"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-list_body">
+        <div class="project-card_content">
+          <h4 class="project-card_heading">Homes and small tenancies sharing a single lane</h4>
+          <p class="project-card_desc">
+            A row of dwellings and shopfronts stitched together by a shared
+            service lane, planted courts, and a consistent brick and timber rhythm.
+          </p>
+          <button class="project-card_btn" type="button">Know more</button>
+        </div>
+
+        <div class="project-list_images">
+          <div class="project-list_image-item">
+            <div class="project-list_image-wrapper">
+              <img class="project-list_image" src="images/4.jpg" alt="Mixed court row" />
+            </div>
+            <div class="project-list_caption-wrapper">
+              <div class="project-list_caption">Shops and homes sharing one language</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="test-section test-section--bottom">
+  <h2>Section Below Projects</h2>
+  <p>
+    Another simple section to test scroll and spacing after the project list.
+    On mobile, tap a project above and watch this section move down smoothly.
+  </p>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const items = Array.from(
+      document.querySelectorAll(".project-list_component .project-list_item")
+    );
+    if (!items.length) return;
+
+    const bodies = items
+      .map((i) => i.querySelector(".project-list_body"))
+      .filter(Boolean);
+
+    const filterButtons = Array.from(
+      document.querySelectorAll(".project-filter-btn")
+    );
+
+    let equalHeight = 0;
+
+    function isMobile() {
+      return window.innerWidth <= 991;
+    }
+
+    function computeMobileHeights() {
+      if (!isMobile()) {
+        // Desktop: clear inline max-heights and active states.
+        equalHeight = 0;
+        bodies.forEach((b) => {
+          b.style.maxHeight = "";
+        });
+        items.forEach((i) => i.classList.remove("is-active"));
+        return;
+      }
+
+      // Mobile: measure tallest card and use that for all.
+      equalHeight = 0;
+      bodies.forEach((b) => {
+        if (!b) return;
+
+        const prevTransition = b.style.transition;
+        b.style.transition = "none";
+        b.style.maxHeight = "none";
+        b.style.opacity = "1";
+
+        const h = b.scrollHeight;
+        if (h > equalHeight) equalHeight = h;
+
+        b.style.maxHeight = "0px";
+        b.style.opacity = "";
+        setTimeout(() => {
+          b.style.transition = prevTransition;
+        }, 0);
+      });
+
+      // Start all closed
+      items.forEach((i) => i.classList.remove("is-active"));
+      bodies.forEach((b) => {
+        b.style.maxHeight = "0px";
+      });
+    }
+
+    computeMobileHeights();
+    window.addEventListener("load", computeMobileHeights);
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(computeMobileHeights, 150);
+    });
+
+    // Click behaviour for mobile / tablet
+    items.forEach((item) => {
+      const header = item.querySelector(".project-list_header");
+      const body = item.querySelector(".project-list_body");
+      if (!header || !body) return;
+
+      header.addEventListener("click", () => {
+        if (!isMobile()) return; // desktop stays hover-only
+
+        const isActive = item.classList.contains("is-active");
+
+        // Close all
+        items.forEach((it) => {
+          it.classList.remove("is-active");
+          const b = it.querySelector(".project-list_body");
+          if (b) b.style.maxHeight = "0px";
+        });
+
+        // If tapped one was closed, open it
+        if (!isActive) {
+          item.classList.add("is-active");
+          const targetHeight =
+            equalHeight > 0 ? equalHeight : body.scrollHeight;
+          body.style.maxHeight = targetHeight + "px";
+        }
+      });
+    });
+
+    // FILTER LOGIC
+    function applyFilter(filter) {
+      // Set active state on buttons
+      filterButtons.forEach((btn) => {
+        btn.classList.toggle("is-active", btn.dataset.filter === filter);
+      });
+
+      // Close any open mobile cards when filter changes
+      items.forEach((it) => {
+        it.classList.remove("is-active");
+        const b = it.querySelector(".project-list_body");
+        if (b && isMobile()) {
+          b.style.maxHeight = "0px";
+        }
+      });
+
+      items.forEach((item) => {
+        const catsAttr = (item.dataset.categories || "").toLowerCase();
+        const cats = catsAttr.split(",").map((c) => c.trim());
+        const match =
+          filter === "all" || cats.includes(filter.toLowerCase());
+
+        if (match) {
+          item.classList.remove("is-filter-hidden");
+        } else {
+          item.classList.add("is-filter-hidden");
+        }
+      });
+    }
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.filter || "all";
+        applyFilter(filter);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
