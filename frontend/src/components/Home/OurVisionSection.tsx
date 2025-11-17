@@ -27,12 +27,43 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
   },
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const leftTextRef = useRef<HTMLDivElement | null>(null);
+  const rightTextRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
       const isMobile = window.innerWidth <= 968;
+
+      // Initial state - text offscreen
+      gsap.set(leftTextRef.current, { x: -800, opacity: 0 });
+      gsap.set(rightTextRef.current, { x: 800, opacity: 0 });
+
+      // Slide-in animation when section enters viewport
+      gsap.to(leftTextRef.current, {
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          toggleActions: "play none none none",
+        },
+      });
+
+      gsap.to(rightTextRef.current, {
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          toggleActions: "play none none none",
+        },
+      });
 
       if (!isMobile) {
         const tl = gsap.timeline({
@@ -73,7 +104,7 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
       <div className="vision-container">
         <div className="vision-layout">
           {/* Left Text */}
-          <div className="vision-text-left">
+          <div className="vision-text-left" ref={leftTextRef}>
             <h2 className="vision-large-text">{leftText}</h2>
           </div>
 
@@ -93,7 +124,7 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
           </div>
 
           {/* Right Text */}
-          <div className="vision-text-right">
+          <div className="vision-text-right" ref={rightTextRef}>
             <h2 className="vision-large-text">{rightText}</h2>
           </div>
         </div>

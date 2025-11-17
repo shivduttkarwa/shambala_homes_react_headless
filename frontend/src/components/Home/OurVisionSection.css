@@ -46,7 +46,7 @@
 }
 
 .vision-large-text {
-  font-size: clamp(6rem, 12vw, 12rem);
+  font-size: clamp(4rem, 10vw, 14rem);
   font-weight: 300;
   font-family: "Dream Avenue", cursive;
   color: #2e2e2e;
@@ -100,7 +100,7 @@
   }
 
   .vision-large-text {
-    font-size: clamp(3rem, 7vw, 6rem);
+    font-size: clamp(3rem, 10vw, 10rem);
   }
 
   .vision-image-container {
@@ -121,7 +121,7 @@
   }
 
   .vision-large-text {
-    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-size: clamp(2.5rem, 12vw, 6rem);
   }
 
   .vision-image-container {
@@ -145,7 +145,7 @@
   }
 
   .vision-large-text {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2rem, 12vw, 4rem);
   }
 
   .vision-image-container {

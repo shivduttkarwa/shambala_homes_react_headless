@@ -4,7 +4,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "./FeaturedProperties.css";
-import GlassButton from '../UI/GlassButton';
+import GlassButton from "../UI/GlassButton";
 
 interface PropertySlide {
   id: number;
@@ -23,54 +23,70 @@ const defaultProperties: PropertySlide[] = [
     id: 1,
     category: "",
     title: "LUXURY\nVILLAS\n& ESTATES",
-    leftImage: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&h=1600&fit=crop&q=90",
-    rightImage: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&h=1600&fit=crop&q=90", 
-    tabletImage: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=800&fit=crop&q=90",
+    leftImage:
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&h=1600&fit=crop&q=90",
+    rightImage:
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&h=1600&fit=crop&q=90",
+    tabletImage:
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=800&fit=crop&q=90",
     subtitle: "Premium Residential Projects",
-    description: "Where luxury meets lifestyle.\n\nShambala Homes presents thoughtfully designed residences that blend modern architecture with timeless elegance. Every project is crafted with attention to detail, premium materials, and world-class amenities for discerning homeowners.",
-    link: "#"
+    description:
+      "Where luxury meets lifestyle.\n\nShambala Homes presents thoughtfully designed residences that blend modern architecture with timeless elegance. Every project is crafted with attention to detail, premium materials, and world-class amenities for discerning homeowners.",
+    link: "#",
   },
   {
     id: 2,
-    category: "", 
+    category: "",
     title: "LUXURY\nVILLAS\n& ESTATES",
-    leftImage: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&h=1600&fit=crop&q=90",
-    rightImage: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&h=1600&fit=crop&q=90",
-    tabletImage: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=800&fit=crop&q=90", 
+    leftImage:
+      "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&h=1600&fit=crop&q=90",
+    rightImage:
+      "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&h=1600&fit=crop&q=90",
+    tabletImage:
+      "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=800&fit=crop&q=90",
     subtitle: "Contemporary Living Spaces",
-    description: "Innovation in every corner.\n\nOur contemporary homes feature open-plan layouts, floor-to-ceiling windows, and smart home integration. Designed for modern families who value both style and functionality in their living spaces.",
-    link: "#"
+    description:
+      "Innovation in every corner.\n\nOur contemporary homes feature open-plan layouts, floor-to-ceiling windows, and smart home integration. Designed for modern families who value both style and functionality in their living spaces.",
+    link: "#",
   },
   {
     id: 3,
     category: "",
-    title: "LUXURY\nVILLAS\n& ESTATES", 
-    leftImage: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=1600&fit=crop&q=90",
-    rightImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=1600&fit=crop&q=90",
-    tabletImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=800&fit=crop&q=90",
-    subtitle: "Luxury Villa Collection", 
-    description: "Redefined elegance.\n\nExclusive villas featuring private gardens, swimming pools, and panoramic views. Each home is uniquely designed to offer privacy, luxury, and comfort in prime locations across the city.",
-    link: "#"
+    title: "LUXURY\nVILLAS\n& ESTATES",
+    leftImage:
+      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=1600&fit=crop&q=90",
+    rightImage:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=1600&fit=crop&q=90",
+    tabletImage:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=800&fit=crop&q=90",
+    subtitle: "Luxury Villa Collection",
+    description:
+      "Redefined elegance.\n\nExclusive villas featuring private gardens, swimming pools, and panoramic views. Each home is uniquely designed to offer privacy, luxury, and comfort in prime locations across the city.",
+    link: "#",
   },
   {
     id: 4,
     category: "",
     title: "LUXURY\nVILLAS\n& ESTATES",
-    leftImage: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=1600&fit=crop&q=90", 
-    rightImage: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&h=1600&fit=crop&q=90",
-    tabletImage: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=800&fit=crop&q=90",
+    leftImage:
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=1600&fit=crop&q=90",
+    rightImage:
+      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&h=1600&fit=crop&q=90",
+    tabletImage:
+      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=800&fit=crop&q=90",
     subtitle: "Signature Developments",
-    description: "Excellence by design.\n\nOur flagship projects showcase innovative architecture, sustainable building practices, and premium amenities. From concept to completion, every Shambala home represents the pinnacle of quality and craftsmanship.",
-    link: "#"
-  }
+    description:
+      "Excellence by design.\n\nOur flagship projects showcase innovative architecture, sustainable building practices, and premium amenities. From concept to completion, every Shambala home represents the pinnacle of quality and craftsmanship.",
+    link: "#",
+  },
 ];
 
 interface FeaturedPropertiesProps {
   properties?: PropertySlide[];
 }
 
-const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({ 
-  properties = defaultProperties 
+const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
+  properties = defaultProperties,
 }) => {
   const swiperRef = useRef<any>(null);
 
@@ -101,8 +117,20 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
                       <div className="btn-outline btn-outline-1"></div>
                       <div className="btn-outline btn-outline-2"></div>
                       <div className="arrow-container">
-                        <svg width="30" height="12" viewBox="0 0 30 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M30 6H1M1 6L6 1M1 6L6 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <svg
+                          width="30"
+                          height="12"
+                          viewBox="0 0 30 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M30 6H1M1 6L6 1M1 6L6 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       </div>
                     </button>
@@ -110,17 +138,26 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
                       <div className="btn-outline btn-outline-1"></div>
                       <div className="btn-outline btn-outline-2"></div>
                       <div className="arrow-container">
-                        <svg width="30" height="12" viewBox="0 0 30 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 6H29M29 6L24 1M29 6L24 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <svg
+                          width="30"
+                          height="12"
+                          viewBox="0 0 30 12"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M1 6H29M29 6L24 1M29 6L24 11"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       </div>
                     </button>
                   </div>
                   <div className="image">
-                    <img
-                      src={property.leftImage}
-                      alt={property.subtitle}
-                    />
+                    <img src={property.leftImage} alt={property.subtitle} />
                     <img
                       className="image-tablet"
                       src={property.tabletImage}
@@ -130,19 +167,14 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
                 </div>
                 <div className="right">
                   <div className="image">
-                    <img
-                      src={property.rightImage}
-                      alt={property.subtitle}
-                    />
+                    <img src={property.rightImage} alt={property.subtitle} />
                   </div>
                   <div className="content-wrapper">
                     <h4>{property.subtitle}</h4>
                     <div className="text">
                       <p>{property.description}</p>
                     </div>
-                    <GlassButton href={property.link}>
-                      Discover
-                    </GlassButton>
+                    <GlassButton href={property.link}>Discover</GlassButton>
                   </div>
                 </div>
               </SwiperSlide>
@@ -151,9 +183,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
         </Swiper>
       </div>
 
-      <GlassButton href="#">
-        Discover All
-      </GlassButton>
+      <GlassButton href="#">Discover All</GlassButton>
     </section>
   );
 };

@@ -34,13 +34,13 @@ const GsapVideoText: React.FC<GsapVideoTextProps> = ({
     }
 
     const ctx = gsap.context(() => {
-      // Initial state - text offscreen
-      gsap.set(textLeftRef.current, { x: -500, opacity: 0 });
-      gsap.set(textRightRef.current, { x: 500, opacity: 0 });
+      // Initial state - text offscreen but will slide to their natural CSS positions
+      gsap.set(textLeftRef.current, { xPercent: -150, opacity: 0 });
+      gsap.set(textRightRef.current, { xPercent: 150, opacity: 0 });
 
       // Slide-in animation when section enters viewport
       gsap.to([textLeftRef.current, textRightRef.current], {
-        x: 0,
+        xPercent: 0,
         opacity: 1,
         duration: 1.2,
         ease: "power2.out",
@@ -51,7 +51,7 @@ const GsapVideoText: React.FC<GsapVideoTextProps> = ({
         },
       });
 
-      // Scroll-based animation
+      // Scroll-based animation timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapperRef.current,
