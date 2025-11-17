@@ -235,21 +235,27 @@
   font-weight: normal;
   line-height: 1.2;
   letter-spacing: normal;
-  /* Allow manual line breaks via br tags but prevent automatic text wrapping */
   color: #f2f4f8;
   text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.6);
-  text-align: left; /* Ensure left alignment */
+  text-align: left;
   font-family: "Dream Avenue", cursive;
   margin: 0;
-  /* Remove any cursor/caret styling */
   caret-color: transparent;
   cursor: default;
   user-select: none;
-  /* Ensure title starts visible for debugging - GSAP will animate */
   opacity: 1;
   transform: translateY(0);
-  /* Force hardware acceleration */
-  will-change: transform, opacity;
+}
+
+.hero-text h1 .mask {
+  overflow: hidden;
+  display: block;
+}
+
+.hero-text h1 .line {
+  display: block;
+  white-space: nowrap;
+  will-change: transform;
 }
 
 /* Remove any cursor/caret pseudo-elements */
@@ -444,7 +450,7 @@
 }
 
 .hero-news-card:hover {
-  /* Removed translateY to prevent slider movement on hover */
+  transform: none;
 }
 
 .hero-news-title {
@@ -599,7 +605,6 @@
   flex-shrink: 0;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
-  loading: lazy;
 }
 
 .hero-section .slide-content {
@@ -860,7 +865,7 @@
   }
 
   .hero-text h1 {
-    font-size: clamp(2.2rem, 9vw, 2.5rem);
+    font-size: clamp(2.86rem, 11.7vw, 3.25rem);
     line-height: 1.1;
     margin-bottom: 20px;
     margin-top: -30px;

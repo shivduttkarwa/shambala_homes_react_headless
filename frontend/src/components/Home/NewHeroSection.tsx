@@ -50,10 +50,19 @@ class HeroErrorBoundary extends Component<
 const NewHeroSectionContent: React.FC = () => {
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const swiperRef = useRef<Swiper | null>(null);
-  // heading playback tracking removed — hero text will be static
+  const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const [isHeroReady, setIsHeroReady] = useState(false);
   const { heroData } = useNewHero();
   // Fullscreen functionality removed for simplicity
+
+  // Split text into lines with mask - manual split for hero
+  const splitTextIntoLines = (lines: string[]) => {
+    return lines.map((line, index) => (
+      <div key={index} className="mask">
+        <div className="line">{line}</div>
+      </div>
+    ));
+  };
 
   useEffect(() => {
     // Make sure header is hidden immediately while the hero preloader is active
@@ -289,32 +298,19 @@ const NewHeroSectionContent: React.FC = () => {
         1.0
       );
 
-      // Modern hero text animation (play after curtain & preloader)
-      const heroLines = gsap.utils.toArray(
-        ".new-hero-section .hero-text .block"
-      ) as HTMLElement[];
-
-      if (heroLines && heroLines.length > 0) {
-        // Set initial state: below baseline and slightly skewed for a modern slide
-        gsap.set(heroLines, {
-          yPercent: 100,
-          skewY: 6,
-          scale: 0.995,
-          transformOrigin: "left center",
-        });
-
-        // Add a subtle breathing pop and de-skew; no opacity change to keep text crisp
+      // Hero text animation - elegant line-by-line reveal like essence section
+      const headingLines = heroHeadingRef.current?.querySelectorAll(".line");
+      if (headingLines && headingLines.length > 0) {
+        gsap.set(headingLines, { yPercent: 100 });
         tl.to(
-          heroLines,
+          headingLines,
           {
             yPercent: 0,
-            skewY: 0,
-            scale: 1,
-            duration: 1.05,
-            stagger: 0.12,
-            ease: "power3.out",
+            duration: 1.8,
+            stagger: 0.8,
+            ease: "power1.out",
           },
-          ">-0.05"
+          1.2
         );
       }
     }, heroSectionRef);
@@ -430,9 +426,8 @@ const NewHeroSectionContent: React.FC = () => {
 
         <div className="hero-content">
           <div className="hero-text">
-            <h1>
-              <span className="hero-text-line-1 block">WE BUILD</span>
-              <span className="hero-text-line-2 block">YOUR DREAMS</span>
+            <h1 ref={heroHeadingRef}>
+              {splitTextIntoLines(["WE BUILD", "YOUR DREAMS"])}
             </h1>
           </div>
 
