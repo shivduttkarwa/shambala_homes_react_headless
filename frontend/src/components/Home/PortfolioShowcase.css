@@ -59,6 +59,16 @@ section.project-feature .block-text h3 {
   text-transform: uppercase;
 }
 
+section.project-feature .block-text h3 .mask {
+  overflow: hidden;
+  display: block;
+}
+
+section.project-feature .block-text h3 .line {
+  display: block;
+  will-change: transform;
+}
+
 section.project-feature .projects-wrapper .project {
   height: 100vh;
   display: block;

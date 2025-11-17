@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import "./PortfolioShowcase.css";
-import GlassButton from '../UI/GlassButton';
+import GlassButton from "../UI/GlassButton";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -25,6 +29,34 @@ const projects = [
 
 const PortfolioShowcase: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+
+  // Split text into lines with mask
+  const splitTextIntoLines = (text: string) => {
+    const words = text.split(" ");
+    const lines: string[] = [];
+    let currentLine = "";
+
+    words.forEach((word) => {
+      const testLine = currentLine + (currentLine ? " " : "") + word;
+      if (testLine.length > 30 && currentLine.length > 0) {
+        lines.push(currentLine);
+        currentLine = word;
+      } else {
+        currentLine = testLine;
+      }
+    });
+
+    if (currentLine) {
+      lines.push(currentLine);
+    }
+
+    return lines.map((line, index) => (
+      <div key={index} className="mask">
+        <div className="line">{line}</div>
+      </div>
+    ));
+  };
 
   useEffect(() => {
     const featureSection = sectionRef.current;
@@ -64,7 +96,8 @@ const PortfolioShowcase: React.FC = () => {
             const speed = parseFloat(img.dataset.speed || "0.25");
 
             // Convert distance to a translate percentage for smoother feeling
-            const translateY = (-distanceFromCenter / viewportHeight) * 100 * speed;
+            const translateY =
+              (-distanceFromCenter / viewportHeight) * 100 * speed;
 
             // Use hardware acceleration
             img.style.transform = `translate3d(0, ${translateY}%, 0) scale(1.05)`;
@@ -84,6 +117,23 @@ const PortfolioShowcase: React.FC = () => {
     // Initial run
     handleParallax();
 
+    // Animate title
+    const titleLines = titleRef.current?.querySelectorAll(".line");
+    if (titleLines && titleLines.length > 0) {
+      gsap.set(titleLines, { yPercent: 100 });
+      gsap.to(titleLines, {
+        yPercent: 0,
+        duration: 1.8,
+        stagger: 0.8,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: featureSection,
+          start: "top 70%",
+          toggleActions: "play none none none",
+        },
+      });
+    }
+
     return () => {
       // Remove class from body
       document.body.classList.remove("portfolio-active");
@@ -91,7 +141,6 @@ const PortfolioShowcase: React.FC = () => {
       window.removeEventListener("scroll", handleParallax);
       window.removeEventListener("load", handleParallax);
       window.removeEventListener("resize", handleParallax);
-
     };
   }, []);
 
@@ -99,7 +148,9 @@ const PortfolioShowcase: React.FC = () => {
     <section className="project-feature" ref={sectionRef}>
       <div className="block-text">
         <div className="block-text-col">
-          <h3>Discover Your Dream Home</h3>
+          <h3 ref={titleRef}>
+            {splitTextIntoLines("Discover Your Dream Home")}
+          </h3>
         </div>
       </div>
 
@@ -140,9 +191,7 @@ const PortfolioShowcase: React.FC = () => {
       </div>
 
       <div className="cta-wrapper">
-        <GlassButton href="#">
-          See More Projects
-        </GlassButton>
+        <GlassButton href="#">See More Projects</GlassButton>
       </div>
     </section>
   );
