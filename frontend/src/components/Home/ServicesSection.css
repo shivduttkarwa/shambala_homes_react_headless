@@ -3,13 +3,13 @@
   background: #fafafa;
   color: #2c3e50;
   line-height: 1.6;
-  overflow-x: clip;
 }
 
 .services-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 100px 40px;
+  overflow-x: clip;
 }
 
 .services-layout {
@@ -275,12 +275,8 @@
 }
 
 @media (max-width: 768px) {
-  .services-section {
-    overflow-x: hidden;
-  }
   .services-container {
-    overflow-x: hidden;
-    padding: 60px 20px;
+    padding: 60px 15px;
   }
 
   .services-cards {

@@ -18,11 +18,11 @@
   background: rgba(20, 20, 20, 0.02);
   transition: color 0.3s ease, background 0.3s ease;
   cursor: pointer;
-  
+
   /* Reset any inherited styles */
   all: unset;
   box-sizing: border-box;
-  
+
   /* Reapply our specific styles */
   position: relative;
   display: inline-flex;
@@ -100,6 +100,6 @@ button.home-benefits-cta {
 }
 
 button.home-benefits-cta:focus {
-  outline: 2px solid #5B7C4F;
+  outline: 2px solid #5b7c4f;
   outline-offset: 2px;
 }

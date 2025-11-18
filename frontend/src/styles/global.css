@@ -1,15 +1,19 @@
-:root{
-  --accent:#5B7C4F;
-  --text:#2C2C2C;
-  --light-bg:#F5F3EE;
-  --cream:#FAF8F3;
+:root {
+  --accent: #5b7c4f;
+  --text: #2c2c2c;
+  --light-bg: #f5f3ee;
+  --cream: #faf8f3;
 }
 
-html,body{overflow-x:hidden!important}
-body{
-  margin:0; color:var(--text);
-  background:var(--cream);
-  font-family:"Nunito",sans-serif;
+html,
+body {
+  overflow-x: hidden !important;
+}
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--cream);
+  font-family: "Nunito", sans-serif;
 }
 
 * {
