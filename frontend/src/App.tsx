@@ -11,7 +11,7 @@ function App() {
   // Global preloader removed: hero-specific preloader handles the intro
 
   return (
-    <Router basename="/shambala_wagtail_headless">
+    <Router basename="/shambala_homes_react_headless">
       <div className="App">
         <Header settings={settings} />
         <main>
