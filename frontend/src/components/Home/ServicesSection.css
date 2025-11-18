@@ -1,0 +1,264 @@
+/* Services Section Styles */
+.services-section {
+  background: #fafafa;
+  color: #2c3e50;
+  line-height: 1.6;
+}
+
+.services-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 40px;
+}
+
+.services-layout {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Left side - Cards in Masonry Layout */
+.services-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px; /* Reduced gap */
+  grid-auto-rows: 10px;
+}
+
+.service-card {
+  position: relative;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+  border: 1px solid #e0e0e0;
+}
+
+/* Staggered masonry layout */
+.service-card:nth-child(1) {
+  grid-row: 6 / span 22;
+  grid-column: 1;
+}
+
+.service-card:nth-child(2) {
+  grid-row: 1 / span 22;
+  grid-column: 2;
+}
+
+.service-card:nth-child(3) {
+  grid-row: 28 / span 22;
+  grid-column: 1;
+}
+
+.service-card:nth-child(4) {
+  grid-row: 23 / span 22;
+  grid-column: 2;
+}
+
+.service-card:nth-child(5) {
+  grid-row: 50 / span 22;
+  grid-column: 1;
+}
+
+.service-card:nth-child(6) {
+  grid-row: 45 / span 22;
+  grid-column: 2;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.service-card-image {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-card-image {
+  transform: scale(1.05);
+}
+
+.service-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  padding: 20px;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-title {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.service-description {
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.service-cta {
+  align-self: flex-start;
+  padding: 8px 24px;
+  background: #1a1a1a;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.service-cta:hover {
+  background: #333;
+}
+
+/* Right side - Sticky Content */
+.services-content {
+  position: sticky;
+  top: calc(30vh - 200px);
+  padding: 40px;
+  max-height: 70vh; /* Prevent content from going off-screen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: start; /* Ensures it sticks properly within the grid container */
+}
+
+.title-decorator {
+  width: 60px;
+  height: 2px;
+  background: #1a1a1a;
+  margin-bottom: 24px;
+}
+
+.services-title {
+  font-size: 64px;
+  font-family: "Dream Avenue", serif;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  color: #1a1a1a;
+  letter-spacing: -1px;
+}
+
+.services-description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Glass Button Customization for Services Section */
+.services-content .glass-button {
+  height: 60px !important;
+  width: 200px !important;
+  padding: 0 20px !important;
+}
+
+/* Text animation masks */
+.services-title .mask {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+.services-title .line {
+  display: inline-block;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 14px 40px;
+  background: #1a1a1a;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.cta-button:hover {
+  background: #333;
+}
+
+.cta-button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .services-layout {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .services-cards {
+    gap: 12px;
+  }
+
+  .services-content {
+    position: relative;
+    top: 0;
+    order: -1;
+  }
+
+  .services-title {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-container {
+    padding: 60px 20px;
+  }
+
+  .services-cards {
+    gap: 16px;
+  }
+
+  .service-card:nth-child(1),
+  .service-card:nth-child(2),
+  .service-card:nth-child(3),
+  .service-card:nth-child(4),
+  .service-card:nth-child(5),
+  .service-card:nth-child(6) {
+    grid-row: span 20;
+  }
+
+  .services-title {
+    font-size: 44px;
+  }
+
+  .services-description {
+    font-size: 18px;
+  }
+}

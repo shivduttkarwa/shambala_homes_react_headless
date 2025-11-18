@@ -2,6 +2,7 @@ import NewHeroSection from "../components/Home/NewHeroSection";
 import { EssenceSection, PortfolioShowcase, FeaturedProperties, BenefitsSection } from "../components/Home";
 import OurVisionSection from "../components/Home/OurVisionSection";
 import CTASection from "../components/Home/CTASection";
+import ServicesSection from "../components/Home/ServicesSection";
 import BodyRenderer from "../components/BodyRenderer";
 import { useHome } from "../hooks/useHome";
 import { SiteSettings } from "../services/api";
@@ -19,6 +20,7 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
     <>
       <NewHeroSection />
       <EssenceSection />
+      <ServicesSection />
       <BenefitsSection />
       <PortfolioShowcase />
 
