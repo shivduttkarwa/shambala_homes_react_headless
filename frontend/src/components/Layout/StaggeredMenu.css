@@ -133,12 +133,7 @@
 
 /* Icon (Plus/X) */
 .sm-icon {
-  width: 16px;
-  height: 16px;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
 }
 
 .sm-icon-line {
