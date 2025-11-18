@@ -7,16 +7,27 @@
 }
 
 .footer::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  background: radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 50%
+    );
   pointer-events: none;
 }
 
@@ -51,22 +62,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 10px 20px rgba(0, 0, 0, 0.2),
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   position: relative;
   margin-bottom: 10px;
 }
 
 .footer-brand-circle::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 50%
+  );
   border-radius: 50%;
   z-index: -1;
 }
@@ -116,7 +129,7 @@
 }
 
 .footer-section-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 0;
@@ -151,45 +164,20 @@
   transform: translateX(8px);
 }
 
-.social-icon {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.social-icon svg {
-  width: 100%;
-  height: 100%;
-  transition: all 0.3s ease;
-  fill: currentColor;
-}
-
-.social-icon svg path {
-  fill: currentColor;
-}
-
-.social-instagram:hover .social-icon {
+.social-instagram:hover {
   color: #e4405f;
-  transform: scale(1.2);
 }
 
-.social-facebook:hover .social-icon {
+.social-facebook:hover {
   color: #1877f2;
-  transform: scale(1.2);
 }
 
-.social-linkedin:hover .social-icon {
+.social-linkedin:hover {
   color: #0077b5;
-  transform: scale(1.2);
 }
 
-.social-youtube:hover .social-icon {
+.social-youtube:hover {
   color: #ff0000;
-  transform: scale(1.2);
 }
 
 /* Navigation Links */
@@ -289,7 +277,7 @@
 }
 
 .footer-developer-credit-inline {
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
   margin: 8px 0 0 0;
@@ -297,6 +285,43 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-weight: 400;
   letter-spacing: 0.5px;
+}
+
+/* Follow Us Section */
+.footer-follow-us-section {
+  display: flex !important;
+  flex-direction: column;
+  gap: 24px;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.footer-follow-links {
+  display: flex !important;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.follow-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-decoration: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 8px 0;
+  border-bottom: 1px solid transparent;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.follow-link:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Large Brand Name at Bottom */
@@ -381,7 +406,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 40px;
   }
-  
+
   .footer-brand-box {
     grid-column: 1 / -1;
   }
