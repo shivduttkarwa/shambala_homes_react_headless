@@ -33,8 +33,8 @@ interface BlogSectionProps {
 
 const BlogSection: React.FC<BlogSectionProps> = ({
   sectionTitle = "Latest Insights",
-  ctaText = "View all blog posts",
-  ctaLink = "#",
+  ctaText: _ctaText = "View all blog posts",
+  ctaLink: _ctaLink = "#",
   posts = [
     {
       id: 1,
@@ -69,7 +69,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
     }
   ]
 }) => {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const featuredPost = posts[0]; // First blog for featured section
   const gridPosts = posts.slice(1, 3); // Next 2 blogs for grid section
 
@@ -170,7 +170,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
       {/* SECOND SCREEN - 2 BLOGS LAYOUT */}
       <section className="blog-posts-section">
         <div className="blog-posts-container">
-          {gridPosts.map((post, index) => (
+          {gridPosts.map((post) => (
             <article key={post.id} className="blog-post-card">
               <h3 className="blog-post-title home-blog-heading">
                 {post.title}

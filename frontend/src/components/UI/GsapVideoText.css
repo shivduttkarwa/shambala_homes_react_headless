@@ -99,7 +99,7 @@
   }
   .gsap-text-left,
   .gsap-text-right {
-    font-size: clamp(2rem, 12vw, 4rem);
+    font-size: clamp(2rem, 10vw, 4rem);
   }
 
   .gsap-video-container {

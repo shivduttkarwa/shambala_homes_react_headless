@@ -25,7 +25,7 @@ section.project-feature {
   position: relative;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
-  background: #e6e8e6;
+  background: #f8f8f8;
   --grid-column-count: 12;
   /* Force normal overflow for sticky positioning */
   overflow: visible !important;

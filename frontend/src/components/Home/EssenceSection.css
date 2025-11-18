@@ -162,7 +162,6 @@
   transform: translateZ(0);
 }
 
-
 /* Responsive Design */
 @media (max-width: 1200px) {
   .essence-content {
@@ -173,7 +172,6 @@
     font-size: 3.5rem;
   }
 }
-
 
 @media (max-width: 968px) {
   .essence-layout {
@@ -268,7 +266,6 @@
   .essence-img {
     min-height: 45vh;
   }
-
 }
 
 @media (max-width: 480px) {
