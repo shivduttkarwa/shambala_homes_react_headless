@@ -179,16 +179,18 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
           ease: "linear",
         });
 
-        gsap.from(".glass-button", {
-          scrollTrigger: {
-            trigger: ".services-content",
-            start: "top 70%",
-          },
+        // Button animation - simple fade in
+        gsap.from(".services-content .home-benefits-cta", {
           opacity: 0,
           y: 15,
           duration: 0.6,
           delay: 0.6,
           ease: "linear",
+          scrollTrigger: {
+            trigger: ".services-content",
+            start: "top 70%",
+            toggleActions: "play none none none",
+          }
         });
       }
     }, sectionRef);

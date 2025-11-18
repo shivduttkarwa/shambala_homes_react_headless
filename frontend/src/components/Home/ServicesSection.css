@@ -172,10 +172,41 @@
 }
 
 /* Glass Button Customization for Services Section */
-.services-content .glass-button {
-  height: 60px !important;
-  width: 200px !important;
-  padding: 0 20px !important;
+.services-content .home-benefits-cta {
+  height: 70px !important;
+  min-height: 70px !important;
+  width: 220px !important;
+  max-width: 220px !important;
+  padding: 20px 20px !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto !important;
+  visibility: visible !important;
+  display: inline-flex !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+  background: rgba(20, 20, 20, 0.02) !important;
+  border-top: 1px solid rgba(20, 20, 20, 0.12) !important;
+  border-bottom: 1px solid rgba(20, 20, 20, 0.12) !important;
+  box-sizing: border-box !important;
+}
+
+.services-content .home-benefits-cta .home-benefits-cta-label {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.services-content .home-benefits-cta .home-benefits-cta-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  min-width: 2.5rem !important;
+  min-height: 2.5rem !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
 }
 
 /* Text animation masks */
