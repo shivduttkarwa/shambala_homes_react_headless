@@ -5,24 +5,32 @@ import { Header, Footer } from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import HouseDesignsRoute from "./pages/HouseDesignsRoute";
 import { useSiteSettings } from "./hooks/useSiteSettings";
+import Preloader from "./components/UI/Preloader";
 
 function App() {
   const { settings } = useSiteSettings();
-  // Global preloader removed: hero-specific preloader handles the intro
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handlePreloadComplete = () => {
+    setIsLoading(false);
+  };
 
   return (
-    <Router basename="/shambala_homes_react_headless">
-      <div className="App">
-        <Header settings={settings} />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage settings={settings} />} />
-            <Route path="/house-designs" element={<HouseDesignsRoute />} />
-          </Routes>
-        </main>
-        <Footer settings={settings} />
-      </div>
-    </Router>
+    <>
+      {isLoading && <Preloader onComplete={handlePreloadComplete} />}
+      <Router basename="/shambala_homes_react_headless">
+        <div className="App">
+          <Header settings={settings} />
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage settings={settings} />} />
+              <Route path="/house-designs" element={<HouseDesignsRoute />} />
+            </Routes>
+          </main>
+          <Footer settings={settings} />
+        </div>
+      </Router>
+    </>
   );
 }
 

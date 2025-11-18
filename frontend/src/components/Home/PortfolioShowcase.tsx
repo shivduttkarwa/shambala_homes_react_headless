@@ -4,25 +4,27 @@ import GlassButton from "../UI/GlassButton";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+const publicUrl = import.meta.env.BASE_URL;
+
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
     title: "Modern Zen Retreat",
-    bg: "/shambala_homes/images/l4.jpg",
-    thumb: "/shambala_homes/images/2.jpg",
+    bg: `${publicUrl}images/prs1.jpg`,
+    thumb: `${publicUrl}images/port1.jpg`,
     tags: ["3 Bed", "2 Bath", "1,800 Sqft", "Garden View"],
   },
   {
     title: "Luxury Villa Estate",
-    bg: "/shambala_homes/images/l5.jpg",
-    thumb: "/shambala_homes/images/11.jpg",
+    bg: `${publicUrl}images/l8.jpg`,
+    thumb: `${publicUrl}images/port2.jpg`,
     tags: ["4 Bed", "3.5 Bath", "2,500 Sqft", "Pool", "Premium"],
   },
   {
     title: "Cozy Family Home",
-    bg: "/shambala_homes/images/l6.jpg",
-    thumb: "/shambala_homes/images/3.jpg",
+    bg: `${publicUrl}images/port2.jpg`,
+    thumb: `${publicUrl}images/project2.jpg`,
     tags: ["2 Bed", "2 Bath", "1,200 Sqft", "Family Friendly", "Affordable"],
   },
 ];

@@ -34,7 +34,7 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
   ctaText = "VIEW OUR DESIGNS",
   ctaHref = "#house-designs",
   image = {
-    src: `${publicUrl}images/3.jpg`,
+    src: `${publicUrl}images/ess.jpg`,
     alt: "Modern architectural design",
   },
   videoUrl = `${publicUrl}images/hero1.mp4`,

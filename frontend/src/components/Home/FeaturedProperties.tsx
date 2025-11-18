@@ -6,6 +6,8 @@ import "swiper/css/navigation";
 import "./FeaturedProperties.css";
 import GlassButton from "../UI/GlassButton";
 
+const publicUrl = import.meta.env.BASE_URL;
+
 interface PropertySlide {
   id: number;
   category: string;
@@ -22,13 +24,10 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 1,
     category: "",
-    title: "\"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS\"",
-    leftImage:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&h=1600&fit=crop&q=90",
-    rightImage:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&h=1600&fit=crop&q=90",
-    tabletImage:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=800&fit=crop&q=90",
+    title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
+    leftImage: `${publicUrl}images/l4.jpg`,
+    rightImage: `${publicUrl}images/zz.jpg`,
+    tabletImage: `${publicUrl}images/pexels-heyho-7746563.jpg`,
     subtitle: "Creating exceptional living spaces",
     description:
       "Building tomorrow's homes today.\n\nOur vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every Shambala home is designed to enhance your lifestyle while respecting the environment.",
@@ -37,13 +36,10 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 2,
     category: "",
-    title: "\"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS\"",
-    leftImage:
-      "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&h=1600&fit=crop&q=90",
-    rightImage:
-      "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&h=1600&fit=crop&q=90",
-    tabletImage:
-      "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=800&fit=crop&q=90",
+    title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
+    leftImage: `${publicUrl}images/pexels-asphotography-94818.jpg`,
+    rightImage: `${publicUrl}images/pexels-fotoaibe-1571460.jpg`,
+    tabletImage: `${publicUrl}images/pexels-fotoaibe-1571460.jpg`,
     subtitle: "Sustainable design philosophy",
     description:
       "Innovation meets responsibility.\n\nWe believe in building homes that give back to the environment. Our sustainable design philosophy incorporates renewable materials, energy-efficient systems, and water conservation technologies to create homes that care for our planet.",
@@ -52,13 +48,10 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 3,
     category: "",
-    title: "\"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS\"",
-    leftImage:
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=1600&fit=crop&q=90",
-    rightImage:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=1600&fit=crop&q=90",
-    tabletImage:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=800&fit=crop&q=90",
+    title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
+    leftImage: `${publicUrl}images/pexels-expect-best-79873-323780.jpg`,
+    rightImage: `${publicUrl}images/pr1.jpg`,
+    tabletImage: `${publicUrl}images/pr1.jpg`,
     subtitle: "Community-centered approach",
     description:
       "Building connections, not just homes.\n\nOur vision extends beyond individual homes to creating vibrant communities. We design neighborhoods that encourage interaction, promote wellbeing, and foster lasting relationships between residents and their environment.",
@@ -67,13 +60,10 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 4,
     category: "",
-    title: "\"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS\"",
-    leftImage:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=1600&fit=crop&q=90",
-    rightImage:
-      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&h=1600&fit=crop&q=90",
-    tabletImage:
-      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=800&fit=crop&q=90",
+    title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
+    leftImage: `${publicUrl}images/pexels-jvdm-1457842.jpg`,
+    rightImage: `${publicUrl}images/pr2.jpg`,
+    tabletImage: `${publicUrl}images/pr2.jpg`,
     subtitle: "Excellence in craftsmanship",
     description:
       "Where quality meets artistry.\n\nOur commitment to excellence drives everything we do. From initial concept to final handover, we maintain the highest standards of craftsmanship, ensuring every Shambala home is a testament to quality, durability, and timeless design.",

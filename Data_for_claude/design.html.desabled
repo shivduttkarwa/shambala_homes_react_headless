@@ -1,544 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shambala Homes - Our Recent Projects</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Astral Frontier - Preloader</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Georgia", "Times New Roman", serif;
-        background: #fafafa;
-        color: #2c3e50;
-        line-height: 1.6;
-      }
-
-      /* Dummy Sections */
-      .dummy-section {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 48px;
-        font-weight: 700;
-        color: #34495e;
-      }
-
-      .dummy-section.top {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-      }
-
-      .dummy-section.bottom {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        color: white;
-      }
-
-      .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 100px 40px;
-      }
-
-      .projects-section {
-        display: grid;
-        grid-template-columns: 60% 40%;
-        gap: 60px;
-        align-items: start;
-      }
-
-      /* Left side - Cards in Masonry Layout */
-      .projects-cards {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px; /* Reduced gap */
-        grid-auto-rows: 10px;
-      }
-
-      .project-card {
-        position: relative;
-        border-radius: 0;
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        will-change: transform;
-        border: 1px solid #e0e0e0;
-      }
-
-      /* Staggered masonry layout 
-           - First number (e.g., "3" in "3 / span 18") controls START ROW
-           - "span 18" controls HEIGHT (18 rows = 180px)
-           - Increase start row to push card down, decrease to move up
-        */
-      .project-card:nth-child(1) {
-        grid-row: 6 / span 22;
-        grid-column: 1;
-      }
-
-      .project-card:nth-child(2) {
-        grid-row: 1 / span 22;
-        grid-column: 2;
-      }
-
-      .project-card:nth-child(3) {
-        grid-row: 28 / span 22;
-        grid-column: 1;
-      }
-
-      .project-card:nth-child(4) {
-        grid-row: 23 / span 22;
-        grid-column: 2;
-      }
-
-      .project-card:nth-child(5) {
-        grid-row: 50 / span 22;
-        grid-column: 1;
-      }
-
-      .project-card:nth-child(6) {
-        grid-row: 45 / span 22;
-        grid-column: 2;
-      }
-
-      .project-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-      }
-
-      .project-card-image {
-        width: 100%;
-        height: 60%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.5s ease;
-      }
-
-      .project-card:hover .project-card-image {
-        transform: scale(1.05);
-      }
-
-      .project-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #ffffff;
-        padding: 20px;
-        height: 40%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      .project-logo {
-        display: none;
-      }
-
-      .project-title {
-        color: #1a1a1a;
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 8px;
-        letter-spacing: -0.3px;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      .project-description {
-        color: #666;
-        font-size: 13px;
-        line-height: 1.5;
-        margin-bottom: 12px;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      .project-details {
-        display: none;
-      }
-
-      .project-cta {
-        align-self: flex-start;
-        padding: 8px 24px;
-        background: #1a1a1a;
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 12px;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        transition: background 0.3s ease;
-        border: none;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      .project-cta:hover {
-        background: #333;
-      }
-
-      /* Right side - Sticky Content */
-      .projects-content {
-        position: sticky;
-        top: 15vh;
-        padding: 40px;
-        max-height: 70vh; /* Prevent content from going off-screen */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .title-decorator {
-        width: 60px;
-        height: 2px;
-        background: #1a1a1a;
-        margin-bottom: 24px;
-      }
-
-      .projects-title {
-        font-size: 48px;
-        font-weight: 400;
-        line-height: 1.3;
-        margin-bottom: 24px;
-        color: #1a1a1a;
-        letter-spacing: -1px;
-      }
-
-      .projects-title span {
-        font-weight: 600;
-        color: #1a1a1a;
-      }
-
-      .projects-description {
-        font-size: 16px;
-        color: #666;
-        margin-bottom: 40px;
-        line-height: 1.8;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      .cta-button {
-        display: inline-block;
-        padding: 14px 40px;
-        background: #1a1a1a;
-        color: white;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 14px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        transition: background 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-
-      .cta-button:hover {
-        background: #333;
-      }
-
-      .cta-button span {
-        position: relative;
-        z-index: 1;
-      }
-
-      .cta-button:before {
-        display: none;
-      }
-
-      @media (max-width: 1024px) {
-        .projects-section {
-          grid-template-columns: 1fr;
-          gap: 60px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .projects-cards {
-          gap: 12px;
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #8F7E77;
+            overflow-x: hidden;
         }
 
-        .projects-content {
-          position: relative;
-          top: 0;
-          order: -1;
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        .projects-title {
-          font-size: 42px;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .container {
-          padding: 60px 20px;
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
 
-        .projects-cards {
-          gap: 16px;
+        .preloader-content {
+            position: relative;
+            text-align: center;
         }
 
-        .project-card:nth-child(1),
-        .project-card:nth-child(2),
-        .project-card:nth-child(3),
-        .project-card:nth-child(4),
-        .project-card:nth-child(5),
-        .project-card:nth-child(6) {
-          grid-row: span 20;
+        /* Animated Border Frame */
+        .loader-frame {
+            position: relative;
+            width: 180px;
+            height: 90px;
+            margin: 0 auto 30px;
         }
 
-        .projects-title {
-          font-size: 36px;
+        .loader-corners {
+            position: absolute;
+            inset: 0;
         }
 
-        .projects-description {
-          font-size: 18px;
+        .corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
         }
-      }
+
+        .corner-line {
+            position: absolute;
+            background: #8F7E77;
+        }
+
+        /* Top Left Corner */
+        .top-left {
+            top: 0;
+            left: 0;
+        }
+
+        .top-left .v-line {
+            width: 1px;
+            height: 0;
+            left: 0;
+            top: 0;
+            animation: expandVertical 1s ease forwards;
+        }
+
+        .top-left .h-line {
+            height: 1px;
+            width: 0;
+            top: 0;
+            left: 0;
+            animation: expandHorizontal 1s ease 0.25s forwards;
+        }
+
+        /* Top Right Corner */
+        .top-right {
+            top: 0;
+            right: 0;
+        }
+
+        .top-right .h-line {
+            height: 1px;
+            width: 0;
+            top: 0;
+            right: 0;
+            animation: expandHorizontalReverse 1s ease 0.5s forwards;
+        }
+
+        .top-right .v-line {
+            width: 1px;
+            height: 0;
+            right: 0;
+            top: 0;
+            animation: expandVertical 1s ease 0.75s forwards;
+        }
+
+        /* Bottom Right Corner */
+        .bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+
+        .bottom-right .v-line {
+            width: 1px;
+            height: 0;
+            right: 0;
+            bottom: 0;
+            animation: expandVerticalReverse 1s ease 1s forwards;
+        }
+
+        .bottom-right .h-line {
+            height: 1px;
+            width: 0;
+            bottom: 0;
+            right: 0;
+            animation: expandHorizontalReverse 1s ease 1.25s forwards;
+        }
+
+        /* Bottom Left Corner */
+        .bottom-left {
+            bottom: 0;
+            left: 0;
+        }
+
+        .bottom-left .h-line {
+            height: 1px;
+            width: 0;
+            bottom: 0;
+            left: 0;
+            animation: expandHorizontal 1s ease 1.5s forwards;
+        }
+
+        .bottom-left .v-line {
+            width: 1px;
+            height: 0;
+            left: 0;
+            bottom: 0;
+            animation: expandVerticalReverse 1s ease 1.75s forwards;
+        }
+
+        /* Top and Bottom Lines with Dashes */
+        .top-line, .bottom-line {
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            height: 1px;
+            opacity: 0;
+            animation: fadeInLine 0.5s ease 2s forwards;
+        }
+
+        .top-line {
+            top: 0;
+            background: repeating-linear-gradient(
+                to right,
+                #8F7E77 0px,
+                #8F7E77 10px,
+                transparent 10px,
+                transparent 15px
+            );
+        }
+
+        .bottom-line {
+            bottom: 0;
+            background: repeating-linear-gradient(
+                to right,
+                #8F7E77 0px,
+                #8F7E77 10px,
+                transparent 10px,
+                transparent 15px
+            );
+        }
+
+        /* Percentage Counter */
+        .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            color: #8F7E77;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 2.5s forwards;
+        }
+
+        /* Begin Journey Text */
+        .begin-text {
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: #8F7E77;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 3.5s forwards;
+        }
+
+        /* Top Text */
+        .top-text {
+            position: absolute;
+            top: 80px;
+            right: 50%;
+            transform: translateX(50%);
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #8F7E77;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 2.5s forwards;
+            white-space: nowrap;
+        }
+
+        /* Animations */
+        @keyframes expandVertical {
+            to { height: 20px; }
+        }
+
+        @keyframes expandVerticalReverse {
+            from { height: 0; }
+            to { height: 20px; }
+        }
+
+        @keyframes expandHorizontal {
+            to { width: 20px; }
+        }
+
+        @keyframes expandHorizontalReverse {
+            from { width: 0; }
+            to { width: 20px; }
+        }
+
+        @keyframes fadeInLine {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Landing Section */
+        .landing {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 100px 80px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000000" width="1920" height="1080"/></svg>');
+            position: relative;
+        }
+
+        .landing::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(143, 126, 119, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .landing-content {
+            max-width: 800px;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-title {
+            font-size: 80px;
+            line-height: 1.1;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: #8F7E77;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #8F7E77;
+            opacity: 0.8;
+        }
+
+        /* Grid Lines Background */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .grid-line {
+            position: absolute;
+            background: #8F7E77;
+        }
+
+        .grid-line.vertical {
+            width: 1px;
+            height: 100%;
+            top: 0;
+        }
+
+        .grid-line.horizontal {
+            height: 1px;
+            width: 100%;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .landing {
+                padding: 60px 30px;
+                justify-content: center;
+            }
+
+            .landing-content {
+                text-align: center;
+            }
+
+            .main-title {
+                font-size: 40px;
+                letter-spacing: 4px;
+            }
+
+            .subtitle {
+                font-size: 10px;
+            }
+
+            .loader-frame {
+                width: 150px;
+                height: 75px;
+            }
+
+            .percentage {
+                font-size: 22px;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <!-- Top Dummy Section -->
-    <div class="dummy-section top">Scroll Down to See Projects ↓</div>
-
-    <div class="container">
-      <div class="projects-section">
-        <!-- Left side - Project Cards -->
-        <div class="projects-cards">
-          <div class="project-card" data-card="1">
-            <img
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop"
-              alt="New Home Construction"
-              class="project-card-image"
-            />
-            <div class="project-overlay">
-              <div>
-                <div class="project-title">New Home Construction</div>
-                <div class="project-description">
-                  From concept to completion, we build bespoke homes tailored to
-                  your lifestyle and vision.
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="top-text">Job Shooting for Exploration</div>
+            
+            <div class="loader-frame">
+                <div class="loader-corners">
+                    <!-- Top Left -->
+                    <div class="corner top-left">
+                        <div class="corner-line v-line"></div>
+                        <div class="corner-line h-line"></div>
+                    </div>
+                    
+                    <!-- Top Right -->
+                    <div class="corner top-right">
+                        <div class="corner-line h-line"></div>
+                        <div class="corner-line v-line"></div>
+                    </div>
+                    
+                    <!-- Bottom Right -->
+                    <div class="corner bottom-right">
+                        <div class="corner-line v-line"></div>
+                        <div class="corner-line h-line"></div>
+                    </div>
+                    
+                    <!-- Bottom Left -->
+                    <div class="corner bottom-left">
+                        <div class="corner-line h-line"></div>
+                        <div class="corner-line v-line"></div>
+                    </div>
                 </div>
-              </div>
-              <a href="#" class="project-cta">Learn More</a>
+                
+                <div class="top-line"></div>
+                <div class="bottom-line"></div>
+                
+                <div class="percentage" id="percentage">0%</div>
             </div>
-          </div>
 
-          <div class="project-card" data-card="2">
-            <img
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
-              alt="Home Renovations"
-              class="project-card-image"
-            />
-            <div class="project-overlay">
-              <div>
-                <div class="project-title">Complete Renovations</div>
-                <div class="project-description">
-                  Transform your existing home with our comprehensive renovation
-                  and remodeling services.
-                </div>
-              </div>
-              <a href="#" class="project-cta">Learn More</a>
-            </div>
-          </div>
-
-          <div class="project-card" data-card="3">
-            <img
-              src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop"
-              alt="Home Extensions"
-              class="project-card-image"
-            />
-            <div class="project-overlay">
-              <div>
-                <div class="project-title">Extensions & Upgrades</div>
-                <div class="project-description">
-                  Expand your living space with expertly designed extensions
-                  that blend seamlessly with your home.
-                </div>
-              </div>
-              <a href="#" class="project-cta">Learn More</a>
-            </div>
-          </div>
-
-          <div class="project-card" data-card="4">
-            <img
-              src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop"
-              alt="Downsizing Solutions"
-              class="project-card-image"
-            />
-            <div class="project-overlay">
-              <div>
-                <div class="project-title">Downsizing Solutions</div>
-                <div class="project-description">
-                  Thoughtful designs that maximize comfort and functionality in
-                  smaller, more efficient spaces.
-                </div>
-              </div>
-              <a href="#" class="project-cta">Learn More</a>
-            </div>
-          </div>
-
-          <div class="project-card" data-card="5">
-            <img
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop"
-              alt="Landscaping Services"
-              class="project-card-image"
-            />
-            <div class="project-overlay">
-              <div>
-                <div class="project-title">Landscape Design</div>
-                <div class="project-description">
-                  Create stunning outdoor spaces that complement your home with
-                  our professional landscaping services.
-                </div>
-              </div>
-              <a href="#" class="project-cta">Learn More</a>
-            </div>
-          </div>
-
-          <div class="project-card" data-card="6">
-            <img
-              src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop"
-              alt="Custom Builds"
-              class="project-card-image"
-            />
-            <div class="project-overlay">
-              <div>
-                <div class="project-title">Custom Design Build</div>
-                <div class="project-description">
-                  Unique architectural solutions crafted to reflect your
-                  personal style and requirements.
-                </div>
-              </div>
-              <a href="#" class="project-cta">Learn More</a>
-            </div>
-          </div>
+            <div class="begin-text">Begin Journey</div>
         </div>
-
-        <!-- Right side - Sticky Content -->
-        <div class="projects-content">
-          <div class="title-decorator"></div>
-          <h2 class="projects-title">
-            Our <span>Services</span><br />
-            Building Excellence<br />
-            Across Australia
-          </h2>
-          <p class="projects-description">
-            Shambala Homes delivers comprehensive construction services from new
-            home builds to complete renovations. With decades of experience and
-            unwavering commitment to quality, we transform architectural visions
-            into lasting realities.
-          </p>
-          <a href="#" class="cta-button">
-            <span>View All Services</span>
-          </a>
-        </div>
-      </div>
     </div>
 
-    <!-- Bottom Dummy Section -->
-    <div class="dummy-section bottom">End of Projects Section ↑</div>
+    <!-- Landing Section -->
+    <section class="landing">
+        <div class="grid-overlay">
+            <div class="grid-line vertical" style="left: 20%;"></div>
+            <div class="grid-line vertical" style="left: 40%;"></div>
+            <div class="grid-line vertical" style="left: 60%;"></div>
+            <div class="grid-line vertical" style="left: 80%;"></div>
+            <div class="grid-line horizontal" style="top: 25%;"></div>
+            <div class="grid-line horizontal" style="top: 50%;"></div>
+            <div class="grid-line horizontal" style="top: 75%;"></div>
+        </div>
+
+        <div class="landing-content">
+            <h1 class="main-title">
+                PREPARE YOUR<br>
+                JOURNEY ACROSS<br>
+                DISTANT WORLDS...
+            </h1>
+            <p class="subtitle">For best experience turn volume on</p>
+        </div>
+    </section>
 
     <script>
-      // Register GSAP plugins
-      gsap.registerPlugin(ScrollTrigger);
+        // Percentage Counter Animation
+        const percentageEl = document.getElementById('percentage');
+        const preloader = document.getElementById('preloader');
+        let count = 0;
+        const targetCount = 100;
+        const duration = 4000; // 4 seconds
+        const startDelay = 2500; // Start after border animation completes
 
-      // Get all cards
-      const cards = gsap.utils.toArray(".project-card");
-
-      // Set initial state for all cards
-      gsap.set(cards, {
-        opacity: 0,
-        x: 150,
-        y: 100,
-        rotation: -16,
-        transformOrigin: "center center",
-      });
-
-      // Animate each card on scroll with stagger
-      cards.forEach((card, index) => {
-        gsap.to(card, {
-          opacity: 1,
-          x: 0,
-          y: 0,
-          rotation: 0,
-          duration: 0.2,
-          ease: "none",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-            // markers: true, // Uncomment to debug
-          },
-          delay: index * 0.1,
-        });
-      });
-
-      // Parallax effect on images
-      cards.forEach((card) => {
-        const img = card.querySelector(".project-card-image");
-        gsap.to(img, {
-          yPercent: -1,
-          ease: "linear",
-          scrollTrigger: {
-            trigger: card,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      });
-
-      // Fade in content elements on desktop only
-      if (window.innerWidth > 1024) {
-        gsap.from(".title-decorator", {
-          scrollTrigger: {
-            trigger: ".projects-content",
-            start: "top 70%",
-          },
-          scaleX: 0,
-          duration: 0.6,
-          ease: "linear",
-        });
-
-        gsap.from(".projects-title", {
-          scrollTrigger: {
-            trigger: ".projects-content",
-            start: "top 70%",
-          },
-          opacity: 0,
-          y: 30,
-          duration: 0.6,
-          delay: 0.2,
-          ease: "linear",
-        });
-
-        gsap.from(".projects-description", {
-          scrollTrigger: {
-            trigger: ".projects-content",
-            start: "top 70%",
-          },
-          opacity: 0,
-          y: 20,
-          duration: 0.6,
-          delay: 0.4,
-          ease: "linear",
-        });
-
-        gsap.from(".cta-button", {
-          scrollTrigger: {
-            trigger: ".projects-content",
-            start: "top 70%",
-          },
-          opacity: 0,
-          y: 15,
-          duration: 0.6,
-          delay: 0.6,
-          ease: "linear",
-        });
-      }
+        setTimeout(() => {
+            const increment = targetCount / (duration / 16); // 60fps
+            
+            const counter = setInterval(() => {
+                count += increment;
+                if (count >= targetCount) {
+                    count = targetCount;
+                    clearInterval(counter);
+                    
+                    // Hide preloader after completion
+                    setTimeout(() => {
+                        preloader.classList.add('hidden');
+                    }, 500);
+                }
+                percentageEl.textContent = Math.floor(count) + '%';
+            }, 16);
+        }, startDelay);
     </script>
-  </body>
+</body>
 </html>

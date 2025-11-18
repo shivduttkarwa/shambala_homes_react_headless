@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ServicesSection.css";
 import GlassButton from "../UI/GlassButton";
 
+const publicUrl = import.meta.env.BASE_URL;
+
 gsap.registerPlugin(ScrollTrigger);
 
 interface ServiceCard {
@@ -31,8 +33,7 @@ const defaultServices: ServiceCard[] = [
     title: "New Home Construction",
     description:
       "From concept to completion, we build bespoke homes tailored to your lifestyle and vision.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+    imageSrc: `${publicUrl}images/sm1.jpg`,
     alt: "New Home Construction",
     ctaText: "Learn More",
     ctaLink: "#",
@@ -42,8 +43,7 @@ const defaultServices: ServiceCard[] = [
     title: "Complete Renovations",
     description:
       "Transform your existing home with our comprehensive renovation and remodeling services.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+    imageSrc: `${publicUrl}images/sm2.jpg`,
     alt: "Home Renovations",
     ctaText: "Learn More",
     ctaLink: "#",
@@ -53,8 +53,7 @@ const defaultServices: ServiceCard[] = [
     title: "Extensions & Upgrades",
     description:
       "Expand your living space with expertly designed extensions that blend seamlessly with your home.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
+    imageSrc: `${publicUrl}images/sm3.jpg`,
     alt: "Home Extensions",
     ctaText: "Learn More",
     ctaLink: "#",
@@ -64,8 +63,7 @@ const defaultServices: ServiceCard[] = [
     title: "Downsizing Solutions",
     description:
       "Thoughtful designs that maximize comfort and functionality in smaller, more efficient spaces.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop",
+    imageSrc: `${publicUrl}images/sm4.jpg`,
     alt: "Downsizing Solutions",
     ctaText: "Learn More",
     ctaLink: "#",
@@ -75,8 +73,7 @@ const defaultServices: ServiceCard[] = [
     title: "Landscape Design",
     description:
       "Create stunning outdoor spaces that complement your home with our professional landscaping services.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+    imageSrc: `${publicUrl}images/sm6.jpg`,
     alt: "Landscaping Services",
     ctaText: "Learn More",
     ctaLink: "#",
@@ -86,8 +83,7 @@ const defaultServices: ServiceCard[] = [
     title: "Custom Design Build",
     description:
       "Unique architectural solutions crafted to reflect your personal style and requirements.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop",
+    imageSrc: `${publicUrl}images/sm5.jpg`,
     alt: "Custom Builds",
     ctaText: "Learn More",
     ctaLink: "#",

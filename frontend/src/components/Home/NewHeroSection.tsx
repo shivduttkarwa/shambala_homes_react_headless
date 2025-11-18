@@ -4,6 +4,7 @@ import "./NewHeroSection.css";
 import { useNewHero } from "../../hooks/useHome";
 import GlassButton from "../UI/GlassButton";
 
+const publicUrl = import.meta.env.BASE_URL;
 
 // Error Boundary Component
 class HeroErrorBoundary extends Component<
@@ -39,7 +40,6 @@ const NewHeroSectionContent: React.FC = () => {
   const heroHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const { heroData } = useNewHero();
 
-
   // Split text into lines with mask - manual split for hero
   const splitTextIntoLines = (lines: string[]) => {
     return lines.map((line, index) => (
@@ -48,7 +48,6 @@ const NewHeroSectionContent: React.FC = () => {
       </div>
     ));
   };
-
 
   // Hero text animation
   useEffect(() => {
@@ -59,16 +58,13 @@ const NewHeroSectionContent: React.FC = () => {
       const headingLines = heroHeadingRef.current?.querySelectorAll(".line");
       if (headingLines && headingLines.length > 0) {
         gsap.set(headingLines, { yPercent: 100 });
-        gsap.to(
-          headingLines,
-          {
-            yPercent: 0,
-            duration: 1.8,
-            stagger: 0.8,
-            ease: "power1.out",
-            delay: 0.5
-          }
-        );
+        gsap.to(headingLines, {
+          yPercent: 0,
+          duration: 1.8,
+          stagger: 0.8,
+          ease: "power1.out",
+          delay: 0.5,
+        });
       }
     }, heroSectionRef);
 
@@ -84,18 +80,13 @@ const NewHeroSectionContent: React.FC = () => {
         className="hero-section new-hero-section"
         id="new-hero-section"
       >
-        {/* Poster image - always show if available, serves as fallback/loading state */}
-        {heroData?.background.image && (
-          <div
-            className={`image-background ${
-              heroData?.background.video_url ? "video-poster" : ""
-            }`}
-            style={{
-              backgroundImage: `url(${heroData.background.image.desktop})`,
-            }}
-          />
-        )}
-
+        {/* Poster image - static image that shows while video loads */}
+        <div
+          className="image-background video-poster"
+          style={{
+            backgroundImage: `url(${publicUrl}images/hero_poster.jpg)`,
+          }}
+        />
 
         {/* Video - loads over the poster image */}
         {heroData?.background.video_url &&
@@ -103,9 +94,7 @@ const NewHeroSectionContent: React.FC = () => {
             <iframe
               className="video-background vimeo-iframe"
               style={{
-                backgroundColor: heroData?.background.image?.desktop
-                  ? "transparent"
-                  : "#1a1a1a",
+                backgroundColor: "transparent",
               }}
               src={`https://player.vimeo.com/video/${
                 heroData.background.video_url.match(/vimeo\.com\/(\d+)/)?.[1]
@@ -113,8 +102,8 @@ const NewHeroSectionContent: React.FC = () => {
               allow="autoplay; fullscreen"
               loading="eager"
               title="Hero Background Video"
-onLoad={() => {
-                // once iframe loads, hide poster
+              onLoad={() => {
+                // Keep poster visible for 2-3 seconds before showing video
                 setTimeout(() => {
                   const poster = document.querySelector(
                     "#new-hero-section .video-poster"
@@ -122,7 +111,7 @@ onLoad={() => {
                   if (poster) {
                     (poster as HTMLElement).style.opacity = "0";
                   }
-                }, 300);
+                }, 2500); // 2.5 seconds delay
               }}
             />
           ) : (
@@ -135,14 +124,16 @@ onLoad={() => {
               controls={false}
               disablePictureInPicture
               preload="auto"
-onCanPlay={() => {
-                // Hide poster immediately when MP4 video can play
-                const poster = document.querySelector(
-                  "#new-hero-section .video-poster"
-                );
-                if (poster) {
-                  (poster as HTMLElement).style.opacity = "0";
-                }
+              onCanPlay={() => {
+                // Keep poster visible for 2-3 seconds before showing video
+                setTimeout(() => {
+                  const poster = document.querySelector(
+                    "#new-hero-section .video-poster"
+                  );
+                  if (poster) {
+                    (poster as HTMLElement).style.opacity = "0";
+                  }
+                }, 2500); // 2.5 seconds delay
               }}
             >
               <source src={heroData.background.video_url} type="video/mp4" />
@@ -158,13 +149,10 @@ onCanPlay={() => {
           </div>
 
           <div className="hero-cta">
-            <GlassButton 
-              href={heroData?.cta.link || "#contact"}
-            >
+            <GlassButton href={heroData?.cta.link || "#contact"}>
               {heroData?.cta.text || "Get a Free Site Visit"}
             </GlassButton>
           </div>
-
         </div>
       </section>
     </>

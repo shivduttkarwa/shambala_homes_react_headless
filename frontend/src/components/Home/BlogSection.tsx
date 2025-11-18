@@ -1,9 +1,11 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import './BlogSection.css';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ScrollVelocity from '../animations/ScrollVelocity';
-import GlassButton from '../UI/GlassButton';
+import React, { useLayoutEffect, useRef } from "react";
+import "./BlogSection.css";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollVelocity from "../animations/ScrollVelocity";
+import GlassButton from "../UI/GlassButton";
+
+const publicUrl = import.meta.env.BASE_URL;
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,33 +43,36 @@ const BlogSection: React.FC<BlogSectionProps> = ({
       title: "Creating Sustainable Living Spaces with Shambala Homes",
       date: "15 Nov 2025",
       category: "Sustainability",
-      excerpt: "Discover how our eco-friendly construction methods and sustainable materials are revolutionizing modern Australian home building while reducing environmental impact.",
-      imageSrc: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+      excerpt:
+        "Discover how our eco-friendly construction methods and sustainable materials are revolutionizing modern Australian home building while reducing environmental impact.",
+      imageSrc: `${publicUrl}images/port1.jpg`,
       imageAlt: "Sustainable home construction",
       link: "#",
-      featured: true
+      featured: true,
     },
     {
       id: 2,
       title: "How Landscaping Enhances Property Value in Australia",
       date: "12 Nov 2025",
       category: "Design",
-      excerpt: "Discover how strategic landscaping can significantly increase your property value while creating beautiful outdoor spaces that complement your Shambala home.",
-      imageSrc: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+      excerpt:
+        "Discover how strategic landscaping can significantly increase your property value while creating beautiful outdoor spaces that complement your Shambala home.",
+      imageSrc: `${publicUrl}images/blog2.jpg`,
       imageAlt: "Landscaping design",
-      link: "#"
+      link: "#",
     },
     {
       id: 3,
       title: "Modern Australian Home Designs Inspired by Nature",
       date: "10 Nov 2025",
       category: "Architecture",
-      excerpt: "Explore our contemporary architectural designs that seamlessly blend with the natural Australian landscape, creating harmony between built and natural environments.",
-      imageSrc: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+      excerpt:
+        "Explore our contemporary architectural designs that seamlessly blend with the natural Australian landscape, creating harmony between built and natural environments.",
+      imageSrc: `${publicUrl}images/blog3.jpg`,
       imageAlt: "Modern home design",
-      link: "#"
-    }
-  ]
+      link: "#",
+    },
+  ],
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const featuredPost = posts[0]; // First blog for featured section
@@ -85,21 +90,21 @@ const BlogSection: React.FC<BlogSectionProps> = ({
           ease: "power2.out",
           scrollTrigger: {
             trigger: img as HTMLElement,
-            start: "top 85%"
-          }
+            start: "top 85%",
+          },
         });
       });
 
       // TEXT HEADING REVEAL
       document.querySelectorAll(".home-blog-heading").forEach((heading) => {
-        const words = (heading.textContent || '').trim().split(" ");
+        const words = (heading.textContent || "").trim().split(" ");
         heading.innerHTML = "";
 
         words.forEach((word, index) => {
           const span = document.createElement("span");
           span.textContent = word;
           heading.appendChild(span);
-          
+
           // Add space after each word except the last one
           if (index < words.length - 1) {
             heading.appendChild(document.createTextNode(" "));
@@ -114,11 +119,10 @@ const BlogSection: React.FC<BlogSectionProps> = ({
           stagger: 0.035,
           scrollTrigger: {
             trigger: heading,
-            start: "top 85%"
-          }
+            start: "top 85%",
+          },
         });
       });
-
     }, sectionRef);
 
     return () => ctx.revert();
@@ -149,20 +153,16 @@ const BlogSection: React.FC<BlogSectionProps> = ({
           <div className="blog-featured-image home-blog-reveal-img">
             <img src={featuredPost.imageSrc} alt={featuredPost.imageAlt} />
           </div>
-          
+
           {/* Content Half */}
           <div className="blog-featured-content">
             <h1 className="blog-featured-title home-blog-heading">
               {featuredPost.title}
             </h1>
-            
-            <p className="blog-featured-description">
-              {featuredPost.excerpt}
-            </p>
-            
-            <GlassButton href={featuredPost.link}>
-              Read More
-            </GlassButton>
+
+            <p className="blog-featured-description">{featuredPost.excerpt}</p>
+
+            <GlassButton href={featuredPost.link}>Read More</GlassButton>
           </div>
         </div>
       </section>
@@ -175,18 +175,14 @@ const BlogSection: React.FC<BlogSectionProps> = ({
               <h3 className="blog-post-title home-blog-heading">
                 {post.title}
               </h3>
-              
+
               <div className="blog-post-image home-blog-reveal-img">
                 <img src={post.imageSrc} alt={post.imageAlt} />
               </div>
-              
-              <p className="blog-post-description">
-                {post.excerpt}
-              </p>
-              
-              <GlassButton href={post.link}>
-                Read More
-              </GlassButton>
+
+              <p className="blog-post-description">{post.excerpt}</p>
+
+              <GlassButton href={post.link}>Read More</GlassButton>
             </article>
           ))}
         </div>

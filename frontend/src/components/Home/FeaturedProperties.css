@@ -230,7 +230,7 @@
 .left .image {
   max-width: 450px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   margin-top: auto;
 }
 
