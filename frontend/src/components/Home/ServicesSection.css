@@ -100,7 +100,7 @@
 
 .service-title {
   color: #1a1a1a;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
   margin-bottom: 8px;
   letter-spacing: -0.3px;
@@ -109,7 +109,7 @@
 
 .service-description {
   color: #666;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 1.5;
   margin-bottom: 12px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -288,7 +288,7 @@
     position: relative;
     grid-row: auto;
     grid-column: auto;
-    height: 320px; /* Fixed height for consistency */
+    height: 500px; /* Fixed height for consistency */
   }
 
   .service-card:nth-child(1),
@@ -345,15 +345,15 @@
 
   .service-card {
     margin: 0 5px 15px 5px; /* Adjust margins */
-    height: 280px; /* Smaller height for very small screens */
+    height: 460px; /* Increased height for better content visibility */
   }
 
   .service-title {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .service-description {
-    font-size: 11px;
+    font-size: 15px;
   }
 
   .services-title {

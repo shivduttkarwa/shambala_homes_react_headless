@@ -35,11 +35,13 @@
   margin-bottom: -10px;
 }
 
-.footer-logo {
-  height: 80px;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.9;
+.footer-brand-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 /* Social Links */
@@ -134,8 +136,51 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   user-select: none;
-  pointer-events: none;
   white-space: nowrap;
+}
+
+.footer-letter {
+  display: inline-block;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.footer-letter:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+/* Different paint colors for each letter on hover */
+.footer-letter:nth-child(1):hover {
+  color: #FF6B6B; /* Coral Red */
+}
+
+.footer-letter:nth-child(2):hover {
+  color: #4ECDC4; /* Turquoise */
+}
+
+.footer-letter:nth-child(3):hover {
+  color: #FFE66D; /* Sunny Yellow */
+}
+
+.footer-letter:nth-child(4):hover {
+  color: #A8E6CF; /* Mint Green */
+}
+
+.footer-letter:nth-child(5):hover {
+  color: #FF8B94; /* Pink */
+}
+
+.footer-letter:nth-child(6):hover {
+  color: #C7CEEA; /* Lavender */
+}
+
+.footer-letter:nth-child(7):hover {
+  color: #FFDAC1; /* Peach */
+}
+
+.footer-letter:nth-child(8):hover {
+  color: #B5EAD7; /* Seafoam */
 }
 
 /* Responsive Design */
@@ -151,17 +196,21 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 80px 0 0;
+    padding: 60px 0 0;
   }
 
   .footer-container {
-    padding: 0 30px;
+    padding: 0 20px;
   }
 
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 50px;
     text-align: left;
+  }
+
+  .footer-column {
+    gap: 30px;
   }
 
   .footer-contact-column {
@@ -179,54 +228,94 @@
 
   .footer-social {
     flex-direction: row;
-    gap: 30px;
+    gap: 24px;
     flex-wrap: wrap;
   }
 
-  .footer-logo {
-    height: 70px;
+  .footer-links {
+    flex-direction: row;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-contact-info {
+    flex-direction: row;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand-heading {
+    font-size: 1.6rem;
+  }
+
+  .footer-link,
+  .social-link,
+  .footer-contact-item {
+    font-size: 1.1rem;
+  }
+
+  .footer-brand-large {
+    margin-top: 50px;
+    overflow: hidden;
+  }
+
+  .footer-brand-text {
+    font-size: 8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 50px 0 0;
+  }
+
+  .footer-container {
+    padding: 0 16px;
+  }
+
+  .footer-grid {
+    gap: 35px;
+  }
+
+  .footer-column {
+    gap: 24px;
+  }
+
+  .footer-social {
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links {
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-contact-info {
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand-heading {
+    font-size: 1.4rem;
   }
 
   .footer-link,
   .social-link,
   .footer-contact-item {
     font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .footer-brand-large {
+    margin-top: 40px;
+    overflow: hidden;
   }
 
   .footer-brand-text {
-    font-size: 16rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer {
-    padding: 60px 0 0;
-  }
-
-  .footer-container {
-    padding: 0 20px;
-  }
-
-  .footer-grid {
-    gap: 40px;
-  }
-
-  .footer-social {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .footer-logo {
-    height: 60px;
-  }
-
-  .footer-link,
-  .social-link,
-  .footer-contact-item {
-    font-size: 0.95rem;
-  }
-
-  .footer-brand-text {
-    font-size: 12rem;
+    font-size: 4.5rem;
   }
 }

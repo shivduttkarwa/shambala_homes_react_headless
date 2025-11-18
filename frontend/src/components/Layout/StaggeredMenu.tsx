@@ -28,6 +28,7 @@ interface StaggeredMenuProps {
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
   logoSrc?: string;
+  logoText?: string;
   logoAlt?: string;
 }
 
@@ -45,10 +46,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   onMenuOpen,
   onMenuClose,
   logoSrc,
+  logoText,
   logoAlt = "Logo",
 }) => {
   const [open, setOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<number | null>(null);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const openRef = useRef(false);
   const panelRef = useRef<HTMLElement>(null);
   const preLayersRef = useRef<HTMLDivElement>(null);
@@ -63,6 +66,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const submenuArrowRefs = useRef<Map<number, HTMLSpanElement>>(new Map());
   const submenuTweens = useRef<Map<number, gsap.core.Timeline>>(new Map());
   const arrowTweens = useRef<Map<number, gsap.core.Tween>>(new Map());
+  const lastScrollY = useRef(0);
 
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -100,6 +104,31 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     });
     return () => ctx.revert();
   }, [menuButtonColor, position]);
+
+  // Scroll direction detection to hide/show header
+  useLayoutEffect(() => {
+    if (!isFixed) return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY < 10) {
+        // At the top of the page, always show
+        setIsHeaderVisible(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        // Scrolling down, hide header
+        setIsHeaderVisible(false);
+      } else {
+        // Scrolling up, show header
+        setIsHeaderVisible(true);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isFixed]);
 
   const buildOpenTimeline = useCallback(() => {
     const panel = panelRef.current;
@@ -478,12 +507,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         })()}
       </div>
       <header
-        className="staggered-menu-header"
+        className={`staggered-menu-header ${!isHeaderVisible ? 'header-hidden' : ''}`}
         aria-label="Main navigation header"
       >
         <div className="sm-logo" aria-label="Logo">
           {logoSrc ? (
             <img src={logoSrc} alt={logoAlt} className="sm-logo-image" />
+          ) : logoText ? (
+            <span className="sm-logo-text">{logoText}</span>
           ) : (
             <span className="sm-logo-text">SHAMBALA HOMES</span>
           )}

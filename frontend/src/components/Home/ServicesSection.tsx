@@ -95,7 +95,7 @@ const defaultServices: ServiceCard[] = [
 ];
 
 const ServicesSection: React.FC<ServicesSectionProps> = ({
-  title = "Building Excellence Across Australia",
+  title = "BUILDING EXCELLENCE ACROSS AUSTRALIA",
   subtitle = "",
   description = "Shambala Homes delivers comprehensive construction services from new home builds to complete renovations. With decades of experience and unwavering commitment to quality, we transform architectural visions into lasting realities.",
   ctaText = "View All Services",
@@ -157,16 +157,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
       // Fade in content elements on desktop only
       if (window.innerWidth > 1024) {
-        gsap.from(".title-decorator", {
-          scrollTrigger: {
-            trigger: ".services-content",
-            start: "top 70%",
-          },
-          scaleX: 0,
-          duration: 0.6,
-          ease: "linear",
-        });
-
         gsap.from(".services-title", {
           scrollTrigger: {
             trigger: ".services-content",
@@ -175,7 +165,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
           opacity: 0,
           y: 30,
           duration: 0.6,
-          delay: 0.2,
           ease: "linear",
         });
 
@@ -244,7 +233,6 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
 
           {/* Right side - Sticky Content */}
           <div className="services-content">
-            <div className="title-decorator"></div>
             <h2 className="services-title">
               {title}
               <br />

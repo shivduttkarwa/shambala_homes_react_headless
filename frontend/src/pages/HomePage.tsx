@@ -19,13 +19,21 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
 
   return (
     <>
-      <NewHeroSection />
+      <div id="hero">
+        <NewHeroSection />
+      </div>
       <EssenceSection />
-      <ServicesSection />
+      <div id="services">
+        <ServicesSection />
+      </div>
       <BenefitsSection />
-      <PortfolioShowcase />
+      <div id="projects">
+        <PortfolioShowcase />
+      </div>
 
-      <OurVisionSection />
+      <div id="vision">
+        <OurVisionSection />
+      </div>
 
       <FeaturedProperties />
 
@@ -33,7 +41,9 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
 
       <BodyRenderer blocks={bodyBlocks} />
       
-      <CTASection />
+      <div id="contact">
+        <CTASection />
+      </div>
     </>
   );
 };

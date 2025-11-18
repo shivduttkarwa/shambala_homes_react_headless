@@ -16,11 +16,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
           {/* Brand & Social Column */}
           <div className="footer-column">
             <div className="footer-brand">
-              <img
-                src={`${publicUrl}images/LOGO_final.png`}
-                alt="Shambala Homes"
-                className="footer-logo"
-              />
+              <h2 className="footer-brand-heading">Shambala Homes</h2>
             </div>
             <div className="footer-social">
               {settings?.social?.instagram && (
@@ -107,7 +103,16 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
         
         {/* Large Brand Name at Bottom */}
         <div className="footer-brand-large">
-          <h1 className="footer-brand-text">SHAMBALA</h1>
+          <h1 className="footer-brand-text">
+            <span className="footer-letter">S</span>
+            <span className="footer-letter">H</span>
+            <span className="footer-letter">A</span>
+            <span className="footer-letter">M</span>
+            <span className="footer-letter">B</span>
+            <span className="footer-letter">A</span>
+            <span className="footer-letter">L</span>
+            <span className="footer-letter">A</span>
+          </h1>
         </div>
       </div>
     </footer>
