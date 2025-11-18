@@ -55,7 +55,7 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
 
         // Animate individual links within sections
         const allLinks = topSection.querySelectorAll(
-          ".footer-link, .follow-link, .footer-contact-item"
+          ".footer-link, .social-link, .footer-contact-item"
         );
 
         gsap.set(allLinks, { opacity: 1, x: 0 });

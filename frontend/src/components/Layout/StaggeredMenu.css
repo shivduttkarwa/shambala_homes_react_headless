@@ -118,7 +118,6 @@
   line-height: 1.2;
   position: relative;
   display: inline-block;
-  vertical-align: middle;
 }
 
 .sm-toggle-textInner {
@@ -140,7 +139,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .sm-icon-line {

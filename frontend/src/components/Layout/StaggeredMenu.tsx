@@ -553,6 +553,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               ))}
             </span>
           </span>
+          <span ref={iconRef} className="sm-icon" aria-hidden="true">
+            <span ref={plusHRef} className="sm-icon-line" />
+            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+          </span>
         </button>
       </header>
 
