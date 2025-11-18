@@ -279,7 +279,16 @@
   }
 
   .services-cards {
-    gap: 16px;
+    display: block; /* Switch from grid to block for mobile */
+    gap: 0;
+  }
+
+  .service-card {
+    margin-bottom: 20px;
+    position: relative;
+    grid-row: auto;
+    grid-column: auto;
+    height: 320px; /* Fixed height for consistency */
   }
 
   .service-card:nth-child(1),
@@ -288,7 +297,28 @@
   .service-card:nth-child(4),
   .service-card:nth-child(5),
   .service-card:nth-child(6) {
-    grid-row: span 20;
+    grid-row: auto;
+    grid-column: auto;
+  }
+
+  .service-card-image {
+    height: 55%; /* Reduce image height to give more space for content */
+  }
+
+  .service-overlay {
+    height: 45%; /* Increase overlay height for content */
+    padding: 15px;
+  }
+
+  .service-title {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .service-description {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 10px;
   }
 
   .services-title {
@@ -297,5 +327,51 @@
 
   .services-description {
     font-size: 18px;
+  }
+
+  .services-content {
+    padding: 30px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-container {
+    padding: 40px 15px;
+  }
+
+  .services-cards {
+    margin: 0 -5px; /* Negative margin to allow cards to be slightly wider */
+  }
+
+  .service-card {
+    margin: 0 5px 15px 5px; /* Adjust margins */
+    height: 280px; /* Smaller height for very small screens */
+  }
+
+  .service-title {
+    font-size: 16px;
+  }
+
+  .service-description {
+    font-size: 11px;
+  }
+
+  .services-title {
+    font-size: 36px;
+    line-height: 1.1;
+  }
+
+  .services-description {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .services-content {
+    padding: 20px 0;
+  }
+
+  .title-decorator {
+    width: 40px;
+    margin-bottom: 16px;
   }
 }

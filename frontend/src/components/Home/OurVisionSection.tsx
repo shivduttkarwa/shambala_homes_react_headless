@@ -23,7 +23,6 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
   centerImage = {
     src: `${publicUrl}images/project2.jpg`,
     alt: "Modern architecture and design",
-    overlayText: "Our approach",
   },
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -81,7 +80,7 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
         tl.to(
           ".vision-image-container",
           {
-            scale: 1.6, // 2X image size
+            scale: 1.8, // 2X image size
             ease: "none",
           },
           0
