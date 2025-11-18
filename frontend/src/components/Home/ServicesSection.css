@@ -3,14 +3,13 @@
   background: #fafafa;
   color: #2c3e50;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .services-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 100px 40px;
-  overflow-x: hidden;
 }
 
 .services-layout {
@@ -149,7 +148,7 @@
 }
 
 .services-description {
-  font-size: 16px;
+  font-size: 18px;
   color: #666;
   margin-bottom: 40px;
   line-height: 1.8;
@@ -276,7 +275,11 @@
 }
 
 @media (max-width: 768px) {
+  .services-section {
+    overflow-x: hidden;
+  }
   .services-container {
+    overflow-x: hidden;
     padding: 60px 20px;
   }
 
@@ -364,7 +367,7 @@
   }
 
   .services-description {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.6;
   }
 

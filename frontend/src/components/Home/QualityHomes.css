@@ -6,7 +6,7 @@
 }
 
 .quality-homes::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -16,7 +16,7 @@
 }
 
 .quality-homes::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -129,7 +129,7 @@
 
 .feature-description {
   color: var(--muted-text);
-  font-size: 1rem;
+  font-size: 18px;
   line-height: 1.7;
   margin: 0;
   font-weight: 400;
@@ -176,7 +176,7 @@
   }
 
   .feature-description {
-    font-size: 0.95rem;
+    font-size: 18px;
   }
 }
 
@@ -193,8 +193,6 @@
   .quality-header {
     margin-bottom: 50px;
   }
-
-
 
   .title-decoration {
     width: 80px;
@@ -236,7 +234,7 @@
   }
 
   .feature-description {
-    font-size: 0.9rem;
+    font-size: 18px;
     line-height: 1.6;
   }
 
@@ -266,8 +264,6 @@
   .quality-homes {
     padding: 50px 0;
   }
-
-
 
   .feature-item {
     padding: 20px 0;
