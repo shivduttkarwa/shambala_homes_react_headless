@@ -39,7 +39,7 @@
   text-decoration: none;
   color: #141414;
   overflow: hidden;
-  font-family: "Inter", sans-serif;
+  font-family: "Nunito", sans-serif;
   background: rgba(20, 20, 20, 0.02);
   transition: color 0.3s ease, background 0.3s ease;
   cursor: pointer;

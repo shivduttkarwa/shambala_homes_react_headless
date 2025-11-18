@@ -131,7 +131,7 @@
 }
 
 .brand-tagline {
-  font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   font-weight: 300;
   color: #6b6f78;
@@ -194,7 +194,7 @@
 }
 
 .progress-percentage {
-  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
   color: #5b7c4f;
@@ -203,7 +203,7 @@
 }
 
 .loading-text {
-  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 0.85rem;
   color: #6b6f78;
   letter-spacing: 0.05em;

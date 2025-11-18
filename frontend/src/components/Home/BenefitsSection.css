@@ -106,7 +106,8 @@ section[data-block-type="blockBenefits"] {
   aspect-ratio: 0.8;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 1rem;
   border-top: 3px solid white;
   border-bottom: 3px solid white;
@@ -140,7 +141,8 @@ section[data-block-type="blockBenefits"] {
   aspect-ratio: 0.8;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 1rem;
   border-top: 3px solid white;
   border-bottom: 3px solid white;
@@ -177,7 +179,7 @@ section[data-block-type="blockBenefits"] {
   font-size: 1.125rem;
   color: #374151;
   line-height: 1.75;
-  font-family: "Inter", sans-serif;
+  font-family: "Nunito", sans-serif;
   margin-bottom: 1rem;
 }
 
@@ -233,7 +235,7 @@ section[data-block-type="blockBenefits"] {
   overflow: hidden;
   background: transparent;
   cursor: pointer;
-  font-family: "Inter", sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 /* sliding light background */

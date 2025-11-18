@@ -23,8 +23,7 @@ section.project-feature {
   padding-top: clamp(3rem, 3.38028vw + 2.20775rem, 5.25rem);
   padding-bottom: clamp(3rem, 3.38028vw + 2.20775rem, 5.25rem);
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, sans-serif;
+  font-family: "Nunito", sans-serif;
   background: #f8f8f8;
   --grid-column-count: 12;
   /* Force normal overflow for sticky positioning */
