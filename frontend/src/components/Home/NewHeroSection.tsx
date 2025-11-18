@@ -54,16 +54,18 @@ const NewHeroSectionContent: React.FC = () => {
     if (!heroSectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Hero text animation - elegant line-by-line reveal
+      // Hero text animation - starts after preloader is done
       const headingLines = heroHeadingRef.current?.querySelectorAll(".line");
       if (headingLines && headingLines.length > 0) {
         gsap.set(headingLines, { yPercent: 100 });
+        
+        // Wait for preloader to complete (3 seconds) then animate
         gsap.to(headingLines, {
           yPercent: 0,
           duration: 1.8,
           stagger: 0.8,
           ease: "power1.out",
-          delay: 0.5,
+          delay: 3.5, // Wait for preloader to finish
         });
       }
     }, heroSectionRef);
