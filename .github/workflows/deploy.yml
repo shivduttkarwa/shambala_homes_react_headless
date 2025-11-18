@@ -38,18 +38,13 @@ jobs:
       working-directory: ./frontend
       run: npm run build
 
-    - name: Create deployment directory structure
-      run: |
-        mkdir -p deploy/shambala_homes
-        cp -r frontend/dist/* deploy/shambala_homes/
-
     - name: Setup Pages
       uses: actions/configure-pages@v4
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: './deploy'
+        path: './frontend/dist'
 
     - name: Deploy to GitHub Pages
       id: deployment

@@ -11,7 +11,7 @@ function App() {
   // Global preloader removed: hero-specific preloader handles the intro
 
   return (
-    <Router basename="/shambala_homes">
+    <Router basename="/">
       <div className="App">
         <Header settings={settings} />
         <main>

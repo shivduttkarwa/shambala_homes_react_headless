@@ -6,7 +6,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/shambala_homes/',
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
