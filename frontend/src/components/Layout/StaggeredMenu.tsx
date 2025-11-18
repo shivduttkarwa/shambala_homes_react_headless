@@ -111,7 +111,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY < 10) {
         // At the top of the page, always show
         setIsHeaderVisible(true);
@@ -122,12 +122,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         // Scrolling up, show header
         setIsHeaderVisible(true);
       }
-      
+
       lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isFixed]);
 
   const buildOpenTimeline = useCallback(() => {
@@ -507,7 +507,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         })()}
       </div>
       <header
-        className={`staggered-menu-header ${!isHeaderVisible ? 'header-hidden' : ''}`}
+        className={`staggered-menu-header ${
+          !isHeaderVisible ? "header-hidden" : ""
+        }`}
         aria-label="Main navigation header"
       >
         <div className="sm-logo" aria-label="Logo">
@@ -616,7 +618,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                               key={subItem.label + subIdx}
                               className="sm-submenu-item"
                             >
-                              <a href={subItem.link} className="sm-submenu-link">
+                              <a
+                                href={subItem.link}
+                                className="sm-submenu-link"
+                              >
                                 {subItem.label}
                               </a>
                             </li>
@@ -629,6 +634,20 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         href={it.link}
                         aria-label={it.ariaLabel}
                         data-index={idx + 1}
+                        onClick={(e) => {
+                          if (it.link.startsWith("#")) {
+                            e.preventDefault();
+                            const element = document.querySelector(it.link);
+                            if (element) {
+                              element.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                              });
+                              // Close menu after navigation
+                              toggleMenu();
+                            }
+                          }
+                        }}
                       >
                         <span className="sm-panel-itemLabel">{it.label}</span>
                       </a>
@@ -653,11 +672,15 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 <a href="tel:+1234567890" className="sm-contact-item">
                   +1 234 567 890
                 </a>
-                <a href="mailto:hello@shambalahomes.com" className="sm-contact-item">
+                <a
+                  href="mailto:hello@shambalahomes.com"
+                  className="sm-contact-item"
+                >
                   hello@shambalahomes.com
                 </a>
                 <div className="sm-contact-item">
-                  123 Dream Avenue<br />
+                  123 Dream Avenue
+                  <br />
                   Sydney, NSW 2000
                 </div>
               </div>
@@ -666,10 +689,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             <div className="sm-social-section">
               <h3 className="sm-social-title">Follow</h3>
               <div className="sm-social-links">
-                <a href="#" className="sm-social-link">Instagram</a>
-                <a href="#" className="sm-social-link">Facebook</a>
-                <a href="#" className="sm-social-link">LinkedIn</a>
-                <a href="#" className="sm-social-link">Pinterest</a>
+                <a href="#" className="sm-social-link">
+                  Instagram
+                </a>
+                <a href="#" className="sm-social-link">
+                  Facebook
+                </a>
+                <a href="#" className="sm-social-link">
+                  LinkedIn
+                </a>
+                <a href="#" className="sm-social-link">
+                  Pinterest
+                </a>
               </div>
             </div>
           </div>

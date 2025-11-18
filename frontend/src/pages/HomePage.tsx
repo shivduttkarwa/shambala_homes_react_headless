@@ -1,5 +1,10 @@
 import NewHeroSection from "../components/Home/NewHeroSection";
-import { EssenceSection, PortfolioShowcase, FeaturedProperties, BenefitsSection } from "../components/Home";
+import {
+  EssenceSection,
+  PortfolioShowcase,
+  FeaturedProperties,
+  BenefitsSection,
+} from "../components/Home";
 import OurVisionSection from "../components/Home/OurVisionSection";
 import CTASection from "../components/Home/CTASection";
 import ServicesSection from "../components/Home/ServicesSection";
@@ -40,7 +45,7 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
       <BlogSection />
 
       <BodyRenderer blocks={bodyBlocks} />
-      
+
       <div id="contact">
         <CTASection />
       </div>

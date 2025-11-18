@@ -536,14 +536,17 @@
 
   .sm-panel-inner {
     padding: 5rem 2rem 2rem;
+    display: flex;
+    align-items: top;
   }
 
   .sm-panel-right {
-    flex: none;
-    padding: 2rem;
-    border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    gap: 3rem;
+    display: none;
+  }
+
+  .sm-panel-list {
+    gap: 0.5rem;
+    margin-top: 4rem;
   }
 
   .sm-contact-title,
@@ -557,7 +560,7 @@
   }
 
   .sm-panel-item {
-    font-size: clamp(3.2rem, 5vw, 2rem);
+    font-size: 3.5rem;
   }
 
   .sm-panel-item-with-submenu {

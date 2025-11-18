@@ -152,35 +152,35 @@
 
 /* Different paint colors for each letter on hover */
 .footer-letter:nth-child(1):hover {
-  color: #FF6B6B; /* Coral Red */
+  color: #ff6b6b; /* Coral Red */
 }
 
 .footer-letter:nth-child(2):hover {
-  color: #4ECDC4; /* Turquoise */
+  color: #4ecdc4; /* Turquoise */
 }
 
 .footer-letter:nth-child(3):hover {
-  color: #FFE66D; /* Sunny Yellow */
+  color: #ffe66d; /* Sunny Yellow */
 }
 
 .footer-letter:nth-child(4):hover {
-  color: #A8E6CF; /* Mint Green */
+  color: #a8e6cf; /* Mint Green */
 }
 
 .footer-letter:nth-child(5):hover {
-  color: #FF8B94; /* Pink */
+  color: #ff8b94; /* Pink */
 }
 
 .footer-letter:nth-child(6):hover {
-  color: #C7CEEA; /* Lavender */
+  color: #c7ceea; /* Lavender */
 }
 
 .footer-letter:nth-child(7):hover {
-  color: #FFDAC1; /* Peach */
+  color: #ffdac1; /* Peach */
 }
 
 .footer-letter:nth-child(8):hover {
-  color: #B5EAD7; /* Seafoam */
+  color: #b5ead7; /* Seafoam */
 }
 
 /* Responsive Design */

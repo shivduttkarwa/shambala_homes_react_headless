@@ -1,6 +1,6 @@
-import React from 'react';
-import './Footer.css';
-import { SiteSettings } from '../../services/api';
+import React from "react";
+import "./Footer.css";
+import { SiteSettings } from "../../services/api";
 
 interface FooterProps {
   settings: SiteSettings | null;
@@ -20,27 +20,57 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
             </div>
             <div className="footer-social">
               {settings?.social?.instagram && (
-                <a href={settings.social.instagram} className="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={settings.social.instagram}
+                  className="social-link"
+                  aria-label="Instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span>Instagram</span>
                 </a>
               )}
               {settings?.social?.facebook && (
-                <a href={settings.social.facebook} className="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={settings.social.facebook}
+                  className="social-link"
+                  aria-label="Facebook"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span>Facebook</span>
                 </a>
               )}
               {settings?.social?.linkedin && (
-                <a href={settings.social.linkedin} className="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={settings.social.linkedin}
+                  className="social-link"
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span>LinkedIn</span>
                 </a>
               )}
               {settings?.social?.youtube && (
-                <a href={settings.social.youtube} className="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={settings.social.youtube}
+                  className="social-link"
+                  aria-label="YouTube"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span>YouTube</span>
                 </a>
               )}
               {settings?.social?.twitter && (
-                <a href={settings.social.twitter} className="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={settings.social.twitter}
+                  className="social-link"
+                  aria-label="Twitter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span>Twitter</span>
                 </a>
               )}
@@ -50,11 +80,21 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
           {/* Navigation Links Column */}
           <div className="footer-column">
             <div className="footer-links">
-              <a href={`${publicUrl}/portfolio`} className="footer-link">PORTFOLIO</a>
-              <a href={`${publicUrl}/services`} className="footer-link">Services</a>
-              <a href={`${publicUrl}/about`} className="footer-link">Studio</a>
-              <a href={`${publicUrl}/blog`} className="footer-link">Blog</a>
-              <a href={`${publicUrl}/contact`} className="footer-link">Inquire</a>
+              <a href={`${publicUrl}/portfolio`} className="footer-link">
+                PORTFOLIO
+              </a>
+              <a href={`${publicUrl}/services`} className="footer-link">
+                Services
+              </a>
+              <a href={`${publicUrl}/about`} className="footer-link">
+                Studio
+              </a>
+              <a href={`${publicUrl}/blog`} className="footer-link">
+                Blog
+              </a>
+              <a href={`${publicUrl}/contact`} className="footer-link">
+                Inquire
+              </a>
             </div>
           </div>
 
@@ -63,17 +103,26 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
             <div className="footer-contact-info">
               {settings?.contact?.address && (
                 <a href="#" className="footer-contact-item">
-                  <span dangerouslySetInnerHTML={{ __html: settings.contact.address.replace(/\n/g, '<br/>') }} />
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: settings.contact.address.replace(/\n/g, "<br/>"),
+                    }}
+                  />
                 </a>
               )}
               {!settings?.contact?.address && (
                 <a href="#" className="footer-contact-item">
-                  123 Garden Street<br/>Melbourne, VIC 3000
+                  123 Garden Street
+                  <br />
+                  Melbourne, VIC 3000
                 </a>
               )}
-              
+
               {settings?.contact?.phone && (
-                <a href={`tel:${settings.contact.phone}`} className="footer-contact-item">
+                <a
+                  href={`tel:${settings.contact.phone}`}
+                  className="footer-contact-item"
+                >
                   {settings.contact.phone}
                 </a>
               )}
@@ -82,25 +131,31 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                   +61 3 1234 5678
                 </a>
               )}
-              
+
               {settings?.contact?.email && (
-                <a href={`mailto:${settings.contact.email}`} className="footer-contact-item">
+                <a
+                  href={`mailto:${settings.contact.email}`}
+                  className="footer-contact-item"
+                >
                   {settings.contact.email.toUpperCase()}
                 </a>
               )}
               {!settings?.contact?.email && (
-                <a href="mailto:info@shambalahomes.com" className="footer-contact-item">
+                <a
+                  href="mailto:info@shambalahomes.com"
+                  className="footer-contact-item"
+                >
                   INFO@SHAMBALAHOMES.COM
                 </a>
               )}
-              
+
               <a href={`${publicUrl}/privacy`} className="footer-contact-item">
                 privacy policy
               </a>
             </div>
           </div>
         </div>
-        
+
         {/* Large Brand Name at Bottom */}
         <div className="footer-brand-large">
           <h1 className="footer-brand-text">
