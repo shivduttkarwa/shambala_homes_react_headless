@@ -87,7 +87,7 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
         ).to(
           ".vision-text-right .vision-large-text",
           {
-            y: -480, // your existing value
+            y: -550, // your existing value
             ease: "none",
           },
           0

@@ -27,7 +27,7 @@ const defaultProperties: PropertySlide[] = [
     title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
     leftImage: `${publicUrl}images/l4.jpg`,
     rightImage: `${publicUrl}images/zz.jpg`,
-    tabletImage: `${publicUrl}images/pexels-heyho-7746563.jpg`,
+    tabletImage: `${publicUrl}images/zz.jpg`,
     subtitle: "Creating exceptional living spaces",
     description:
       "Building tomorrow's homes today.\n\nOur vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every Shambala home is designed to enhance your lifestyle while respecting the environment.",

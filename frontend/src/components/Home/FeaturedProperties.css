@@ -56,7 +56,7 @@
 
 .left h2 {
   margin: 0;
-  margin-top: -120px;
+  margin-top: -80px; /* Reduced negative margin from -120px to -80px */
   margin-bottom: 40px;
   margin-left: -180px;
   font-size: 72px;
@@ -243,6 +243,7 @@
   object-fit: cover;
   display: block;
   margin: 0;
+  margin-left: 90px; /* Move 60px to the right */
   clip-path: polygon(0% 0%, 100% 0, 100% 0%, 0% 0%);
   transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1s;
   transform: translateY(100px) scale(1.05);
@@ -267,6 +268,7 @@
 
 .right .image {
   margin-bottom: 65px;
+  margin-left: -30px; /* Move entire image container 30px to the left */
   position: relative;
   z-index: -1;
   overflow: hidden;
@@ -279,10 +281,10 @@
   margin-bottom: 65px;
   z-index: -1;
   object-fit: cover;
-  max-height: 755px;
+  max-height: 528px; /* Reduced by 30% from 755px */
   max-width: 612px;
   aspect-ratio: 3/4;
-  height: 100%;
+  height: 70%; /* Reduced by 30% from 100% */
   position: relative;
   clip-path: polygon(0% 0%, 100% 0, 100% 0%, 0% 0%);
   transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1.2s;
@@ -481,11 +483,16 @@
 
   .left img:not(.image-tablet) {
     margin-bottom: 100px;
+    margin-left: 0; /* Reset left margin for mobile */
   }
 
   .right {
     width: 100%;
     flex-basis: 100%;
+  }
+
+  .right .image {
+    margin-left: 0; /* Reset right image container margin for mobile */
   }
 
   .content-wrapper {
@@ -548,6 +555,6 @@
     right: 0;
     top: 55%;
     max-width: 180px;
-    max-height: calc(45% + 50px);
+    max-height: calc((45% + 50px) * 0.7); /* Reduced by 30% */
   }
 }

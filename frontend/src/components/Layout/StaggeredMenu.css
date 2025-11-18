@@ -84,7 +84,7 @@
 
 /* Toggle Button */
 .sm-toggle {
-  background: none;
+  background: none !important;
   border: none;
   cursor: pointer;
   display: flex;
@@ -98,6 +98,18 @@
   color: #fff !important;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.sm-toggle:focus,
+.sm-toggle:focus-visible,
+.sm-toggle:active {
+  outline: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 .sm-toggle-textWrap {

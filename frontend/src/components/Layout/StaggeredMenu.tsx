@@ -512,7 +512,17 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         }`}
         aria-label="Main navigation header"
       >
-        <div className="sm-logo" aria-label="Logo">
+        <div 
+          className="sm-logo" 
+          aria-label="Logo"
+          onClick={() => {
+            const heroSection = document.querySelector('#new-hero-section');
+            if (heroSection) {
+              heroSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          style={{ cursor: 'pointer' }}
+        >
           {logoSrc ? (
             <img src={logoSrc} alt={logoAlt} className="sm-logo-image" />
           ) : logoText ? (
