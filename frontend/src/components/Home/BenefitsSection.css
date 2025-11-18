@@ -4,7 +4,7 @@
 .benefits-inside-title {
   text-align: center;
   padding: 60px 0 40px;
-  background: #f5f5f4;
+  background: #f8f8f8;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -16,13 +16,37 @@
 
 .benefits-section-title {
   font-family: "Dream Avenue", cursive;
-  font-size: clamp(3.5rem, 6vw, 5rem);
+  font-size: 72px;
   font-weight: 400;
   color: var(--text);
   line-height: 1.2;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   margin: 0;
+}
+
+/* Benefits icon styling */
+.benefits-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  color: var(--accent);
+  opacity: 0.9;
+}
+
+.benefits-icon svg {
+  width: 48px;
+  height: 48px;
+  stroke: currentColor;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.benefits-card:hover .benefits-icon svg {
+  transform: scale(1.15);
+  opacity: 1;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
 /* MAIN SECTION */
@@ -55,7 +79,7 @@ section[data-block-type="blockBenefits"] {
 
 /* Background */
 .benefits-bg-base-stone-20 {
-  background-color: #f5f5f4;
+  background-color: #f8f8f8;
   min-height: 100vh;
 }
 
@@ -89,7 +113,7 @@ section[data-block-type="blockBenefits"] {
   border-left: 2px solid white;
   border-right: 2px solid white;
   padding: 2rem;
-  background: #f5f5f4;
+  background: #f8f8f8;
   z-index: 1;
   cursor: pointer;
 }
@@ -123,7 +147,7 @@ section[data-block-type="blockBenefits"] {
   border-left: 2px solid white;
   border-right: 2px solid white;
   padding: 2rem;
-  background: #f5f5f4;
+  background: #f8f8f8;
   z-index: 1;
   cursor: pointer;
 }
@@ -136,7 +160,7 @@ section[data-block-type="blockBenefits"] {
   margin-top: -1px;
   pointer-events: none;
   aspect-ratio: 1;
-  background: #f5f5f4;
+  background: #f8f8f8;
 }
 
 .benefits-spacer:first-child {
@@ -184,7 +208,7 @@ section[data-block-type="blockBenefits"] {
   justify-content: center;
   padding-top: 4rem;
   padding-bottom: 4rem;
-  background: #f5f5f4;
+  background: #f8f8f8;
 }
 
 .benefits-lg-col-start-2 {
@@ -292,7 +316,7 @@ section[data-block-type="blockBenefits"] {
   }
 
   .benefits-section-title {
-    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    font-size: 48px;
   }
 
   /* Stack mobile cards one by one */

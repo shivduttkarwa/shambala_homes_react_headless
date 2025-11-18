@@ -59,10 +59,10 @@
   margin-top: -120px;
   margin-bottom: 40px;
   margin-left: -180px;
-  font-size: 120px;
-  line-height: 1;
+  font-size: 72px;
+  line-height: 1.1;
   font-weight: 300;
-  letter-spacing: -3px;
+  letter-spacing: 2px;
   font-family: "Dream Avenue", cursive;
   text-transform: uppercase;
   white-space: pre-line;
@@ -178,14 +178,29 @@
 }
 
 @media (max-width: 768px) {
+  .right h4 {
+    font-size: 36px;
+  }
+  /* Blobby outlines */
+  .btn-outline {
+    position: absolute;
+    width: 75%;
+    height: 75%;
+  }
+
   .left-navigation {
-    --_btn-size: 45px;
+    --_btn-size: 25px;
+  }
+
+  .arrow-container svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
 @media (max-width: 640px) {
   .left-navigation {
-    --_btn-size: 40px;
+    --_btn-size: 20px;
   }
 
   .arrow-container svg {
@@ -196,7 +211,7 @@
 
 @media (max-width: 480px) {
   .left-navigation {
-    --_btn-size: 35px;
+    --_btn-size: 15px;
   }
 
   .arrow-container svg {
@@ -420,7 +435,7 @@
   }
 
   .left h2 {
-    font-size: 90px;
+    font-size: 48px;
   }
 }
 
@@ -430,7 +445,7 @@
   }
 
   .left h2 {
-    font-size: 72px;
+    font-size: 48px;
     margin-bottom: 120px;
   }
 }
@@ -447,9 +462,10 @@
   }
 
   .left h2 {
-    font-size: 68px;
+    font-size: 48px;
     margin-bottom: 40px;
     margin-left: 0;
+    margin-top: 0px;
   }
 
   .left p {
@@ -480,7 +496,7 @@
   }
 
   .right h4 {
-    font-size: 32px;
+    font-size: 36px;
     margin-bottom: 16px;
   }
 
@@ -511,7 +527,7 @@
 
 @media (max-width: 480px) {
   .left h2 {
-    font-size: 50px;
+    font-size: 48px;
   }
 
   .left-navigation {
@@ -521,7 +537,7 @@
   }
 
   .right h4 {
-    font-size: 28px;
+    font-size: 36px;
   }
 
   .right .text p {

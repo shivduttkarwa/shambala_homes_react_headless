@@ -29,66 +29,78 @@ const defaultServices: ServiceCard[] = [
   {
     id: "1",
     title: "New Home Construction",
-    description: "From concept to completion, we build bespoke homes tailored to your lifestyle and vision.",
-    imageSrc: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+    description:
+      "From concept to completion, we build bespoke homes tailored to your lifestyle and vision.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
     alt: "New Home Construction",
     ctaText: "Learn More",
-    ctaLink: "#"
+    ctaLink: "#",
   },
   {
-    id: "2", 
+    id: "2",
     title: "Complete Renovations",
-    description: "Transform your existing home with our comprehensive renovation and remodeling services.",
-    imageSrc: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+    description:
+      "Transform your existing home with our comprehensive renovation and remodeling services.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
     alt: "Home Renovations",
     ctaText: "Learn More",
-    ctaLink: "#"
+    ctaLink: "#",
   },
   {
     id: "3",
-    title: "Extensions & Upgrades", 
-    description: "Expand your living space with expertly designed extensions that blend seamlessly with your home.",
-    imageSrc: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
+    title: "Extensions & Upgrades",
+    description:
+      "Expand your living space with expertly designed extensions that blend seamlessly with your home.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
     alt: "Home Extensions",
     ctaText: "Learn More",
-    ctaLink: "#"
+    ctaLink: "#",
   },
   {
     id: "4",
     title: "Downsizing Solutions",
-    description: "Thoughtful designs that maximize comfort and functionality in smaller, more efficient spaces.",
-    imageSrc: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop",
+    description:
+      "Thoughtful designs that maximize comfort and functionality in smaller, more efficient spaces.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop",
     alt: "Downsizing Solutions",
     ctaText: "Learn More",
-    ctaLink: "#"
+    ctaLink: "#",
   },
   {
     id: "5",
     title: "Landscape Design",
-    description: "Create stunning outdoor spaces that complement your home with our professional landscaping services.",
-    imageSrc: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+    description:
+      "Create stunning outdoor spaces that complement your home with our professional landscaping services.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
     alt: "Landscaping Services",
     ctaText: "Learn More",
-    ctaLink: "#"
+    ctaLink: "#",
   },
   {
     id: "6",
     title: "Custom Design Build",
-    description: "Unique architectural solutions crafted to reflect your personal style and requirements.",
-    imageSrc: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop",
+    description:
+      "Unique architectural solutions crafted to reflect your personal style and requirements.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop",
     alt: "Custom Builds",
     ctaText: "Learn More",
-    ctaLink: "#"
-  }
+    ctaLink: "#",
+  },
 ];
 
 const ServicesSection: React.FC<ServicesSectionProps> = ({
-  title = "Our Services",
-  subtitle = "Building Excellence Across Australia",
+  title = "Building Excellence Across Australia",
+  subtitle = "",
   description = "Shambala Homes delivers comprehensive construction services from new home builds to complete renovations. With decades of experience and unwavering commitment to quality, we transform architectural visions into lasting realities.",
   ctaText = "View All Services",
   ctaLink = "#",
-  services = defaultServices
+  services = defaultServices,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -190,7 +202,7 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
             trigger: ".services-content",
             start: "top 70%",
             toggleActions: "play none none none",
-          }
+          },
         });
       }
     }, sectionRef);
@@ -205,7 +217,11 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
           {/* Left side - Service Cards */}
           <div className="services-cards">
             {services.map((service) => (
-              <div key={service.id} className="service-card" data-card={service.id}>
+              <div
+                key={service.id}
+                className="service-card"
+                data-card={service.id}
+              >
                 <img
                   src={service.imageSrc}
                   alt={service.alt}
@@ -230,15 +246,12 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
           <div className="services-content">
             <div className="title-decorator"></div>
             <h2 className="services-title">
-              {title}<br />
+              {title}
+              <br />
               {subtitle}
             </h2>
-            <p className="services-description">
-              {description}
-            </p>
-            <GlassButton href={ctaLink}>
-              {ctaText}
-            </GlassButton>
+            <p className="services-description">{description}</p>
+            <GlassButton href={ctaLink}>{ctaText}</GlassButton>
           </div>
         </div>
       </div>

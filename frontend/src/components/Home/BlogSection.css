@@ -8,9 +8,9 @@
 /* SCROLL VELOCITY TITLE */
 .blog-header {
   text-align: center;
-  margin-bottom: 0;
+  margin-bottom: 40px;
   overflow: visible;
-  padding: 40px 0;
+  padding: 40px 0 60px 0;
 }
 
 .blog-title-container {
@@ -19,7 +19,8 @@
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  overflow: visible;
+  overflow: hidden;
+  width: 100%;
 }
 
 .blog-title-line {
@@ -84,6 +85,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 0;
   height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .blog-featured-image {
@@ -92,6 +94,8 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .blog-featured-image img {
@@ -184,6 +188,9 @@
 .blog-post-card {
   background: #f8f8f8;
   position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .blog-post-title {
@@ -201,7 +208,6 @@
   height: 400px;
   margin-bottom: 2rem;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .blog-post-image img {
@@ -291,9 +297,14 @@
   .blog-title-container {
     gap: 20px;
   }
+  
+  .blog-title-line::before {
+    left: calc(-50vw + 50%);
+    width: 100vw;
+  }
 
   .blog-scroller {
-    font-size: clamp(2rem, 6vw, 2.5rem);
+    font-size: clamp(3rem, 8vw, 4rem);
   }
 
   .blog-featured-section {

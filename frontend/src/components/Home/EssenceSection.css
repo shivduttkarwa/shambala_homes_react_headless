@@ -48,7 +48,7 @@
 
 .essence-heading {
   font-family: "Dream Avenue", cursive;
-  font-size: clamp(4rem, 6vw, 5.5rem);
+  font-size: 72px;
   font-weight: normal;
   line-height: 1.4;
   color: var(--text);
@@ -241,7 +241,7 @@
   }
 
   .essence-heading {
-    font-size: 2.8rem;
+    font-size: 48px;
     margin-bottom: 25px;
   }
 

@@ -22,7 +22,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 1,
     category: "",
-    title: "OUR\nVISION\n& MISSION",
+    title: "\"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS\"",
     leftImage:
       "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&h=1600&fit=crop&q=90",
     rightImage:
@@ -37,7 +37,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 2,
     category: "",
-    title: "OUR\nVISION\n& MISSION",
+    title: "\"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS\"",
     leftImage:
       "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&h=1600&fit=crop&q=90",
     rightImage:
@@ -52,7 +52,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 3,
     category: "",
-    title: "OUR\nVISION\n& MISSION",
+    title: "\"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS\"",
     leftImage:
       "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=1600&fit=crop&q=90",
     rightImage:
@@ -67,7 +67,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 4,
     category: "",
-    title: "OUR\nVISION\n& MISSION",
+    title: "\"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS\"",
     leftImage:
       "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=1600&fit=crop&q=90",
     rightImage:
