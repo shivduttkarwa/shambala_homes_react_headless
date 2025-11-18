@@ -64,34 +64,35 @@ const OurVisionSection: React.FC<OurVisionSectionProps> = ({
         },
       });
 
-      // Enable animations for all screen sizes
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=100%",
-          scrub: true,
-          pin: true,
-          pinSpacing: false, // This prevents artificial spacing that causes lag
-          anticipatePin: 1,
-        },
-      });
+      if (!isMobile) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "+=100%",
+            scrub: true,
+            pin: true,
+            pinSpacing: false, // This prevents artificial spacing that causes lag
+            anticipatePin: 1,
+          },
+        });
 
-      tl.to(
-        ".vision-image-container",
-        {
-          scale: isMobile ? 1.4 : 1.8, // Reduce scale on mobile for better performance
-          ease: "none",
-        },
-        0
-      ).to(
-        ".vision-text-right .vision-large-text",
-        {
-          y: isMobile ? -350 : -550, // Adjust movement for mobile
-          ease: "none",
-        },
-        0
-      );
+        tl.to(
+          ".vision-image-container",
+          {
+            scale: 1.6, // 2X image size
+            ease: "none",
+          },
+          0
+        ).to(
+          ".vision-text-right .vision-large-text",
+          {
+            y: -550, // your existing value
+            ease: "none",
+          },
+          0
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
