@@ -2,7 +2,7 @@
 
 /* MAIN SECTION */
 #home_accommodation {
-  padding: 20px 8.5% 120px 8.5%;
+  padding: 20px 8.5% 40px 8.5%;
   position: relative;
   background: transparent;
   min-height: 100vh;
@@ -56,6 +56,7 @@
 
 .left h2 {
   margin: 0;
+  margin-top: -120px;
   margin-bottom: 40px;
   margin-left: -180px;
   font-size: 120px;
@@ -292,7 +293,6 @@
   font-family: "Dream Avenue", cursive;
   font-weight: 300;
   letter-spacing: -1px;
-  text-transform: uppercase;
 }
 
 .right .text p {

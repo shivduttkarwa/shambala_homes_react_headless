@@ -32,38 +32,38 @@ interface BlogSectionProps {
 }
 
 const BlogSection: React.FC<BlogSectionProps> = ({
-  sectionTitle = "Design Tips",
+  sectionTitle = "Latest Insights",
   ctaText = "View all blog posts",
   ctaLink = "#",
   posts = [
     {
       id: 1,
-      title: "Celebrating our new Associates: Callum, Fraser, Gavin & Sebastian",
-      date: "10 Sep 2025",
-      category: "Staff",
-      excerpt: "We are delighted to announce four associate-level promotions within Aitken Turnbull: Callum Ford has been promoted to Associate & Technical Lead, Fraser Hunter and Gavin Fallen to Associate & Studio...",
-      imageSrc: "https://www.aitken-turnbull.co.uk/wp-content/uploads/2025/09/Untitled-design-23.png",
-      imageAlt: "Team members",
+      title: "Creating Sustainable Living Spaces with Shambala Homes",
+      date: "15 Nov 2025",
+      category: "Sustainability",
+      excerpt: "Discover how our eco-friendly construction methods and sustainable materials are revolutionizing modern Australian home building while reducing environmental impact.",
+      imageSrc: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+      imageAlt: "Sustainable home construction",
       link: "#",
       featured: true
     },
     {
       id: 2,
       title: "How Landscaping Enhances Property Value in Australia",
-      date: "05 Oct 2025",
+      date: "12 Nov 2025",
       category: "Design",
-      excerpt: "Discover how strategic landscaping can significantly increase your property value while creating beautiful outdoor spaces.",
-      imageSrc: "https://images.unsplash.com/photo-1508599589920-14cfa1c1fe2c",
+      excerpt: "Discover how strategic landscaping can significantly increase your property value while creating beautiful outdoor spaces that complement your Shambala home.",
+      imageSrc: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
       imageAlt: "Landscaping design",
       link: "#"
     },
     {
       id: 3,
       title: "Modern Australian Home Designs Inspired by Nature",
-      date: "03 Oct 2025",
-      category: "Homes",
-      excerpt: "Explore contemporary architectural designs that seamlessly blend with the natural Australian landscape.",
-      imageSrc: "https://images.unsplash.com/photo-1484154218962-a197022b5858",
+      date: "10 Nov 2025",
+      category: "Architecture",
+      excerpt: "Explore our contemporary architectural designs that seamlessly blend with the natural Australian landscape, creating harmony between built and natural environments.",
+      imageSrc: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
       imageAlt: "Modern home design",
       link: "#"
     }
@@ -95,10 +95,15 @@ const BlogSection: React.FC<BlogSectionProps> = ({
         const words = (heading.textContent || '').trim().split(" ");
         heading.innerHTML = "";
 
-        words.forEach(word => {
+        words.forEach((word, index) => {
           const span = document.createElement("span");
-          span.textContent = word + " ";
+          span.textContent = word;
           heading.appendChild(span);
+          
+          // Add space after each word except the last one
+          if (index < words.length - 1) {
+            heading.appendChild(document.createTextNode(" "));
+          }
         });
 
         gsap.to(heading.querySelectorAll("span"), {
@@ -156,7 +161,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({
             </p>
             
             <GlassButton href={featuredPost.link}>
-              Read Full Article
+              Read More
             </GlassButton>
           </div>
         </div>

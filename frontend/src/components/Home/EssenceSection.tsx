@@ -231,8 +231,8 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
       {/* Video Text Animation Section */}
       {videoUrl && (
         <GsapVideoText
-          leftText="Latest"
-          rightText="Project"
+          leftText="SERVICES"
+          rightText="PROJETS"
           videoSrc={videoUrl}
           backgroundColor="var(--light-bg)"
         />

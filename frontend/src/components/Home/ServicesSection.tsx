@@ -218,9 +218,9 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({
                       {service.description}
                     </div>
                   </div>
-                  <a href={service.ctaLink || "#"} className="service-cta">
+                  <GlassButton href={service.ctaLink || "#"}>
                     {service.ctaText || "Learn More"}
-                  </a>
+                  </GlassButton>
                 </div>
               </div>
             ))}

@@ -22,61 +22,61 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 1,
     category: "",
-    title: "LUXURY\nVILLAS\n& ESTATES",
+    title: "OUR\nVISION\n& MISSION",
     leftImage:
       "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&h=1600&fit=crop&q=90",
     rightImage:
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&h=1600&fit=crop&q=90",
     tabletImage:
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=800&fit=crop&q=90",
-    subtitle: "Premium Residential Projects",
+    subtitle: "Creating exceptional living spaces",
     description:
-      "Where luxury meets lifestyle.\n\nShambala Homes presents thoughtfully designed residences that blend modern architecture with timeless elegance. Every project is crafted with attention to detail, premium materials, and world-class amenities for discerning homeowners.",
+      "Building tomorrow's homes today.\n\nOur vision is to transform how Australians live by creating homes that harmonize with nature, embrace sustainability, and foster community connections. Every Shambala home is designed to enhance your lifestyle while respecting the environment.",
     link: "#",
   },
   {
     id: 2,
     category: "",
-    title: "LUXURY\nVILLAS\n& ESTATES",
+    title: "OUR\nVISION\n& MISSION",
     leftImage:
       "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&h=1600&fit=crop&q=90",
     rightImage:
       "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&h=1600&fit=crop&q=90",
     tabletImage:
       "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=800&fit=crop&q=90",
-    subtitle: "Contemporary Living Spaces",
+    subtitle: "Sustainable design philosophy",
     description:
-      "Innovation in every corner.\n\nOur contemporary homes feature open-plan layouts, floor-to-ceiling windows, and smart home integration. Designed for modern families who value both style and functionality in their living spaces.",
+      "Innovation meets responsibility.\n\nWe believe in building homes that give back to the environment. Our sustainable design philosophy incorporates renewable materials, energy-efficient systems, and water conservation technologies to create homes that care for our planet.",
     link: "#",
   },
   {
     id: 3,
     category: "",
-    title: "LUXURY\nVILLAS\n& ESTATES",
+    title: "OUR\nVISION\n& MISSION",
     leftImage:
       "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=1600&fit=crop&q=90",
     rightImage:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=1600&fit=crop&q=90",
     tabletImage:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=800&fit=crop&q=90",
-    subtitle: "Luxury Villa Collection",
+    subtitle: "Community-centered approach",
     description:
-      "Redefined elegance.\n\nExclusive villas featuring private gardens, swimming pools, and panoramic views. Each home is uniquely designed to offer privacy, luxury, and comfort in prime locations across the city.",
+      "Building connections, not just homes.\n\nOur vision extends beyond individual homes to creating vibrant communities. We design neighborhoods that encourage interaction, promote wellbeing, and foster lasting relationships between residents and their environment.",
     link: "#",
   },
   {
     id: 4,
     category: "",
-    title: "LUXURY\nVILLAS\n& ESTATES",
+    title: "OUR\nVISION\n& MISSION",
     leftImage:
       "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=1600&fit=crop&q=90",
     rightImage:
       "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&h=1600&fit=crop&q=90",
     tabletImage:
       "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=800&fit=crop&q=90",
-    subtitle: "Signature Developments",
+    subtitle: "Excellence in craftsmanship",
     description:
-      "Excellence by design.\n\nOur flagship projects showcase innovative architecture, sustainable building practices, and premium amenities. From concept to completion, every Shambala home represents the pinnacle of quality and craftsmanship.",
+      "Where quality meets artistry.\n\nOur commitment to excellence drives everything we do. From initial concept to final handover, we maintain the highest standards of craftsmanship, ensuring every Shambala home is a testament to quality, durability, and timeless design.",
     link: "#",
   },
 ];

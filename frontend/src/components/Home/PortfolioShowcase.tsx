@@ -148,9 +148,7 @@ const PortfolioShowcase: React.FC = () => {
     <section className="project-feature" ref={sectionRef}>
       <div className="block-text">
         <div className="block-text-col">
-          <h3 ref={titleRef}>
-            {splitTextIntoLines("Discover Your Dream Home")}
-          </h3>
+          <h3 ref={titleRef}>{splitTextIntoLines("OUR LATEST PROJECTS")}</h3>
         </div>
       </div>
 
