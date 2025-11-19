@@ -4,17 +4,18 @@ import "./BlackHoleLoader.css";
 interface BlackHoleLoaderProps {
   /** Called when counter reaches 100% */
   onComplete?: () => void;
-  /** Duration of 0–100% in ms (default: 5000 = 5s) */
-  duration?: number;
 }
 
-const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({
-  onComplete,
-  duration = 5000,
-}) => {
+const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({ onComplete }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const centerHoverRef = useRef<HTMLDivElement | null>(null);
   const loaderCountRef = useRef<HTMLDivElement | null>(null);
+  const onCompleteRef = useRef(onComplete);
+
+  // Update ref when onComplete changes
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -157,6 +158,8 @@ const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({
           }
         }
 
+        if (!context) return;
+
         context.save();
         context.fillStyle = this.color;
         context.strokeStyle = this.color;
@@ -220,8 +223,6 @@ const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({
       let progress = 0;
       loaderCount.textContent = "0%";
 
-      const step = duration / 100;
-
       intervalId = window.setInterval(() => {
         progress += 1;
         if (progress > 100) progress = 100;
@@ -231,11 +232,11 @@ const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({
           if (intervalId !== null) {
             clearInterval(intervalId);
           }
-          if (onComplete) {
-            onComplete();
+          if (onCompleteRef.current) {
+            onCompleteRef.current();
           }
         }
-      }, step);
+      }, 2); // 100 * 2ms = 0.2 second total
     };
 
     const handleMouseOver = () => {
@@ -257,13 +258,16 @@ const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({
       cancelAnimationFrame(animationId);
       if (intervalId !== null) {
         clearInterval(intervalId);
+        intervalId = null;
       }
       centerHover.removeEventListener("click", handleClick);
       centerHover.removeEventListener("mouseover", handleMouseOver);
       centerHover.removeEventListener("mouseout", handleMouseOut);
-      container.removeChild(canvas);
+      if (canvas.parentNode) {
+        container.removeChild(canvas);
+      }
     };
-  }, [duration, onComplete]);
+  }, []); // Empty dependencies - only run once
 
   return (
     <div id="blackhole" ref={containerRef}>
