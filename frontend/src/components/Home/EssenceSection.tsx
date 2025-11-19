@@ -235,8 +235,8 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
           rightText="PROJETS"
           videoSrc={videoUrl}
           backgroundColor="var(--light-bg)"
-          bottomLeftText="Dream Homes"
-          bottomRightText="Modern Living"
+          bottomLeftText="Design"
+          bottomRightText="purpose"
         />
       )}
     </section>

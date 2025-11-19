@@ -47,9 +47,7 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
         inner.appendChild(span);
       });
 
-      // Repeat text 4 times for visual effect
-      const originalHTML = inner.innerHTML;
-      inner.innerHTML = originalHTML + originalHTML + originalHTML + originalHTML;
+      // Use text only once
 
       container.innerHTML = "";
       container.appendChild(inner);
@@ -218,6 +216,15 @@ const FallingTextVideoComponent: React.FC<FallingTextVideoComponentProps> = ({
           <div className="gsap-bottom-left">
             <div ref={bottomLeftRef} className="falling-text-container"></div>
           </div>
+          
+          {/* Scroll down indicator */}
+          <div className="scroll-down-indicator">
+            <div className="scroll-arrow">
+              <span>↓</span>
+            </div>
+            <div className="scroll-text">Scroll</div>
+          </div>
+          
           <div className="gsap-bottom-right">
             <div ref={bottomRightRef} className="falling-text-container"></div>
           </div>
