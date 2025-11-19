@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, Component } from "react";
 import gsap from "gsap";
 import "./NewHeroSection.css";
 import { useNewHero } from "../../hooks/useHome";
-import GlassButton from "../UI/GlassButton";
+import GlassRainButton from "../UI/GlassRainButton";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -151,9 +151,9 @@ const NewHeroSectionContent: React.FC = () => {
           </div>
 
           <div className="hero-cta">
-            <GlassButton href={heroData?.cta.link || "#contact"}>
+            <GlassRainButton href={heroData?.cta.link || "#contact"}>
               {heroData?.cta.text || "Get a Free Site Visit"}
-            </GlassButton>
+            </GlassRainButton>
           </div>
         </div>
       </section>

@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./EssenceSection.css";
 import GlassButton from "../UI/GlassButton";
-import GsapVideoText from "../UI/GsapVideoText";
+import FallingTextVideoComponent from "../UI/FallingTextVideoComponent";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -230,11 +230,13 @@ const EssenceSection: React.FC<EssenceSectionProps> = ({
 
       {/* Video Text Animation Section */}
       {videoUrl && (
-        <GsapVideoText
+        <FallingTextVideoComponent
           leftText="SERVICES"
           rightText="PROJETS"
           videoSrc={videoUrl}
           backgroundColor="var(--light-bg)"
+          bottomLeftText="Dream Homes"
+          bottomRightText="Modern Living"
         />
       )}
     </section>
