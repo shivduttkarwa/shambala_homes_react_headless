@@ -68,7 +68,7 @@
 .sm-logo-text {
   /* Primary: Cenzyl (if available), fallbacks: Cinzel, Dream Avenue */
   font-family: "Cenzyl", "Cinzel", "Dream Avenue", cursive;
-  font-size: 1rem;
+  font-size: 1.3rem; /* increased by 30% */
   font-weight: 500;
   color: #fff;
   letter-spacing: 0.1em;
@@ -95,7 +95,7 @@
   align-items: center;
   gap: 0.75rem;
   font-family: "Cinzel", serif;
-  font-size: 1rem;
+  font-size: 1.3rem; /* increased by 30% */
   font-weight: 500;
   padding: 0.5rem;
   transition: color 0.3s ease;

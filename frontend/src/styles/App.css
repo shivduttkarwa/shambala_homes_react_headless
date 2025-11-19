@@ -146,7 +146,7 @@ body {
 .logo {
   /* Prefer Cenzyl for headers if available, fallback to Cinzel */
   font-family: "Cenzyl", "Cinzel", serif, "Bebas Neue", sans-serif;
-  font-size: 18px;
+  font-size: 23.4px; /* increased by ~30% */
   letter-spacing: 0.03em;
   color: var(--text);
   text-transform: uppercase;
@@ -177,7 +177,7 @@ body {
 .menu-text {
   /* match the logo exactly: prefer Cenzyl, fallback to Cinzel */
   font-family: "Cenzyl", "Cinzel", serif, "Bebas Neue", sans-serif;
-  font-size: 18px;
+  font-size: 23.4px; /* increased by ~30% */
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--text);
