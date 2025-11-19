@@ -144,7 +144,8 @@ body {
   display: none !important;
 }
 .logo {
-  font-family: "Cinzel", serif, "Bebas Neue", sans-serif;
+  /* Prefer Cenzyl for headers if available, fallback to Cinzel */
+  font-family: "Cenzyl", "Cinzel", serif, "Bebas Neue", sans-serif;
   font-size: 18px;
   letter-spacing: 0.03em;
   color: var(--text);
@@ -174,8 +175,8 @@ body {
 /* .menu-toggle:focus{ outline:2px solid rgba(91,124,79,.18); outline-offset:3px; } */
 
 .menu-text {
-  /* match the logo exactly */
-  font-family: "Cinzel", serif, "Bebas Neue", sans-serif;
+  /* match the logo exactly: prefer Cenzyl, fallback to Cinzel */
+  font-family: "Cenzyl", "Cinzel", serif, "Bebas Neue", sans-serif;
   font-size: 18px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
