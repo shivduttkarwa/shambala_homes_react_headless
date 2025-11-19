@@ -105,10 +105,22 @@
   transform: translateX(-130%);
 }
 
+/* Blog featured swiper styles */
+.blog-featured-swiper {
+  width: 100%;
+  height: 85%; /* Match the single image height */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 /* Desktop only - reduce height by additional 10% */
 @media (min-width: 1024px) {
   .blog-featured-image img {
     height: 75%; /* Further reduced by 10% for desktop (85% - 10% = 75%) */
+  }
+  
+  .blog-featured-swiper {
+    height: 75%; /* Match the desktop single image height */
   }
 }
 

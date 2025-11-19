@@ -4,6 +4,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollVelocity from "../animations/ScrollVelocity";
 import GlassButton from "../UI/GlassButton";
+import SimpleSwiper from "../UI/SimpleSwiper";
+import "../UI/SimpleSwiper.css";
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -24,6 +26,7 @@ interface BlogPost {
     src: string;
     alt: string;
   } | null;
+  swiperImages?: string[];
 }
 
 interface BlogSectionProps {
@@ -49,6 +52,12 @@ const BlogSection: React.FC<BlogSectionProps> = ({
       imageAlt: "Sustainable home construction",
       link: "#",
       featured: true,
+      swiperImages: [
+        `${publicUrl}images/port1.jpg`,
+        `${publicUrl}images/port2.jpg`,
+        `${publicUrl}images/port3.jpg`,
+        `${publicUrl}images/pexels-expect-best-79873-323780.jpg`
+      ],
     },
     {
       id: 2,
@@ -151,7 +160,15 @@ const BlogSection: React.FC<BlogSectionProps> = ({
         <div className="blog-featured-container">
           {/* Image Half */}
           <div className="blog-featured-image home-blog-reveal-img">
-            <img src={featuredPost.imageSrc} alt={featuredPost.imageAlt} />
+            {featuredPost.swiperImages ? (
+              <SimpleSwiper 
+                images={featuredPost.swiperImages}
+                autoplaySpeed={4000}
+                className="blog-featured-swiper"
+              />
+            ) : (
+              <img src={featuredPost.imageSrc} alt={featuredPost.imageAlt} />
+            )}
           </div>
 
           {/* Content Half */}
