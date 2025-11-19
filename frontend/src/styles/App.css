@@ -191,6 +191,16 @@ body {
   transform: translateY(-1px);
 }
 
+/* Mobile: reduce header logo and menu-text size for small screens */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 18px; /* mobile revert */
+  }
+  .menu-text {
+    font-size: 18px; /* mobile revert */
+  }
+}
+
 .menu-toggle.active .menu-text {
   color: var(--accent);
 }

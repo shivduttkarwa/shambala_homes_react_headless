@@ -107,6 +107,16 @@
   box-shadow: none !important;
 }
 
+/* Mobile: reduce header and toggle font sizes so they fit smaller screens */
+@media (max-width: 768px) {
+  .sm-logo-text {
+    font-size: 1rem; /* revert to normal on mobile */
+  }
+  .sm-toggle {
+    font-size: 1rem; /* revert to normal on mobile */
+  }
+}
+
 .sm-toggle:focus,
 .sm-toggle:focus-visible,
 .sm-toggle:active {
