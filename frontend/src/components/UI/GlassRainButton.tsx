@@ -46,16 +46,16 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
       const sizeScale = 0.8 + Math.random() * 2.2; // 0.8–3x
       let dropWidth = baseWidth * sizeScale;
 
-      // SHAPE: 70% round-ish, 30% short streak
+      // SHAPE: 85% round-ish, 15% short streak (removed longest drops)
       const shapeVariant = Math.random();
       let heightRatio;
 
-      if (shapeVariant < 0.7) {
+      if (shapeVariant < 0.85) {
         // round-ish
         heightRatio = 1 + Math.random() * 0.3; // 1–1.3x
       } else {
-        // short streak
-        heightRatio = 1.6 + Math.random() * 0.6; // 1.6–2.2x
+        // short streak (reduced max length)
+        heightRatio = 1.4 + Math.random() * 0.3; // 1.4–1.7x (was 1.6–2.2x)
       }
 
       let dropHeight = baseWidth * heightRatio * sizeScale;
