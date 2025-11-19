@@ -56,7 +56,7 @@
 
 .left h2 {
   margin: 0;
-  margin-top: -80px; /* Pushed title down 60px from -140px */
+  margin-top: -50px; /* Moved title down 30px from -80px */
   margin-bottom: 40px;
   margin-left: -180px;
   font-size: 72px;
@@ -73,7 +73,7 @@
 
 .left-navigation {
   position: absolute;
-  top: 350px;
+  top: 320px;
   left: 300px;
   display: flex;
   gap: 100px;
@@ -469,7 +469,7 @@
     font-size: 48px;
     margin-bottom: 40px;
     margin-left: 0;
-    margin-top: 0px;
+    margin-top: 30px; /* Pushed title down 30px on mobile */
   }
 
   .left p {
@@ -477,10 +477,7 @@
   }
 
   .left-navigation {
-    margin-left: 60px;
-    gap: 50px;
-    justify-content: flex-start;
-    --_btn-size: 120px;
+    left: 35px; /* Moved 70px left from 280px */
   }
 
   .left img:not(.image-tablet) {

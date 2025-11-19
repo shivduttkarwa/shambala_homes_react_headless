@@ -117,8 +117,8 @@ button.glass-rain-btn:focus {
 .btn-rain-drop {
   background: linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 0.76),
-    rgba(255, 255, 255, 0.2)
+    rgba(128, 128, 128, 0.76),
+    rgba(128, 128, 128, 0.2)
   );
   filter: blur(0.3px);
 }

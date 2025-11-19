@@ -24,7 +24,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 1,
     category: "",
-    title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
+    title: '"WHERE VISION\nMEETS\nDREAMS"',
     leftImage: `${publicUrl}images/l4.jpg`,
     rightImage: `${publicUrl}images/zz.jpg`,
     tabletImage: `${publicUrl}images/zz.jpg`,
@@ -36,7 +36,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 2,
     category: "",
-    title: '"SUSTAINABLE\nDESIGN\nPHILOSOPHY"',
+    title: '"SUSTAINABLE\nDESIGN\nTOMORROW"',
     leftImage: `${publicUrl}images/pexels-asphotography-94818.jpg`,
     rightImage: `${publicUrl}images/pexels-fotoaibe-1571460.jpg`,
     tabletImage: `${publicUrl}images/pexels-fotoaibe-1571460.jpg`,
@@ -48,7 +48,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 3,
     category: "",
-    title: '"COMMUNITY\nCENTERED\nAPPROACH"',
+    title: '"COMMUNITY\nCENTERED\nLIVING"',
     leftImage: `${publicUrl}images/pexels-expect-best-79873-323780.jpg`,
     rightImage: `${publicUrl}images/pr1.jpg`,
     tabletImage: `${publicUrl}images/pr1.jpg`,
@@ -60,7 +60,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 4,
     category: "",
-    title: '"EXCELLENCE\nIN\nCRAFTSMANSHIP"',
+    title: '"EXCELLENCE\nIN EVERY\nDETAIL"',
     leftImage: `${publicUrl}images/pexels-jvdm-1457842.jpg`,
     rightImage: `${publicUrl}images/pr2.jpg`,
     tabletImage: `${publicUrl}images/pr2.jpg`,
