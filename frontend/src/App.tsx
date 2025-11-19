@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Header, Footer } from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import HouseDesignsRoute from "./pages/HouseDesignsRoute";
+import About from "./pages/About";
 import { useSiteSettings } from "./hooks/useSiteSettings";
 import Preloader from "./components/UI/Preloader";
 
@@ -25,6 +26,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage settings={settings} />} />
               <Route path="/house-designs" element={<HouseDesignsRoute />} />
+              <Route path="/about" element={<About />} />
             </Routes>
           </main>
           <Footer settings={settings} />

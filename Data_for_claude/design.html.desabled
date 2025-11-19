@@ -1,253 +1,418 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Rainy Glass CTA Button</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+<main id="main">
+  <header class="h">
+    <h1 class="so">ASCII Glitch Ripple Hover Effect Experiment of Bastien Cornier - Creative developer based in Lyon, France</h1>
+    <small aria-label="temporary folio">ASCII Glitch Ripple hover effect research for <a href="https://bastiencornier.com" target="_blank">my tiny folio</a></small>
+  </header>
+  <article class="ct">
+    <ul class="pt">
+      <!-- NOTE: make sure to have aria-label on your link to preserve accessibility on text while hovering -->
+      <li><a href="#" aria-label="Roadside Picnic — Arkady & Boris Strugatsky">Roadside Picnic — Arkady & Boris Strugatsky</a></li>
+      <li><a href="#" aria-label="The City & the City — China Miéville">The City & the City — China Miéville</a></li>
+      <li><a href="#" aria-label="Parable of the Sower — Octavia E. Butler">Parable of the Sower — Octavia E. Butler</a></li>
+      <li><a href="#" aria-label="The Fifth Head of Cerberus — Gene Wolfe">The Fifth Head of Cerberus — Gene Wolfe</a></li>
+      <li><a href="#" aria-label="Riddley Walker — Russell Hoban">Riddley Walker — Russell Hoban</a></li>
+      <li><a href="#" aria-label="His Master's Voice — Stanisław Lem">His Master's Voice — Stanisław Lem</a></li>
+      <li><a href="#" aria-label="The Left Hand of Darkness — Ursula K. Le Guin">The Left Hand of Darkness — Ursula K. Le Guin</a></li>
+      <li><a href="#" aria-label="The Three Stigmata of Palmer Eldritch — Philip K. Dick">The Three Stigmata of Palmer Eldritch — Philip K. Dick</a></li>
+      <li><a href="#" aria-label="Stars in My Pocket Like Grains of Sand — Samuel R. Delany">Stars in My Pocket Like Grains of Sand — Samuel R. Delany</a></li>
+    </ul>
+  </article>
+  <footer>
+    <small>✺</small>
+  </footer>
+</main>
 
-      body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: radial-gradient(
-          circle at top,
-          #f5f5f3 0,
-          #d4d4cf 45%,
-          #b9b9b3 100%
-        );
-        font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont,
-          sans-serif;
-      }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-style: normal;
+}
+html {
+  --color-bg: #121211;
+  --color-text: #f9f9f7;
+  --color-muted: #bdbdbd;
+  --u-thickness: 1.1px;
+  --u-spacing: 0.4rem;
+  --u-offset: 0.2rem;
+}
+body {
+  background: var(--color-bg);
+  font: 14px/1.45 "Lucida Console", "Monaco", monospace;
+  letter-spacing: 0.01em;
+}
+body,
+a {
+  color: var(--color-text);
+}
+::selection {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ct {
+  margin: 0 auto;
+  padding: 0.6em 1.6em;
+  max-width: 52ch;
+  position: relative;
+  z-index: 1;
+}
+.ct > * {
+  margin: 1rem 0 0;
+}
 
-      /* ========== GLASS BUTTON ========== */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2em 0;
+}
+li {
+  margin: 0.6rem 0;
+  position: relative;
+}
+a {
+  color: var(--color-text);
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
 
-      .home-benefits-cta {
-        all: unset;
-        box-sizing: border-box;
+.h a::after {
+  content: "";
+  position: absolute;
+  bottom: calc(-1.1 * var(--u-offset));
+  left: 0;
+  right: 0;
+  height: var(--u-thickness);
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-muted) 0,
+    var(--color-muted) 2px,
+    transparent 2px,
+    transparent var(--u-spacing)
+  );
+  transition: background 0.3s ease-out;
+  opacity: 0.75;
+}
+.h a:hover::after {
+  background: var(--color-muted);
+  height: calc(var(--u-thickness) * 0.5);
+}
+a:focus,
+a:hover {
+  text-decoration: none;
+}
+header {
+  margin-bottom: 1.5em;
+}
+footer {
+  padding: 1em 0;
+}
+small {
+  color: var(--color-muted);
+  font-size: 0.8em;
+  display: block;
+  margin-top: 1.5em;
+  text-align: center;
+}
+/* Active ascii anim on link */
+a.as {
+  cursor: pointer;
+  user-select: none;
+}
 
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 1.25rem 1.75rem;
-        border-top: 1px solid rgba(20, 20, 20, 0.12);
-        border-bottom: 1px solid rgba(20, 20, 20, 0.12);
-        border-left: none;
-        border-right: none;
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        letter-spacing: 0.16em;
-        text-decoration: none;
-        color: #141414;
-        overflow: hidden;
-        background: rgba(20, 20, 20, 0.02);
-        transition: color 0.3s ease, background 0.3s ease;
-        cursor: pointer;
-      }
+/* Disable text selection during ASCII animation */
+a.as::selection {
+  background: transparent;
+}
 
-      .home-benefits-cta-bg {
-        position: absolute;
-        inset: 0;
-        background: #9bc56f;
-        opacity: 0.15;
-        transform-origin: left;
-        transform: scaleX(0);
-        transition: transform 0.8s ease-out;
-        pointer-events: none;
-        z-index: 0;
-      }
+/* hover state for links with ASCII animation */
+a.as:hover {
+  position: relative;
+  cursor: pointer;
+}
 
-      .home-benefits-cta-label {
-        position: relative;
-        z-index: 2;
-      }
+.pt li {
+  padding: 0 0 0 0.6em;
+}
+.pt li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 68%;
+  width: 0.6em;
+  height: 1px;
+  background: var(--color-text);
+  transform: scaleX(1);
+  transform-origin: right;
+  transition: transform 1s ease;
+}
 
-      .home-benefits-cta-icon {
-        position: relative;
-        z-index: 2;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 999px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid rgba(20, 20, 20, 0.12);
-        font-size: 1.1rem;
-        transform: translateX(0);
-        opacity: 1;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
+.pt li:hover::before {
+  transform: scaleX(2);
+  transition-duration: 0.3s;
+}
 
-      .home-benefits-cta:hover {
-        background: #9bc56f20;
-        color: #000;
-      }
+.pt li a {
+  display: inline-block;
+  margin-left: 0.6em;
+  white-space: nowrap;
+}
+/* sr-only */
+.so {
+  position: absolute;
+  display: block;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
-      .home-benefits-cta:hover .home-benefits-cta-bg {
-        transform: scaleX(1);
-      }
 
-      .home-benefits-cta:hover .home-benefits-cta-icon {
-        transform: translateX(6px);
-      }
+// Constants for wave animation behavior
+const WAVE_THRESH = 3;
+const CHAR_MULT = 3;
+const ANIM_STEP = 40;
+const WAVE_BUF = 5;
 
-      button.home-benefits-cta {
-        appearance: none;
-        outline: none;
-      }
+/**
+ * ASCII ripple animation instance for an element
+ */
+export const createASCIIShift = (el, opts = {}) => {
+  // State variables
+  let origTxt = el.textContent;
+  let origChars = origTxt.split("");
+  let isAnim = false;
+  let cursorPos = 0;
+  let waves = [];
+  let animId = null;
+  let isHover = false;
+  let origW = null;
 
-      button.home-benefits-cta:focus {
-        outline: 2px solid #5b7c4f;
-        outline-offset: 2px;
-      }
+  // options
+  const cfg = {
+    dur: 600,
+    chars: '.,·-─~+:;=*π""┐┌┘┴┬╗╔╝╚╬╠╣╩╦║░▒▓█▄▀▌▐■!?&#$@0123456789*',
+    preserveSpaces: true,
+    spread: 0.3,
+    ...opts
+  };
 
-      /* ========== RAIN LAYER INSIDE BUTTON ========== */
+  /**
+   * Updates cursor position based on mouse move
+   */
+  const updateCursorPos = (e) => {
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const len = origTxt.length;
+    const pos = Math.round((x / rect.width) * len);
+    cursorPos = Math.max(0, Math.min(pos, len - 1));
+  };
 
-      .btn-rain-layer {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        z-index: 1; /* between bg (0) and label/icon (2) */
-        pointer-events: none;
-      }
+  /**
+   * Starts a new wave animation from current cursor pos
+   */
+  const startWave = () => {
+    waves.push({
+      startPos: cursorPos,
+      startTime: Date.now(),
+      id: Math.random()
+    });
 
-      .btn-rain-drops,
-      .btn-rain-shadows {
-        position: absolute;
-        inset: 0;
-      }
+    if (!isAnim) start();
+  };
 
-      .btn-rain-drop,
-      .btn-rain-shadow {
-        position: absolute;
-        border-radius: 999px;
-        top: -20%; /* 👈 keep above button before animation */
-        opacity: 0; /* 👈 hide before animation */
-      }
+  /**
+   * Clean up expired waves that have exceeded their duration
+   */
+  const cleanupWaves = (t) => {
+    waves = waves.filter((w) => t - w.startTime < cfg.dur);
+  };
 
-      .btn-rain-drop {
-        background: linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.95),
-          rgba(255, 255, 255, 0.25)
-        );
-        filter: blur(0.25px);
-      }
+  /**
+   * Calculates wave fx for a character at given index
+   * Returns whether to animate and which character to show
+   */
+  const calcWaveEffect = (charIdx, t) => {
+    let shouldAnim = false;
+    let resultChar = origChars[charIdx];
 
-      .btn-rain-shadow {
-        margin-left: 1px;
-        margin-top: 1px;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
-      }
+    for (const w of waves) {
+      const age = t - w.startTime;
+      const prog = Math.min(age / cfg.dur, 1);
+      const dist = Math.abs(charIdx - w.startPos);
+      const maxDist = Math.max(w.startPos, origChars.length - w.startPos - 1);
+      const rad = (prog * (maxDist + WAVE_BUF)) / cfg.spread;
 
-      /* Slide using TOP from -20% to 120% */
-      @keyframes btn-streaking {
-        0% {
-          opacity: 0;
-          top: -20%;
+      if (dist <= rad) {
+        shouldAnim = true;
+        const intens = Math.max(0, rad - dist);
+
+        // Chars in the wave zone shift through character sequence
+        if (intens <= WAVE_THRESH && intens > 0) {
+          const charIdx =
+            (dist * CHAR_MULT + Math.floor(age / ANIM_STEP)) % cfg.chars.length;
+          resultChar = cfg.chars[charIdx];
         }
-        10% {
-          opacity: 1;
-        }
-        90% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-          top: 120%;
-        }
       }
-    </style>
-  </head>
-  <body>
-    <button class="home-benefits-cta">
-      <span class="home-benefits-cta-bg"></span>
+    }
 
-      <!-- rain layer -->
-      <div class="btn-rain-layer">
-        <div class="btn-rain-shadows"></div>
-        <div class="btn-rain-drops"></div>
-      </div>
+    return { shouldAnim, char: resultChar };
+  };
 
-      <span class="home-benefits-cta-label">Explore benefits</span>
-      <span class="home-benefits-cta-icon">→</span>
-    </button>
+  /**
+   * Generates scrambled text based on current waves
+   */
+  const genScrambledTxt = (t) =>
+    origChars
+      .map((char, i) => {
+        if (cfg.preserveSpaces && char === " ") return " ";
+        const res = calcWaveEffect(i, t);
+        return res.shouldAnim ? res.char : char;
+      })
+      .join("");
 
-    <script>
-      (function () {
-        const dropCount = 40;
-        const dropsContainer = document.querySelector(".btn-rain-drops");
-        const shadowsContainer = document.querySelector(".btn-rain-shadows");
+  /**
+   * Stops the animation and resets to original text
+   */
+  const stop = () => {
+    el.textContent = origTxt;
+    el.classList.remove("as");
 
-        if (!dropsContainer || !shadowsContainer) return;
+    // Reset width to allow natural text flow
+    if (origW !== null) {
+      el.style.width = "";
+      origW = null;
+    }
+    isAnim = false;
+  };
 
-        const maxDelay = 2.0; // total stagger spread in seconds
+  /**
+   * Start the animation loop
+   */
+  const start = () => {
+    if (isAnim) return;
 
-        for (let i = 0; i < dropCount; i++) {
-          const drop = document.createElement("div");
-          const shadow = document.createElement("div");
+    // Preserve original width to prevent layout shifts
+    if (origW === null) {
+      origW = el.getBoundingClientRect().width;
+      el.style.width = `${origW}px`;
+    }
 
-          drop.className = "btn-rain-drop";
-          shadow.className = "btn-rain-shadow";
+    isAnim = true;
+    el.classList.add("as");
 
-          // RANDOM X across full width
-          const x = Math.random();
-          const leftPercent = x * 100;
+    const animate = () => {
+      const t = Date.now();
 
-          // BASE WIDTH
-          const baseWidth = 1 + Math.random() * 3; // 1–4px
+      // Clean up expired waves first
+      cleanupWaves(t);
 
-          // RANDOM OVERALL SIZE (width + height together)
-          const sizeScale = 0.8 + Math.random() * 2.2; // 0.8–3x
-          let dropWidth = baseWidth * sizeScale;
+      if (waves.length === 0) {
+        stop();
+        return;
+      }
 
-          // SHAPE: 70% round-ish, 30% short streak
-          const shapeVariant = Math.random();
-          let heightRatio;
+      // Generate scrambled text
+      el.textContent = genScrambledTxt(t);
+      animId = requestAnimationFrame(animate);
+    };
 
-          if (shapeVariant < 0.7) {
-            // round-ish
-            heightRatio = 1 + Math.random() * 0.3; // 1–1.3x
-          } else {
-            // short streak
-            heightRatio = 1.6 + Math.random() * 0.6; // 1.6–2.2x
-          }
+    animId = requestAnimationFrame(animate);
+  };
 
-          let dropHeight = baseWidth * heightRatio * sizeScale;
+  /**
+   * Event handlers
+   */
+  const handleEnter = (e) => {
+    isHover = true;
+    updateCursorPos(e);
+    startWave();
+  };
 
-          // SPEED: base time, then slowed by ~40%
-          const originalTime = 1.2 + Math.random() * 1.6;
-          const dropTime = originalTime * 1.4;
+  const handleMove = (e) => {
+    if (!isHover) return;
+    const old = cursorPos;
+    updateCursorPos(e);
+    if (cursorPos !== old) startWave();
+  };
 
-          // EVEN STAGGER
-          const dropDelay = (i / dropCount) * maxDelay;
+  const handleLeave = () => {
+    isHover = false;
+  };
 
-          drop.style.left = leftPercent + "%";
-          drop.style.width = dropWidth + "px";
-          drop.style.height = dropHeight + "px";
-          drop.style.animation = `${dropTime}s btn-streaking linear infinite`;
-          drop.style.animationDelay = `${dropDelay}s`;
+  /**
+   * Initializes event listeners
+   */
+  const init = () => {
+    const events = [
+      ["mouseenter", handleEnter],
+      ["mousemove", handleMove],
+      ["mouseleave", handleLeave]
+    ];
+    events.forEach(([evt, handler]) => el.addEventListener(evt, handler));
+  };
 
-          shadow.style.left = leftPercent + "%";
-          shadow.style.width = Math.max(dropWidth - 1, 1) + "px";
-          shadow.style.height = Math.max(dropHeight - 1, 1) + "px";
-          shadow.style.animation = `${dropTime}s btn-streaking linear infinite`;
-          shadow.style.animationDelay = `${dropDelay}s`;
+  /**
+   * Resets animation to original state
+   */
+  const resetToOrig = () => {
+    waves = [];
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
 
-          dropsContainer.appendChild(drop);
-          shadowsContainer.appendChild(shadow);
-        }
-      })();
-    </script>
-  </body>
-</html>
+    // Reset width preservation
+    if (origW !== null) {
+      el.style.width = "";
+      origW = null;
+    }
+    stop();
+  };
+
+  /**
+   * Updates the text content
+   */
+  const updateTxt = (newTxt) => {
+    origTxt = newTxt;
+    origChars = newTxt.split("");
+    if (!isAnim) el.textContent = newTxt;
+  };
+
+  /**
+   * Destroys the instance and cleans up event listeners
+   */
+  const destroy = () => {
+    resetToOrig();
+    ["mouseenter", "mousemove", "mouseleave"].forEach((evt, i) =>
+      el.removeEventListener(evt, [handleEnter, handleMove, handleLeave][i])
+    );
+  };
+
+  // Initialize the instance
+  init();
+
+  // public API
+  return { updateTxt, resetToOrig, destroy };
+};
+
+/**
+ * Initialize animation for all links on the page
+ */
+const initASCIIShift = () => {
+  const links = document.querySelectorAll("a");
+  links.forEach((link) => {
+    if (!link.textContent.trim()) return;
+    createASCIIShift(link, { dur: 1000, spread: 1 });
+  });
+};
+initASCIIShift();

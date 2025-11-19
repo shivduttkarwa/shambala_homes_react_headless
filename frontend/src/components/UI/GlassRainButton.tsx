@@ -17,7 +17,7 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
   const rainLayerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const dropCount = 30;
+    const dropCount = 15;
     const speedMultiplier = 6.175; //  higher = slower, lower = faster
     const sizeMultiplier = 2.5; // higher = bigger drops, lower = smaller drops
     const rainLayer = rainLayerRef.current;
