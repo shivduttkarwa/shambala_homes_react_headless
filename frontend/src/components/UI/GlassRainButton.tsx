@@ -18,8 +18,8 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
 
   useEffect(() => {
     const dropCount = 30;
-    const speedMultiplier = 4.175; //  higher = slower, lower = faster
-    const sizeMultiplier = 2.0; // higher = bigger drops, lower = smaller drops
+    const speedMultiplier = 6.175; //  higher = slower, lower = faster
+    const sizeMultiplier = 2.5; // higher = bigger drops, lower = smaller drops
     const rainLayer = rainLayerRef.current;
     if (!rainLayer) return;
 
