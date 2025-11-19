@@ -68,26 +68,6 @@ const defaultServices: ServiceCard[] = [
     ctaText: "Learn More",
     ctaLink: "#",
   },
-  {
-    id: "5",
-    title: "Landscape Design",
-    description:
-      "Create stunning outdoor spaces that complement your home with our professional landscaping services.",
-    imageSrc: `${publicUrl}images/sm6.jpg`,
-    alt: "Landscaping Services",
-    ctaText: "Learn More",
-    ctaLink: "#",
-  },
-  {
-    id: "6",
-    title: "Custom Design Build",
-    description:
-      "Unique architectural solutions crafted to reflect your personal style and requirements.",
-    imageSrc: `${publicUrl}images/sm5.jpg`,
-    alt: "Custom Builds",
-    ctaText: "Learn More",
-    ctaLink: "#",
-  },
 ];
 
 const ServicesSection: React.FC<ServicesSectionProps> = ({

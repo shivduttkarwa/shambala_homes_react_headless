@@ -17,12 +17,18 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
   const rainLayerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const dropCount = 40;
+    const dropCount = 30;
+    const speedMultiplier = 4.175; //  higher = slower, lower = faster
+    const sizeMultiplier = 2.0; // higher = bigger drops, lower = smaller drops
     const rainLayer = rainLayerRef.current;
     if (!rainLayer) return;
 
-    const dropsContainer = rainLayer.querySelector(".btn-rain-drops") as HTMLDivElement;
-    const shadowsContainer = rainLayer.querySelector(".btn-rain-shadows") as HTMLDivElement;
+    const dropsContainer = rainLayer.querySelector(
+      ".btn-rain-drops"
+    ) as HTMLDivElement;
+    const shadowsContainer = rainLayer.querySelector(
+      ".btn-rain-shadows"
+    ) as HTMLDivElement;
 
     if (!dropsContainer || !shadowsContainer) return;
 
@@ -39,12 +45,9 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
       const x = Math.random();
       const leftPercent = x * 100;
 
-      // BASE WIDTH
-      const baseWidth = 1 + Math.random() * 3; // 1–4px
-
-      // RANDOM OVERALL SIZE (width + height together)
-      const sizeScale = 0.8 + Math.random() * 2.2; // 0.8–3x
-      let dropWidth = baseWidth * sizeScale;
+      // SIZE: Simple control
+      const baseWidth = (1 + Math.random() * 3) * sizeMultiplier; // 1–4px base
+      let dropWidth = baseWidth;
 
       // SHAPE: 85% round-ish, 15% short streak (removed longest drops)
       const shapeVariant = Math.random();
@@ -58,11 +61,11 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
         heightRatio = 1.4 + Math.random() * 0.3; // 1.4–1.7x (was 1.6–2.2x)
       }
 
-      let dropHeight = baseWidth * heightRatio * sizeScale;
+      let dropHeight = baseWidth * heightRatio;
 
-      // SPEED: original base time reduced by 50%, then further reduced by 40%, then further reduced by 20%
-      const originalTime = 1.2 + Math.random() * 1.6;
-      const dropTime = originalTime * 2 * 1.67 * 1.25;
+      // SPEED: Simple control
+      const baseTime = 1.2 + Math.random() * 1.6;
+      const dropTime = baseTime * speedMultiplier;
 
       // EVEN STAGGER
       const dropDelay = (i / dropCount) * maxDelay;
@@ -98,7 +101,7 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
   const content = (
     <>
       <span className="glass-rain-btn-bg"></span>
-      
+
       {/* rain layer */}
       <div className="btn-rain-layer" ref={rainLayerRef}>
         <div className="btn-rain-shadows"></div>

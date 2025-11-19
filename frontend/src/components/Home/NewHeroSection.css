@@ -281,4 +281,19 @@
     left: var(--hero-left-pad);
   }
 
+  .hero-cta .glass-rain-btn {
+    width: 300px;
+    padding: 1.32rem 1.8rem;
+    font-size: 0.864rem;
+    letter-spacing: 0.168em;
+    gap: 0.78rem;
+    white-space: nowrap;
+  }
+  
+  .hero-cta .glass-rain-btn-icon {
+    width: 2.76rem;
+    height: 2.76rem;
+    font-size: 1.008rem;
+  }
+
 }
