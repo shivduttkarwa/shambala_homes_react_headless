@@ -36,7 +36,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 2,
     category: "",
-    title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
+    title: '"SUSTAINABLE\nDESIGN\nPHILOSOPHY"',
     leftImage: `${publicUrl}images/pexels-asphotography-94818.jpg`,
     rightImage: `${publicUrl}images/pexels-fotoaibe-1571460.jpg`,
     tabletImage: `${publicUrl}images/pexels-fotoaibe-1571460.jpg`,
@@ -48,7 +48,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 3,
     category: "",
-    title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
+    title: '"COMMUNITY\nCENTERED\nAPPROACH"',
     leftImage: `${publicUrl}images/pexels-expect-best-79873-323780.jpg`,
     rightImage: `${publicUrl}images/pr1.jpg`,
     tabletImage: `${publicUrl}images/pr1.jpg`,
@@ -60,7 +60,7 @@ const defaultProperties: PropertySlide[] = [
   {
     id: 4,
     category: "",
-    title: '"WHERE VISION\nMEETS\nCRAFTSMANSHIP\nAND DREAMS"',
+    title: '"EXCELLENCE\nIN\nCRAFTSMANSHIP"',
     leftImage: `${publicUrl}images/pexels-jvdm-1457842.jpg`,
     rightImage: `${publicUrl}images/pr2.jpg`,
     tabletImage: `${publicUrl}images/pr2.jpg`,
@@ -79,9 +79,112 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
   properties = defaultProperties,
 }) => {
   const swiperRef = useRef<any>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const handleSlideChange = (swiper: any) => {
+    setCurrentSlide(swiper.realIndex);
+  };
+
+  // Horizontal scroll navigation with single slide per gesture
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout | null = null;
+    let hasScrolled = false;
+    
+    const handleWheel = (e: WheelEvent) => {
+      const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey;
+      
+      if (isHorizontalScroll) {
+        e.preventDefault();
+        
+        if (!hasScrolled) {
+          hasScrolled = true;
+          
+          if (swiperRef.current && swiperRef.current.swiper) {
+            const deltaX = e.shiftKey ? e.deltaY : e.deltaX;
+            
+            if (deltaX > 0) {
+              swiperRef.current.swiper.slideNext();
+            } else if (deltaX < 0) {
+              swiperRef.current.swiper.slidePrev();
+            }
+          }
+        }
+        
+        // Clear existing timeout
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+        }
+        
+        // Reset scroll flag after scroll gesture ends
+        scrollTimeout = setTimeout(() => {
+          hasScrolled = false;
+        }, 150); // Short timeout to detect end of scroll gesture
+      }
+    };
+
+    const sectionElement = document.getElementById('home_accommodation');
+    if (sectionElement) {
+      sectionElement.addEventListener('wheel', handleWheel, { passive: false });
+    }
+
+    return () => {
+      if (sectionElement) {
+        sectionElement.removeEventListener('wheel', handleWheel);
+      }
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, []);
 
   return (
     <section id="home_accommodation">
+      {/* Fixed navigation buttons outside slider */}
+      <div className="left-navigation">
+        <button className="nav-btn swiper-button-prev">
+          <div className="btn-outline btn-outline-1"></div>
+          <div className="btn-outline btn-outline-2"></div>
+          <div className="arrow-container">
+            <svg
+              width="30"
+              height="12"
+              viewBox="0 0 30 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M30 6H1M1 6L6 1M1 6L6 11"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </button>
+        <button className="nav-btn swiper-button-next">
+          <div className="btn-outline btn-outline-1"></div>
+          <div className="btn-outline btn-outline-2"></div>
+          <div className="arrow-container">
+            <svg
+              width="30"
+              height="12"
+              viewBox="0 0 30 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 6H29M29 6L24 1M29 6L24 11"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+
       <div className="swiper accommodation_swipe">
         <Swiper
           ref={swiperRef}
@@ -94,6 +197,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
+          onSlideChange={handleSlideChange}
           className="swiper"
         >
           <div className="swiper-wrapper">
@@ -101,51 +205,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
               <SwiperSlide key={property.id} className="swiper-slide">
                 <div className="left">
                   {property.category && <p>{property.category}</p>}
-                  <h2>{property.title}</h2>
-                  <div className="left-navigation">
-                    <button className="nav-btn swiper-button-prev">
-                      <div className="btn-outline btn-outline-1"></div>
-                      <div className="btn-outline btn-outline-2"></div>
-                      <div className="arrow-container">
-                        <svg
-                          width="30"
-                          height="12"
-                          viewBox="0 0 30 12"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M30 6H1M1 6L6 1M1 6L6 11"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                    </button>
-                    <button className="nav-btn swiper-button-next">
-                      <div className="btn-outline btn-outline-1"></div>
-                      <div className="btn-outline btn-outline-2"></div>
-                      <div className="arrow-container">
-                        <svg
-                          width="30"
-                          height="12"
-                          viewBox="0 0 30 12"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M1 6H29M29 6L24 1M29 6L24 11"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                    </button>
-                  </div>
+                  <h2>{properties[currentSlide]?.title}</h2>
                   <div className="image">
                     <img src={property.leftImage} alt={property.subtitle} />
                     <img
