@@ -83,14 +83,38 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
 
         gsap.from(letters, {
           yPercent: 100,
-          duration: 1.8,
-          stagger: 0.1,
-          ease: "power1.out",
+          duration: 0.6,
+          stagger: 0.06,
+          ease: "back.out(2.7)",
           scrollTrigger: {
             trigger: brandTextRef.current,
             start: "top 90%",
             toggleActions: "play none none none",
             once: true,
+          },
+          onComplete: () => {
+            // Color flash animation after text animation completes
+            const colors = [
+              "#ff6b6b", // Coral Red (S)
+              "#4ecdc4", // Turquoise (H)
+              "#ffe66d", // Sunny Yellow (A)
+              "#a8e6cf", // Mint Green (M)
+              "#ff8b94", // Pink (B)
+              "#c7ceea", // Lavender (A)
+              "#ffdac1", // Peach (L)
+              "#b5ead7", // Seafoam (A)
+            ];
+
+            letters.forEach((letter, index) => {
+              gsap.to(letter, {
+                color: colors[index],
+                duration: 0.2,
+                delay: index * 0.2,
+                yoyo: true,
+                repeat: 1,
+                ease: "power2.inOut",
+              });
+            });
           },
         });
       }

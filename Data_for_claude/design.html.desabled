@@ -1,445 +1,432 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Astral Frontier - Preloader</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>GSAP Video + Falling Text Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      :root {
+        --light-bg: #f5f5f2;
+        --text: #141414;
+        --accent: #0bb9d1;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: #e9e9e4;
+        color: var(--text);
+        min-height: 200vh;
+      }
+
+      .gsap-video-wrapper {
+        height: 250vh;
+        position: relative;
+      }
+
+      .gsap-video-content {
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: var(--light-bg);
+        padding-bottom: 15vh;
+      }
+
+      .gsap-text-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1800px;
+        padding: 4rem 4rem 0;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 3;
+      }
+
+      .gsap-text-left,
+      .gsap-text-right {
+        font-size: clamp(4rem, 10vw, 14rem);
+        font-weight: 500;
+        letter-spacing: -0.04em;
+        line-height: 0.9;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .gsap-video-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30vw;
+        height: 12.5vw;
+        border-radius: 0px;
+        overflow: hidden;
+        z-index: 5;
+      }
+
+      .gsap-video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .gsap-bottom-text {
+        position: absolute;
+        bottom: 15vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1600px;
+        padding: 0 4rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        z-index: 4;
+        pointer-events: none;
+      }
+
+      .gsap-bottom-left,
+      .gsap-bottom-right {
+        width: 45%;
+        pointer-events: auto;
+      }
+
+      .falling-text-container {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: 120px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .falling-text-inner {
+        position: relative;
+        display: inline-block;
+        line-height: 1;
+        text-align: center;
+        font-size: clamp(1.75rem, 4.2vw, 3.5rem);
+        padding-bottom: 0.5rem;
+      }
+
+      .falling-char {
+        display: inline-block;
+        white-space: pre;
+        user-select: none;
+        color: var(--accent);
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 1024px) {
+        .gsap-text-container {
+          padding: 2rem 2rem 0;
         }
 
-        body {
-            font-family: 'Courier New', monospace;
-            background: #000;
-            color: #8F7E77;
-            overflow-x: hidden;
+        .gsap-text-left,
+        .gsap-text-right {
+          font-size: clamp(3rem, 10vw, 10rem);
         }
 
-        /* Preloader Styles */
-        .preloader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+        .gsap-video-container {
+          width: 55vw;
+          height: 30.9375vw;
         }
 
-        .preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
+        .gsap-bottom-text {
+          padding: 0 2rem 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gsap-text-container {
+          padding: 1.5rem 1rem 0;
+          margin-top: 60px;
         }
 
-        .preloader-content {
-            position: relative;
-            text-align: center;
+        .gsap-text-left,
+        .gsap-text-right {
+          font-size: clamp(2.5rem, 12vw, 6rem);
         }
 
-        /* Animated Border Frame */
-        .loader-frame {
-            position: relative;
-            width: 180px;
-            height: 90px;
-            margin: 0 auto 30px;
+        .gsap-video-container {
+          width: 65vw;
+          height: 36.5625vw;
+          top: 45%;
         }
 
-        .loader-corners {
-            position: absolute;
-            inset: 0;
+        .gsap-bottom-text {
+          padding: 0 1.5rem 2rem;
         }
 
-        .corner {
-            position: absolute;
-            width: 20px;
-            height: 20px;
+        .falling-text-container {
+          min-height: 100px;
         }
 
-        .corner-line {
-            position: absolute;
-            background: #8F7E77;
+        .falling-text-inner {
+          font-size: clamp(1.4rem, 4.9vw, 2.8rem);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gsap-text-container {
+          padding: 1.5rem 1rem 0;
+          margin-top: 70px;
         }
 
-        /* Top Left Corner */
-        .top-left {
-            top: 0;
-            left: 0;
+        .gsap-text-left,
+        .gsap-text-right {
+          font-size: clamp(2rem, 10vw, 4rem);
         }
 
-        .top-left .v-line {
-            width: 1px;
-            height: 0;
-            left: 0;
-            top: 0;
-            animation: expandVertical 1s ease forwards;
+        .gsap-video-container {
+          width: 75vw;
+          height: 42.1875vw;
+          top: 42%;
         }
 
-        .top-left .h-line {
-            height: 1px;
-            width: 0;
-            top: 0;
-            left: 0;
-            animation: expandHorizontal 1s ease 0.25s forwards;
+        .gsap-bottom-text {
+          padding: 0 1rem 1.5rem;
         }
 
-        /* Top Right Corner */
-        .top-right {
-            top: 0;
-            right: 0;
+        .falling-text-container {
+          min-height: 90px;
         }
 
-        .top-right .h-line {
-            height: 1px;
-            width: 0;
-            top: 0;
-            right: 0;
-            animation: expandHorizontalReverse 1s ease 0.5s forwards;
+        .falling-text-inner {
+          font-size: clamp(1.26rem, 4.2vw, 2.1rem);
         }
-
-        .top-right .v-line {
-            width: 1px;
-            height: 0;
-            right: 0;
-            top: 0;
-            animation: expandVertical 1s ease 0.75s forwards;
-        }
-
-        /* Bottom Right Corner */
-        .bottom-right {
-            bottom: 0;
-            right: 0;
-        }
-
-        .bottom-right .v-line {
-            width: 1px;
-            height: 0;
-            right: 0;
-            bottom: 0;
-            animation: expandVerticalReverse 1s ease 1s forwards;
-        }
-
-        .bottom-right .h-line {
-            height: 1px;
-            width: 0;
-            bottom: 0;
-            right: 0;
-            animation: expandHorizontalReverse 1s ease 1.25s forwards;
-        }
-
-        /* Bottom Left Corner */
-        .bottom-left {
-            bottom: 0;
-            left: 0;
-        }
-
-        .bottom-left .h-line {
-            height: 1px;
-            width: 0;
-            bottom: 0;
-            left: 0;
-            animation: expandHorizontal 1s ease 1.5s forwards;
-        }
-
-        .bottom-left .v-line {
-            width: 1px;
-            height: 0;
-            left: 0;
-            bottom: 0;
-            animation: expandVerticalReverse 1s ease 1.75s forwards;
-        }
-
-        /* Top and Bottom Lines with Dashes */
-        .top-line, .bottom-line {
-            position: absolute;
-            left: 20px;
-            right: 20px;
-            height: 1px;
-            opacity: 0;
-            animation: fadeInLine 0.5s ease 2s forwards;
-        }
-
-        .top-line {
-            top: 0;
-            background: repeating-linear-gradient(
-                to right,
-                #8F7E77 0px,
-                #8F7E77 10px,
-                transparent 10px,
-                transparent 15px
-            );
-        }
-
-        .bottom-line {
-            bottom: 0;
-            background: repeating-linear-gradient(
-                to right,
-                #8F7E77 0px,
-                #8F7E77 10px,
-                transparent 10px,
-                transparent 15px
-            );
-        }
-
-        /* Percentage Counter */
-        .percentage {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 28px;
-            letter-spacing: 4px;
-            font-weight: bold;
-            color: #8F7E77;
-            opacity: 0;
-            animation: fadeIn 0.5s ease 2.5s forwards;
-        }
-
-        /* Begin Journey Text */
-        .begin-text {
-            font-size: 14px;
-            letter-spacing: 3px;
-            color: #8F7E77;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeIn 0.5s ease 3.5s forwards;
-        }
-
-        /* Top Text */
-        .top-text {
-            position: absolute;
-            top: 80px;
-            right: 50%;
-            transform: translateX(50%);
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: #8F7E77;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeIn 0.5s ease 2.5s forwards;
-            white-space: nowrap;
-        }
-
-        /* Animations */
-        @keyframes expandVertical {
-            to { height: 20px; }
-        }
-
-        @keyframes expandVerticalReverse {
-            from { height: 0; }
-            to { height: 20px; }
-        }
-
-        @keyframes expandHorizontal {
-            to { width: 20px; }
-        }
-
-        @keyframes expandHorizontalReverse {
-            from { width: 0; }
-            to { width: 20px; }
-        }
-
-        @keyframes fadeInLine {
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        /* Landing Section */
-        .landing {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 100px 80px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000000" width="1920" height="1080"/></svg>');
-            position: relative;
-        }
-
-        .landing::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(143, 126, 119, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .landing-content {
-            max-width: 800px;
-            text-align: right;
-            position: relative;
-            z-index: 1;
-        }
-
-        .main-title {
-            font-size: 80px;
-            line-height: 1.1;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            color: #8F7E77;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .subtitle {
-            font-size: 12px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #8F7E77;
-            opacity: 0.8;
-        }
-
-        /* Grid Lines Background */
-        .grid-overlay {
-            position: absolute;
-            inset: 0;
-            opacity: 0.2;
-            pointer-events: none;
-        }
-
-        .grid-line {
-            position: absolute;
-            background: #8F7E77;
-        }
-
-        .grid-line.vertical {
-            width: 1px;
-            height: 100%;
-            top: 0;
-        }
-
-        .grid-line.horizontal {
-            height: 1px;
-            width: 100%;
-            left: 0;
-        }
-
-        @media (max-width: 768px) {
-            .landing {
-                padding: 60px 30px;
-                justify-content: center;
-            }
-
-            .landing-content {
-                text-align: center;
-            }
-
-            .main-title {
-                font-size: 40px;
-                letter-spacing: 4px;
-            }
-
-            .subtitle {
-                font-size: 10px;
-            }
-
-            .loader-frame {
-                width: 150px;
-                height: 75px;
-            }
-
-            .percentage {
-                font-size: 22px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-content">
-            <div class="top-text">Job Shooting for Exploration</div>
-            
-            <div class="loader-frame">
-                <div class="loader-corners">
-                    <!-- Top Left -->
-                    <div class="corner top-left">
-                        <div class="corner-line v-line"></div>
-                        <div class="corner-line h-line"></div>
-                    </div>
-                    
-                    <!-- Top Right -->
-                    <div class="corner top-right">
-                        <div class="corner-line h-line"></div>
-                        <div class="corner-line v-line"></div>
-                    </div>
-                    
-                    <!-- Bottom Right -->
-                    <div class="corner bottom-right">
-                        <div class="corner-line v-line"></div>
-                        <div class="corner-line h-line"></div>
-                    </div>
-                    
-                    <!-- Bottom Left -->
-                    <div class="corner bottom-left">
-                        <div class="corner-line h-line"></div>
-                        <div class="corner-line v-line"></div>
-                    </div>
-                </div>
-                
-                <div class="top-line"></div>
-                <div class="bottom-line"></div>
-                
-                <div class="percentage" id="percentage">0%</div>
-            </div>
+  </head>
+  <body>
+    <!-- Spacer -->
+    <div style="height: 60vh"></div>
 
-            <div class="begin-text">Begin Journey</div>
-        </div>
-    </div>
-
-    <!-- Landing Section -->
-    <section class="landing">
-        <div class="grid-overlay">
-            <div class="grid-line vertical" style="left: 20%;"></div>
-            <div class="grid-line vertical" style="left: 40%;"></div>
-            <div class="grid-line vertical" style="left: 60%;"></div>
-            <div class="grid-line vertical" style="left: 80%;"></div>
-            <div class="grid-line horizontal" style="top: 25%;"></div>
-            <div class="grid-line horizontal" style="top: 50%;"></div>
-            <div class="grid-line horizontal" style="top: 75%;"></div>
+    <section class="gsap-video-wrapper">
+      <div class="gsap-video-content">
+        <!-- Top big headings -->
+        <div class="gsap-text-container">
+          <div class="gsap-text-left">Latest</div>
+          <div class="gsap-text-right">Project</div>
         </div>
 
-        <div class="landing-content">
-            <h1 class="main-title">
-                PREPARE YOUR<br>
-                JOURNEY ACROSS<br>
-                DISTANT WORLDS...
-            </h1>
-            <p class="subtitle">For best experience turn volume on</p>
+        <!-- Center video -->
+        <div class="gsap-video-container">
+          <video autoplay muted loop playsinline>
+            <source
+              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
         </div>
+
+        <!-- Bottom words -->
+        <div class="gsap-bottom-text">
+          <div class="gsap-bottom-left">
+            <div class="falling-text-container" data-text="CREATIVE"></div>
+          </div>
+          <div class="gsap-bottom-right">
+            <div class="falling-text-container" data-text="DIGITAL"></div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <script>
-        // Percentage Counter Animation
-        const percentageEl = document.getElementById('percentage');
-        const preloader = document.getElementById('preloader');
-        let count = 0;
-        const targetCount = 100;
-        const duration = 4000; // 4 seconds
-        const startDelay = 2500; // Start after border animation completes
+    <!-- Spacer -->
+    <div style="height: 100vh"></div>
 
-        setTimeout(() => {
-            const increment = targetCount / (duration / 16); // 60fps
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      function initFallingText() {
+        document
+          .querySelectorAll(".falling-text-container")
+          .forEach((container) => {
+            const text = container.dataset.text || "Text";
+            const inner = document.createElement("div");
+            inner.className = "falling-text-inner";
+
+            text.split("").forEach((ch) => {
+              const span = document.createElement("span");
+              span.className = "falling-char";
+              span.textContent = ch === " " ? "\u00A0" : ch;
+              inner.appendChild(span);
+            });
+
+            // Repeat text 4 times
+            const originalHTML = inner.innerHTML;
+            inner.innerHTML = originalHTML + originalHTML + originalHTML + originalHTML;
+
+            container.innerHTML = "";
+            container.appendChild(inner);
+          });
+      }
+
+      initFallingText();
+
+      window.addEventListener("load", () => {
+        const wrapper = document.querySelector(".gsap-video-wrapper");
+        const videoContainer = document.querySelector(".gsap-video-container");
+        const textLeft = document.querySelector(".gsap-text-left");
+        const textRight = document.querySelector(".gsap-text-right");
+        const bottomContainers = document.querySelectorAll(
+          ".falling-text-container"
+        );
+
+        // Initial state for top text
+        gsap.set(textLeft, { xPercent: -150, opacity: 0 });
+        gsap.set(textRight, { xPercent: 150, opacity: 0 });
+
+        // Slide in top text
+        gsap.to([textLeft, textRight], {
+          xPercent: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: wrapper,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        // Set initial state for falling text - positioned normally, will fall with physics
+        bottomContainers.forEach((container) => {
+          const chars = container.querySelectorAll(".falling-char");
+          gsap.set(chars, { 
+            y: 0, 
+            opacity: 1,
+            rotation: 0
+          });
+        });
+
+        // Falling text animation function
+        function triggerFalling() {
+          bottomContainers.forEach((container) => {
+            const chars = container.querySelectorAll(".falling-char");
+
+            // Create a timeline for reversible animation
+            const fallTl = gsap.timeline();
             
-            const counter = setInterval(() => {
-                count += increment;
-                if (count >= targetCount) {
-                    count = targetCount;
-                    clearInterval(counter);
-                    
-                    // Hide preloader after completion
-                    setTimeout(() => {
-                        preloader.classList.add('hidden');
-                    }, 500);
-                }
-                percentageEl.textContent = Math.floor(count) + '%';
-            }, 16);
-        }, startDelay);
+            fallTl.to(chars, {
+              y: 0,
+              opacity: 1,
+              rotation: () => gsap.utils.random(-15, 15),
+              ease: "bounce.out",
+              duration: 1.2,
+              stagger: {
+                amount: 0.3,
+                from: "random"
+              }
+            });
+          });
+        }
+
+        // Main scroll animation timeline
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapper,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1,
+            pin: ".gsap-video-content",
+            pinSpacing: true,
+          },
+        });
+
+        // Collect all falling chars for scrubbed animation
+        const allChars = [];
+        bottomContainers.forEach((container) => {
+          const chars = container.querySelectorAll(".falling-char");
+          allChars.push(...chars);
+        });
+
+        // Video expansion to full screen - takes 60% of timeline (0 to 0.6)
+        tl.to(
+          videoContainer,
+          {
+            width: "100vw",
+            height: "100vh",
+            borderRadius: 0,
+            ease: "power2.inOut",
+            duration: 0.6,
+          },
+          0
+        )
+
+        // Top text fades out in sync with video expansion
+        .to(
+          textLeft,
+          {
+            x: -500,
+            opacity: 0,
+            ease: "power2.inOut",
+            duration: 0.6,
+          },
+          0
+        )
+        .to(
+          textRight,
+          {
+            x: 500,
+            opacity: 0,
+            ease: "power2.inOut",
+            duration: 0.6,
+          },
+          0
+        )
+
+        // Falling text animation - immediate free fall ALL AT ONCE
+        .to(
+          allChars,
+          {
+            y: 200,
+            opacity: 1,
+            rotation: (i) => gsap.utils.random(-25, 25),
+            ease: "power1.in",
+            duration: 0.15,
+            stagger: 0
+          },
+          0
+        )
+        
+        // Bounce back up slightly
+        .to(
+          allChars,
+          {
+            y: 180,
+            ease: "bounce.out",
+            duration: 0.1,
+            stagger: 0
+          },
+          0.15
+        )
+        
+        // Hold the final state
+        .to({}, { duration: 0.3 });
+      });
     </script>
-</body>
+  </body>
 </html>
