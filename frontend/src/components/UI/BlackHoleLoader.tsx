@@ -236,7 +236,7 @@ const BlackHoleLoader: React.FC<BlackHoleLoaderProps> = ({ onComplete }) => {
             onCompleteRef.current();
           }
         }
-      }, 2); // 100 * 2ms = 0.2 second total
+      }, 30); // 100 * 30ms = 3 seconds total
     };
 
     const handleMouseOver = () => {
