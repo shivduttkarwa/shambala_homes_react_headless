@@ -113,6 +113,10 @@ const Footer: React.FC<FooterProps> = ({ settings }) => {
                 yoyo: true,
                 repeat: 1,
                 ease: "power2.inOut",
+                onComplete: () => {
+                  // Clear inline styles so CSS hover effects can work
+                  gsap.set(letter, { clearProps: "color" });
+                }
               });
             });
           },
