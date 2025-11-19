@@ -60,9 +60,9 @@ const GlassRainButton: React.FC<GlassRainButtonProps> = ({
 
       let dropHeight = baseWidth * heightRatio * sizeScale;
 
-      // SPEED: base time, then slowed by ~40%, then reduced by additional 20%
+      // SPEED: base time, then slowed by ~40%, then reduced by 20%, then reduced by additional 30%
       const originalTime = 1.2 + Math.random() * 1.6;
-      const dropTime = originalTime * 1.4 * 1.2;
+      const dropTime = originalTime * 1.4 * 1.2 * 1.3;
 
       // EVEN STAGGER
       const dropDelay = (i / dropCount) * maxDelay;
