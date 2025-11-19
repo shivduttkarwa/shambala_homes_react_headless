@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage";
 import HouseDesignsRoute from "./pages/HouseDesignsRoute";
 import About from "./pages/About";
 import { useSiteSettings } from "./hooks/useSiteSettings";
-import Preloader from "./components/UI/Preloader";
+import BlackHoleLoader from "./components/UI/BlackHoleLoader";
 
 function App() {
   const { settings } = useSiteSettings();
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <>
-      {isLoading && <Preloader onComplete={handlePreloadComplete} />}
+      {isLoading && <BlackHoleLoader onComplete={handlePreloadComplete} />}
       <Router basename="/shambala_homes_react_headless">
         <div className="App">
           <Header settings={settings} />
