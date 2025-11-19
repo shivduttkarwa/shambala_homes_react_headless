@@ -79,67 +79,10 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
   properties = defaultProperties,
 }) => {
   const swiperRef = useRef<any>(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const handleSlideChange = (swiper: any) => {
-    setCurrentSlide(swiper.realIndex);
-  };
-
-  // Horizontal scroll navigation with single slide per gesture
-  useEffect(() => {
-    let scrollTimeout: NodeJS.Timeout | null = null;
-    let hasScrolled = false;
-    
-    const handleWheel = (e: WheelEvent) => {
-      const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey;
-      
-      if (isHorizontalScroll) {
-        e.preventDefault();
-        
-        if (!hasScrolled) {
-          hasScrolled = true;
-          
-          if (swiperRef.current && swiperRef.current.swiper) {
-            const deltaX = e.shiftKey ? e.deltaY : e.deltaX;
-            
-            if (deltaX > 0) {
-              swiperRef.current.swiper.slideNext();
-            } else if (deltaX < 0) {
-              swiperRef.current.swiper.slidePrev();
-            }
-          }
-        }
-        
-        // Clear existing timeout
-        if (scrollTimeout) {
-          clearTimeout(scrollTimeout);
-        }
-        
-        // Reset scroll flag after scroll gesture ends
-        scrollTimeout = setTimeout(() => {
-          hasScrolled = false;
-        }, 150); // Short timeout to detect end of scroll gesture
-      }
-    };
-
-    const sectionElement = document.getElementById('home_accommodation');
-    if (sectionElement) {
-      sectionElement.addEventListener('wheel', handleWheel, { passive: false });
-    }
-
-    return () => {
-      if (sectionElement) {
-        sectionElement.removeEventListener('wheel', handleWheel);
-      }
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-    };
-  }, []);
 
   return (
     <section id="home_accommodation">
-      {/* Fixed navigation buttons outside slider */}
+      {/* Navigation buttons positioned to overlay exactly where they were */}
       <div className="left-navigation">
         <button className="nav-btn swiper-button-prev">
           <div className="btn-outline btn-outline-1"></div>
@@ -197,7 +140,6 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          onSlideChange={handleSlideChange}
           className="swiper"
         >
           <div className="swiper-wrapper">
@@ -205,7 +147,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
               <SwiperSlide key={property.id} className="swiper-slide">
                 <div className="left">
                   {property.category && <p>{property.category}</p>}
-                  <h2>{properties[currentSlide]?.title}</h2>
+                  <h2>{property.title}</h2>
                   <div className="image">
                     <img src={property.leftImage} alt={property.subtitle} />
                     <img

@@ -56,7 +56,7 @@
 
 .left h2 {
   margin: 0;
-  margin-top: -80px; /* Reduced negative margin from -120px to -80px */
+  margin-top: -80px; /* Pushed title down 60px from -140px */
   margin-bottom: 40px;
   margin-left: -180px;
   font-size: 72px;
@@ -72,10 +72,12 @@
 }
 
 .left-navigation {
-  margin-bottom: 40px;
+  position: absolute;
+  top: 350px;
+  left: 300px;
   display: flex;
-  gap: 90px;
-  margin-left: 120px;
+  gap: 100px;
+  z-index: 10;
   --_btn-size: 100px;
 }
 
@@ -231,7 +233,7 @@
   max-width: 450px;
   position: relative;
   overflow: visible;
-  margin-top: auto;
+  margin-top: 160px; /* Pushed image down an additional 20px */
 }
 
 .left img:not(.image-tablet) {
