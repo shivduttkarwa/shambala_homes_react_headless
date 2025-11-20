@@ -40,6 +40,7 @@
 
 .mobile-line-1 {
   text-align: center;
+  transform: translateX(-90px) translateY(-30px);
 }
 
 .mobile-line-2 {
@@ -76,16 +77,14 @@
   object-fit: cover;
 }
 
-
 /* Responsive for very small screens */
 @media (max-width: 480px) {
   .mobile-text-line {
     font-size: clamp(4rem, 14vw, 6rem);
   }
-  
+
   .mobile-video-space {
     width: 300px;
     height: 180px;
   }
-  
 }
