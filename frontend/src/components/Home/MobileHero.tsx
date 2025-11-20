@@ -12,12 +12,12 @@ const MobileHero: React.FC = () => {
   const heroTextRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  
+
   // Split text into character spans
   const splitTextToChars = (element: HTMLElement) => {
     const text = element.textContent || "";
     element.innerHTML = "";
-    
+
     const chars = text.split("");
     chars.forEach((char) => {
       const span = document.createElement("span");
@@ -25,7 +25,7 @@ const MobileHero: React.FC = () => {
       span.style.display = "inline-block";
       element.appendChild(span);
     });
-    
+
     return element.querySelectorAll("span");
   };
 
@@ -35,17 +35,17 @@ const MobileHero: React.FC = () => {
 
     // Get all text lines
     const textLines = heroTextRef.current.querySelectorAll(".mobile-text-line");
-    
+
     textLines.forEach((line, lineIndex) => {
       const chars = splitTextToChars(line as HTMLElement);
-      
+
       // Set initial state
-      gsap.set(chars, { 
-        opacity: 0, 
-        y: 20, 
-        filter: "blur(10px)" 
+      gsap.set(chars, {
+        opacity: 0,
+        y: 20,
+        filter: "blur(10px)",
       });
-      
+
       // Animate in with stagger
       gsap.to(chars, {
         opacity: 1,
@@ -60,7 +60,12 @@ const MobileHero: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!wrapperRef.current || !videoSpaceRef.current || !heroTextRef.current || !contentRef.current) {
+    if (
+      !wrapperRef.current ||
+      !videoSpaceRef.current ||
+      !heroTextRef.current ||
+      !contentRef.current
+    ) {
       return;
     }
 
@@ -93,22 +98,32 @@ const MobileHero: React.FC = () => {
         opacity: 1,
         x: () => {
           const rect = videoSpaceRef.current!.getBoundingClientRect();
-          return (window.innerWidth / 2) - (rect.left + rect.width / 2);
+          return window.innerWidth / 2 - (rect.left + rect.width / 2);
         },
         y: () => {
           const rect = videoSpaceRef.current!.getBoundingClientRect();
-          return (window.innerHeight / 2) - (rect.top + rect.height / 2);
+          return window.innerHeight / 2 - (rect.top + rect.height / 2);
         },
         ease: "power2.inOut",
         duration: 0.6,
-      })
+      });
       // Fade out text during expansion with sliding animation
-      const line1 = heroTextRef.current!.querySelector(".mobile-line-1") as HTMLElement;
-      const line2 = heroTextRef.current!.querySelector(".mobile-line-2") as HTMLElement;
-      const line4 = heroTextRef.current!.querySelector(".mobile-line-4") as HTMLElement;
-      const line5 = heroTextRef.current!.querySelector(".mobile-line-5") as HTMLElement;
+      const line1 = heroTextRef.current!.querySelector(
+        ".mobile-line-1"
+      ) as HTMLElement;
+      const line2 = heroTextRef.current!.querySelector(
+        ".mobile-line-2"
+      ) as HTMLElement;
+      const line4 = heroTextRef.current!.querySelector(
+        ".mobile-line-4"
+      ) as HTMLElement;
+      const line5 = heroTextRef.current!.querySelector(
+        ".mobile-line-5"
+      ) as HTMLElement;
 
-      tl.to(line1, {
+      tl.to(
+        line1,
+        {
           y: -400,
           opacity: 0,
           ease: "power2.inOut",
@@ -116,50 +131,60 @@ const MobileHero: React.FC = () => {
         },
         0
       )
-      .to(line2, {
-          y: -300,
-          opacity: 0,
-          ease: "power2.inOut",
-          duration: 0.6,
-        },
-        0
-      )
-      .to(line4, {
-          y: 300,
-          opacity: 0,
-          ease: "power2.inOut",
-          duration: 0.6,
-        },
-        0
-      )
-      .to(line5, {
-          y: 400,
-          opacity: 0,
-          ease: "power2.inOut",
-          duration: 0.6,
-        },
-        0
-      )
-      // Reduced pause duration
-      .to({}, { duration: 0.4 });
+        .to(
+          line2,
+          {
+            y: -300,
+            opacity: 0,
+            ease: "power2.inOut",
+            duration: 0.6,
+          },
+          0
+        )
+        .to(
+          line4,
+          {
+            y: 300,
+            opacity: 0,
+            ease: "power2.inOut",
+            duration: 0.6,
+          },
+          0
+        )
+        .to(
+          line5,
+          {
+            y: 400,
+            opacity: 0,
+            ease: "power2.inOut",
+            duration: 0.6,
+          },
+          0
+        )
+        // Reduced pause duration
+        .to({}, { duration: 0.4 });
     }, wrapperRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={wrapperRef} className="mobile-hero-section" id="mobile-hero-section">
+    <section
+      ref={wrapperRef}
+      className="mobile-hero-section"
+      id="mobile-hero-section"
+    >
       <div ref={contentRef} className="mobile-hero-container">
         {/* Hero Text */}
         <div ref={heroTextRef} className="mobile-hero-text">
           <div className="mobile-text-line mobile-line-1">DESIGN</div>
           <div className="mobile-text-line mobile-line-2">BEYOND</div>
-          
+
           {/* Line 3 - Empty space for video positioning */}
           <div className="mobile-video-line">
             <div className="mobile-video-placeholder"></div>
           </div>
-          
+
           <div className="mobile-text-line mobile-line-4">THE</div>
           <div className="mobile-text-line mobile-line-5">ORDINARY</div>
         </div>
@@ -174,7 +199,6 @@ const MobileHero: React.FC = () => {
             />
           </video>
         </div>
-
       </div>
     </section>
   );
