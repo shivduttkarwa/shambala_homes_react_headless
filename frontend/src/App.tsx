@@ -18,7 +18,8 @@ function App() {
 
   return (
     <>
-      {isLoading && <BlackHoleLoader onComplete={handlePreloadComplete} />}
+      {/* Temporarily disabled loader */}
+      {/* {isLoading && <BlackHoleLoader onComplete={handlePreloadComplete} />} */}
       <Router basename="/shambala_homes_react_headless">
         <div className="App">
           <Header settings={settings} />

@@ -3,7 +3,7 @@
 
 .mobile-hero-section {
   width: 100%;
-  height: 100vh;
+  height: 200vh;
   position: relative;
   background: #ffffff;
   overflow: hidden;
@@ -11,7 +11,7 @@
 
 .mobile-hero-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,19 +40,22 @@
 
 .mobile-line-1 {
   text-align: center;
-  transform: translateX(-90px) translateY(-30px);
+  transform: translateX(-65px) translateY(-30px);
 }
 
 .mobile-line-2 {
   text-align: center;
+  transform: translateX(50px) translateY(-10px);
 }
 
 .mobile-line-4 {
   text-align: center;
+  transform: translateX(-125px) translateY(20px);
 }
 
 .mobile-line-5 {
   text-align: center;
+  transform: translateX(25px) translateY(40px);
 }
 
 /* MOBILE VIDEO LINE */
@@ -64,11 +67,24 @@
 }
 
 .mobile-video-space {
-  width: 400px;
-  height: 240px;
+  width: 360px;
+  height: 216px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: calc(50% - 25px);
+  z-index: 1000;
+  opacity: 1;
+}
+
+.mobile-video-placeholder {
+  width: 360px;
+  height: 216px;
+  opacity: 0;
 }
 
 .mobile-video-space video {
@@ -80,11 +96,11 @@
 /* Responsive for very small screens */
 @media (max-width: 480px) {
   .mobile-text-line {
-    font-size: clamp(4rem, 14vw, 6rem);
+    font-size: clamp(5rem, 14vw, 6rem);
   }
 
   .mobile-video-space {
-    width: 300px;
-    height: 180px;
+    width: 270px;
+    height: 162px;
   }
 }
