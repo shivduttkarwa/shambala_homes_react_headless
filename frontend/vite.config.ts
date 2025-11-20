@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from "node:url";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/shambala_homes_react_headless/",
+  base: process.env.NODE_ENV === 'production' ? '/shambala_homes_react_headless/' : '/',
   plugins: [react()],
   resolve: {
     alias: {
