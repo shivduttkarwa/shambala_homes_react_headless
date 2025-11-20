@@ -129,7 +129,7 @@ const AnimatedHeroContent: React.FC = () => {
     const galleryCenterX = rect.left + rect.width / 2;
     const galleryCenterY = rect.top + rect.height / 2;
     const targetCenterX = window.innerWidth / 2;
-    const targetCenterY = window.innerHeight - window.innerHeight * 0.05;
+    const targetCenterY = window.innerHeight - window.innerHeight * 0.09; // Increased from 0.05 to 0.15
 
     const translateX = targetCenterX - galleryCenterX;
     const translateY = targetCenterY - galleryCenterY;
