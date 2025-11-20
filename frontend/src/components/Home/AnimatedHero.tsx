@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, Component } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GlassRainButton from "../UI/GlassRainButton";
 import "./AnimatedHero.css";
 
 // Register plugin only if not already registered
@@ -457,8 +458,10 @@ const AnimatedHeroContent: React.FC = () => {
         ScrollTrigger.refresh();
       });
 
-    // Initial text animation
-    setTimeout(animateHeroTextInitial, 60);
+    // Initial text animation - only run if we're at the top of the page
+    if (window.scrollY === 0) {
+      setTimeout(animateHeroTextInitial, 60);
+    }
 
     // Resize handler
     let resizeTimeout: NodeJS.Timeout;
@@ -549,30 +552,11 @@ const AnimatedHeroContent: React.FC = () => {
         </div>
 
         {/* CTA */}
-        <a
-          className="hero-cta"
-          href="#next-section"
-          role="button"
-          aria-label="Explore Homes"
-        >
-          Explore Homes
-          <svg
-            className="cta-arrow"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M5 12h14M13 5l7 7-7 7"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </a>
+        <div className="hero-cta">
+          <GlassRainButton href="#next-section">
+            Explore Homes
+          </GlassRainButton>
+        </div>
       </div>
     </section>
   );

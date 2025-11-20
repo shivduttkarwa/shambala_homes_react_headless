@@ -130,16 +130,9 @@
   top: calc(50% + 150px);
   transform: translateY(-50%);
   display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 1rem 1.6rem;
   border-radius: 0;
   background: rgba(0, 0, 0, 0.35);
-  color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.1rem;
   transform-origin: center;
   opacity: 0;
   will-change: transform, opacity;
@@ -156,9 +149,6 @@
   outline: none;
 }
 
-#animated-hero-section .hero-cta .cta-arrow {
-  opacity: 0.9;
-}
 
 /* CTA responsive */
 @media (max-width: 768px) {
