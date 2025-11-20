@@ -1,4 +1,4 @@
-import NewHeroSection from "../components/Home/NewHeroSection";
+import AnimatedHero from "../components/Home/AnimatedHero";
 import {
   EssenceSection,
   PortfolioShowcase,
@@ -25,7 +25,7 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
   return (
     <>
       <div id="hero">
-        <NewHeroSection />
+        <AnimatedHero />
       </div>
       <EssenceSection />
       <div id="services">

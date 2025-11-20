@@ -58,7 +58,7 @@ const NewHeroSectionContent: React.FC = () => {
       const headingLines = heroHeadingRef.current?.querySelectorAll(".line");
       if (headingLines && headingLines.length > 0) {
         gsap.set(headingLines, { yPercent: 100 });
-        
+
         // Wait for preloader to complete (3 seconds) then animate
         gsap.to(headingLines, {
           yPercent: 0,

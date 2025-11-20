@@ -3,668 +3,871 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Black Hole Preloader + Minimal Site</title>
+    <title>Hero Section - No Animations</title>
     <style>
+      /* Local font: Dream Avenue (kept as optional fallback) */
+      @font-face {
+        font-family: "Dream Avenue";
+        src: url("./fonts/Dream-Avenue.ttf") format("truetype");
+        font-weight: 400 900;
+        font-style: normal;
+        font-display: swap;
+      }
+      /* Local font: Brush Nature */
+      @font-face {
+        font-family: "Brush Nature";
+        src: url("./fonts/BrushNature-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      /* Local font: Modern Avenue Demo */
+      @font-face {
+        font-family: "Modern Avenue";
+        src: url("./fonts/Modern%20Avenue%20Demo.otf") format("opentype");
+        font-weight: 400 700;
+        font-style: normal;
+        font-display: swap;
+      }
       * {
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
       }
 
-      html,
       body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background-color: rgba(25, 25, 25, 1);
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
+        background: #ffffff;
+        color: #000000;
+        font-family: "Arial", sans-serif;
+        overflow-x: hidden;
       }
 
-      body {
-        overflow: hidden; /* allow scroll only after load */
+      body.no-scroll {
+        overflow: hidden;
+        height: 100vh;
       }
 
-      body.site-loaded {
-        overflow-y: auto;
-        background-color: #0b0b0b;
+      /* HERO SECTION CONTAINER */
+      .hero-section {
+        height: 390vh; /* matches animation duration (2.9 + ~1 for gallery/text animations) */
+        position: relative;
+        background: #ffffff;
       }
 
-      /* ================= PRELOADER (BLACK HOLE) ================ */
-
-      #blackhole {
-        position: fixed;
-        inset: 0;
-        height: 100%;
-        width: 100%;
+      .hero-sticky {
+        position: relative;
+        height: 100vh;
         display: flex;
-        align-items: stretch;
+        align-items: center;
         justify-content: center;
-        background-color: rgba(25, 25, 25, 1);
-        z-index: 999;
-        transition: opacity 0.8s ease;
+        overflow: hidden;
       }
 
-      body.site-loaded #blackhole {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .centerHover {
-        width: 255px;
-        height: 255px;
-        background-color: transparent;
-        border-radius: 50%;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-top: -128px;
-        margin-left: -128px;
-        z-index: 3;
-        cursor: pointer;
-        line-height: 255px;
-        text-align: center;
-        transition: all 500ms;
-      }
-
-      .centerHover.open {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .centerHover:hover span {
-        color: #ddd;
-      }
-
-      .centerHover:hover span:before {
-        background-color: #ddd;
-      }
-
-      .centerHover:hover span:after {
-        background-color: #ddd;
-      }
-
-      .centerHover span {
-        color: #666;
-        font-size: 18px;
-        position: relative;
-        transition: all 500ms;
-      }
-
-      .centerHover span:before {
-        content: "";
-        display: inline-block;
-        height: 1px;
-        width: 16px;
-        margin-right: 12px;
-        margin-bottom: 4px;
-        background-color: #666;
-        transition: all 500ms;
-      }
-
-      .centerHover span:after {
-        content: "";
-        display: inline-block;
-        height: 1px;
-        width: 16px;
-        margin-left: 12px;
-        margin-bottom: 4px;
-        background-color: #666;
-        transition: all 500ms;
-      }
-
-      canvas {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        margin: auto;
-      }
-
-      /* Percentage counter in the center of the black hole */
-
-      .loader-count {
+      /* HERO TEXT CONTAINER */
+      .hero-text {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 4;
-        color: #f5f5f5;
-        font-size: 18px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-      }
-
-      .loader-count.visible {
-        opacity: 1;
-      }
-
-      /* ================= MAIN SITE CONTENT ================= */
-
-      .site-content {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
-      }
-
-      body.site-loaded .site-content {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      header {
-        position: sticky;
-        top: 0;
         z-index: 10;
-        background: rgba(5, 5, 5, 0.92);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        white-space: nowrap;
+        font-family: "Dream Avenue", serif;
       }
 
-      .nav-inner {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 1rem 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #f4f4f4;
-      }
-
-      .nav-logo {
-        font-weight: 600;
-        letter-spacing: 0.18em;
-        font-size: 0.9rem;
+      /* TEXT LINES EXACTLY LIKE SCREENSHOT */
+      .text-line {
+        font-size: clamp(4rem, 12vw, 16rem);
+        font-weight: 900;
+        line-height: 0.85;
         text-transform: uppercase;
+        letter-spacing: -0.05em;
+        color: #000000;
+        margin-bottom: 0.1em;
       }
 
-      .nav-tagline {
-        opacity: 0.6;
-        font-size: 0.8rem;
+      /* Ensure per-character spans are inline-block so we can animate Y/blur per char */
+      .text-line span {
+        display: inline-block;
+        white-space: pre;
+        will-change: transform, opacity, filter;
       }
 
-      main {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 3rem 1.5rem 4rem;
+      /* Overlay text that animates with gallery items */
+      .hero-overlay-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(
+          calc(-50% - 200px),
+          calc(-50% - 40px)
+        ); /* pushed left 200px total, up 40px */
+        z-index: 30;
+        text-align: center;
+        pointer-events: none;
+        will-change: transform, opacity;
+        max-width: 90vw;
       }
 
-      section {
-        padding: 4rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      .overlay-line {
+        display: block;
+        font-family: "Modern Avenue", "Brush Nature", "Dream Avenue", serif;
+        font-size: clamp(4.2rem, 9vw, 7.4rem);
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1.4;
+        /* keep overlay lines as a single line to avoid unintended word-breaks */
+        white-space: nowrap;
+        overflow-wrap: normal;
+        word-break: keep-all;
+        hyphens: none;
+        text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 0, 0, 0.7),
+          2px 2px 4px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.6);
+        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
       }
 
-      section:last-of-type {
-        border-bottom: none;
+      .overlay-line:first-child {
+        text-align: center;
+        margin-bottom: 0.5em;
       }
 
-      .section-eyebrow {
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        font-size: 0.75rem;
-        color: #9ca3af;
-        margin-bottom: 0.5rem;
+      .overlay-char {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(40px);
+        will-change: transform, opacity;
       }
 
-      .section-title {
-        font-size: clamp(2rem, 3vw, 2.6rem);
-        color: #f9fafb;
-        margin-bottom: 1rem;
-      }
-
-      .section-text {
-        max-width: 42rem;
-        color: #d4d4d8;
-        line-height: 1.7;
-        font-size: 0.98rem;
-      }
-
-      .pill-row {
-        margin-top: 1.5rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .pill {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        border-radius: 999px;
-        padding: 0.4rem 0.9rem;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-        color: #e5e7eb;
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-        gap: 2.5rem;
-        align-items: flex-start;
-      }
-
-      .soft-card {
-        border-radius: 1.25rem;
-        border: 1px solid rgba(148, 163, 184, 0.3);
-        background: radial-gradient(
-            circle at 0 0,
-            rgba(56, 189, 248, 0.08),
-            transparent 55%
-          ),
-          radial-gradient(
-            circle at 100% 100%,
-            rgba(129, 140, 248, 0.08),
-            transparent 55%
-          ),
-          rgba(15, 23, 42, 0.85);
-        padding: 1.5rem 1.7rem;
-        color: #e5e7eb;
-        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
-      }
-
-      .soft-card h3 {
-        margin-top: 0;
-        margin-bottom: 0.75rem;
-        font-size: 1.05rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-
-      .soft-card p {
-        margin: 0;
-        font-size: 0.9rem;
-        line-height: 1.6;
-        color: #cbd5f5;
-      }
-
-      .list {
-        margin: 1.25rem 0 0;
-        padding-left: 1.1rem;
-        color: #d1d5db;
-        font-size: 0.9rem;
-      }
-
-      .list li + li {
-        margin-top: 0.35rem;
-      }
-
-      .cta-row {
-        margin-top: 1.75rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-
-      .btn-outline {
-        padding: 0.7rem 1.6rem;
-        border-radius: 999px;
-        border: 1px solid rgba(148, 163, 184, 0.45);
-        color: #e5e7eb;
-        background: transparent;
-        font-size: 0.85rem;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
+      /* Minimal CTA styles */
+      .hero-cta {
+        position: absolute; /* placed to right and pushed down */
+        right: 100px;
+        top: calc(50% + 150px);
+        transform: translateY(-50%);
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
-        cursor: pointer;
-        transition: border-color 0.25s ease, background 0.25s ease,
-          transform 0.25s ease;
+        gap: 0.8rem;
+        padding: 1rem 1.6rem; /* increase size */
+        border-radius: 0; /* remove rounded corners */
+        background: rgba(0, 0, 0, 0.35); /* lighter background */
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem; /* bigger */
+        transform-origin: center;
+        opacity: 0; /* start hidden */
+        will-change: transform, opacity;
+        transition: transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
+          box-shadow 180ms ease, background 180ms ease;
+        z-index: 40;
       }
 
-      .btn-outline span.arrow {
-        font-size: 1.1rem;
+      .hero-cta:focus,
+      .hero-cta:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+        background: rgba(0, 0, 0, 0.6);
+        outline: none;
       }
 
-      .btn-outline:hover {
-        border-color: rgba(59, 130, 246, 0.9);
-        background: radial-gradient(
-          circle at 0 0,
-          rgba(59, 130, 246, 0.15),
-          rgba(15, 23, 42, 0.95)
-        );
-        transform: translateY(-1px);
+      /* CTA arrow small spacing */
+      .hero-cta .cta-arrow {
+        opacity: 0.9;
       }
-
-      .muted {
-        opacity: 0.65;
-      }
-
+      /* CTA responsive: move to bottom center on smaller screens */
       @media (max-width: 768px) {
-        .nav-inner {
-          padding-inline: 1rem;
+        .hero-cta {
+          right: 50%;
+          left: auto;
+          transform: translateX(50%);
+          bottom: 8vh;
+          top: auto;
         }
-        main {
-          padding-inline: 1rem;
+      }
+
+      .line-1 {
+        text-align: left;
+      }
+
+      .line-2 {
+        text-align: center;
+      }
+
+      .line-3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      /* VIDEO IN THE EXACT POSITION */
+      .video-space {
+        width: 300px;
+        height: 180px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 5;
+      }
+
+      .video-space video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* GALLERY VISIBLE FROM TOP CENTER (initially above viewport) */
+      .gallery {
+        position: absolute;
+        top: -50px; /* 50px above the viewport/hero top */
+        left: 50%; /* center horizontally */
+        transform: translateX(-50%);
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 40px; /* doubled from 20px */
+        z-index: 20;
+        opacity: 1;
+        /* removed transform3d to preserve translateX(-50%) */
+        will-change: transform, opacity;
+      }
+
+      /* Prevent FOIC (flash of incorrectly positioned content) while JS initializes */
+      .no-js .gallery,
+      .no-js .gallery-item {
+        visibility: hidden;
+      }
+
+      /* GALLERY FINAL POSITION AT BOTTOM */
+      .gallery-bottom {
+        position: absolute;
+        bottom: 5vh;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 15px;
+        z-index: 30;
+        width: auto;
+      }
+
+      .gallery-item {
+        width: 120px;
+        height: 120px;
+        border-radius: 10px;
+        overflow: hidden;
+        opacity: 1;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        flex-shrink: 0;
+        /* initial transform removed; GSAP will set initial offsets */
+        transition: box-shadow 300ms ease; /* transitions on transform removed to avoid FOIC on initial set */
+        will-change: transform, opacity;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* HOVER & FOCUS STATES */
+      .gallery-item:focus,
+      .gallery-item:hover {
+        transform: translateY(-6px) scale(1.06);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+        outline: none;
+      }
+
+      /* NEXT SECTION */
+      .next-section {
+        height: 100vh;
+        background: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #333;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .text-line {
+          font-size: clamp(3rem, 10vw, 8rem);
         }
-        section {
-          padding-block: 3rem;
+
+        .video-space {
+          width: 250px;
+          height: 150px;
         }
-        .grid-2 {
-          grid-template-columns: minmax(0, 1fr);
+
+        .line-3 {
+          gap: 1rem;
+        }
+        .gallery-item {
+          width: 90px;
+          height: 90px;
+        }
+        /* Hide gallery items after the 3rd on mobile so animations stay focused */
+        .gallery-item:nth-child(n + 4) {
+          display: none;
+        }
+        .gallery {
+          gap: 24px;
+        } /* responsive reduced gap for small screens */
+        /* Make overlay font smaller and allow wrapping on very narrow screens */
+        .overlay-line {
+          font-size: clamp(1.6rem, 5vw, 3rem);
+          white-space: normal;
+        }
+        .hero-section {
+          height: 300vh;
         }
       }
     </style>
   </head>
-  <body>
-    <!-- =============== BLACK HOLE PRELOADER =============== -->
-    <div id="blackhole">
-      <div class="centerHover"><span>ENTER</span></div>
-      <div class="loader-count">0%</div>
-    </div>
-
-    <!-- =============== MAIN SITE =============== -->
-    <div class="site-content">
-      <header>
-        <div class="nav-inner">
-          <div class="nav-logo">ORBIT STUDIO</div>
-          <div class="nav-tagline">Minimal cosmic layout demo</div>
+  <body class="no-js">
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-sticky">
+        <!-- HERO TEXT EXACTLY LIKE SCREENSHOT -->
+        <div class="hero-text">
+          <div class="text-line line-1">BUILDING</div>
+          <div class="text-line line-2">TOMORROW</div>
+          <div class="text-line line-3">
+            <span>FOR</span>
+            <!-- VIDEO SPACE EXACTLY WHERE MARKED -->
+            <div class="video-space">
+              <video autoplay muted loop playsinline>
+                <source src="./images/hero1.mp4" type="video/mp4" />
+                <source
+                  src="https://www.w3schools.com/html/mov_bbb.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+            <span>TODAY</span>
+          </div>
         </div>
-      </header>
 
-      <main>
-        <!-- Section 1: Hero -->
-        <section>
-          <div class="section-eyebrow">Welcome</div>
-          <h1 class="section-title">You made it through the singularity.</h1>
-          <p class="section-text">
-            This is a minimal three–section layout just to demonstrate how the
-            black hole preloader hands over control to your website. Replace
-            this with your own hero copy, components, or page layout.
-          </p>
-          <div class="pill-row">
-            <div class="pill">Smooth Entry</div>
-            <div class="pill">Canvas Loader</div>
-            <div class="pill">0–100% Counter</div>
+        <!-- Overlay text that animates with gallery items -->
+        <div
+          class="hero-overlay-text"
+          aria-label="Find your space to live fully."
+        >
+          <div class="overlay-line" data-text="Find your space"></div>
+          <div class="overlay-line" data-text="to live fully."></div>
+
+          <!-- Minimal CTA: animates with overlay text -->
+          <!-- CTA removed from overlay and re-placed as a separate element below for right-side placement -->
+        </div>
+
+        <!-- GALLERY FROM TOP CENTER (initial state: 50px above viewport) -->
+        <div class="gallery" style="visibility: hidden">
+          <div class="gallery-item">
+            <img src="./images/l11.jpg" alt="Gallery 1" />
           </div>
-        </section>
-
-        <!-- Section 2: Two-column content -->
-        <section>
-          <div class="grid-2">
-            <div>
-              <div class="section-eyebrow">Section Two</div>
-              <h2 class="section-title">A simple content block.</h2>
-              <p class="section-text">
-                Keep the layout clean and focused: text on the left, supporting
-                information or visuals on the right. You can turn this into
-                services, features, or anything your project needs.
-              </p>
-              <div class="cta-row">
-                <button class="btn-outline">
-                  <span>Primary Action</span>
-                  <span class="arrow">↗</span>
-                </button>
-                <span class="section-text muted"
-                  >Or scroll down to explore more.</span
-                >
-              </div>
-            </div>
-            <div class="soft-card">
-              <h3>Loader Details</h3>
-              <p>
-                The preloader shows a swirling orbit of stars, a central
-                “ENTER” trigger, and a numeric counter from 0% to 100%.
-              </p>
-              <ul class="list">
-                <li>Click ENTER to start the expansion.</li>
-                <li>Particles explode outward in slow motion.</li>
-                <li>A centered counter runs from 0 to 100%.</li>
-                <li>At 100%, the site fades smoothly into view.</li>
-              </ul>
-            </div>
+          <div class="gallery-item">
+            <img src="./images/l4.jpg" alt="Gallery 2" />
           </div>
-        </section>
-
-        <!-- Section 3: Closing -->
-        <section>
-          <div class="section-eyebrow">Section Three</div>
-          <h2 class="section-title">Ready to plug into your real site.</h2>
-          <p class="section-text">
-            Swap out these sections with your actual homepage. The only thing
-            you need to keep is the <code>#blackhole</code> preloader block and
-            the script that controls it. Everything else is just structure you
-            can customize or remove.
-          </p>
-          <div class="pill-row">
-            <div class="pill">Replace Content</div>
-            <div class="pill">Keep Loader</div>
-            <div class="pill">Ship Design</div>
+          <div class="gallery-item">
+            <img src="./images/l5.jpg" alt="Gallery 3" />
           </div>
-        </section>
-      </main>
-    </div>
+          <div class="gallery-item">
+            <img src="./images/l6.jpg" alt="Gallery 4" />
+          </div>
+          <div class="gallery-item">
+            <img src="./images/l8.jpg" alt="Gallery 5" />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="./images/pexels-asphotography-94818.jpg"
+              alt="Gallery 6"
+            />
+          </div>
+          <div class="gallery-item">
+            <img src="./images/pexels-fotoaibe-1571460.jpg" alt="Gallery 7" />
+          </div>
+          <div class="gallery-item">
+            <img src="./images/pexels-jvdm-1457842.jpg" alt="Gallery 8" />
+          </div>
+        </div>
+        <!-- CTA: placed on right side of hero-sticky, animates along with gallery and overlay -->
+        <a
+          class="hero-cta"
+          href="#next-section"
+          role="button"
+          aria-label="Explore Homes"
+        >
+          Explore Homes
+          <svg
+            class="cta-arrow"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 12h14M13 5l7 7-7 7"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+    </section>
 
-    <!-- =============== BLACK HOLE SCRIPT =============== -->
+    <!-- NEXT SECTION -->
+    <section class="next-section">
+      <h2>Welcome to Next Section</h2>
+    </section>
+
+    <!-- GSAP SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
     <script>
-      function blackhole(element) {
-        const container = document.querySelector(element);
-        const h = container.offsetHeight;
-        const w = container.offsetWidth;
-        const cw = w;
-        const ch = h;
-        const maxorbit = 255; // distance from center
-        const centery = ch / 2;
-        const centerx = cw / 2;
+      // REGISTER GSAP PLUGIN
+      gsap.registerPlugin(ScrollTrigger);
 
-        const startTime = new Date().getTime();
-        let currentTime = 0;
+      // ============================================
+      // 🎛️ ANIMATION CONTROL KNOBS - ADJUST THESE!
+      // ============================================
 
-        const stars = [];
-        let collapse = false; // if hovered
-        let expanse = false; // if clicked
+      const ANIMATION_CONTROLS = {
+        // Video Expansion Settings
+        videoScrollDistance: 2.9, // How many viewport scrolls for video to fully expand (1 = one scroll, 1.5 = one and a half scrolls, etc.)
+        videoExpandSpeed: 1.2, // Duration of video expansion animation (higher = slower, try 1.0 to 2.5)
+        videoScrubSmooth: 1, // How smooth scroll maps to animation (0.5 = very smooth, 2 = more direct, try 0.5 to 3)
 
-        // Create canvas
-        const canvas = document.createElement("canvas");
-        canvas.width = cw;
-        canvas.height = ch;
-        container.appendChild(canvas);
-        const context = canvas.getContext("2d");
+        // Gallery Animation Settings
+        galleryItemStagger: 0.12, // Delay between each gallery item appearing (higher = slower cascade, try 0.05 to 0.4)
+        galleryItemDuration: 0.45, // How fast each gallery item animates in (higher = slower, try 0.3 to 1.0)
+        galleryItemOffset: -70, // How far above viewport each item starts (higher = further up, try -50 to -120)
 
-        context.globalCompositeOperation = "multiply";
+        // Text Animation Settings
+        textCharStagger: 0.04,
+        textCharInDuration: 0.6,
+        textCharOutDuration: 0.5,
+        textCharBlur: 10,
 
-        function setDPI(canvas, dpi) {
-          if (!canvas.style.width) canvas.style.width = canvas.width + "px";
-          if (!canvas.style.height) canvas.style.height = canvas.height + "px";
+        // Timing Adjustments
+        galleryStartDelay: 0.15, // Delay before gallery items start animating (relative to video expansion)
+        textRevealDelay: 0.3, // Delay before text comes back (relative to video expansion)
 
-          const scaleFactor = dpi / 96;
-          canvas.width = Math.ceil(canvas.width * scaleFactor);
-          canvas.height = Math.ceil(canvas.height * scaleFactor);
-          const ctx = canvas.getContext("2d");
-          ctx.scale(scaleFactor, scaleFactor);
-        }
+        // Overlay text animation (exact match to text1.html)
+        overlayCharStagger: 0.05, // 50ms per character for wave effect
+        overlayCharDuration: 0.4, // fast per-character animation
+        overlayCharEase: "back.out(2)", // bouncy/springy feel
+        overlayStartY: 40, // characters start 40px below
+      };
 
-        function rotate(cx, cy, x, y, angle) {
-          const radians = angle;
-          const cos = Math.cos(radians);
-          const sin = Math.sin(radians);
-          const nx = cos * (x - cx) + sin * (y - cy) + cx;
-          const ny = cos * (y - cy) - sin * (x - cx) + cy;
-          return [nx, ny];
-        }
+      // ============================================
 
-        setDPI(canvas, 192);
+      // ELEMENTS
+      const heroSection = document.querySelector(".hero-section");
+      const videoSpace = document.querySelector(".video-space");
+      const heroText = document.querySelector(".hero-text");
+      const gallery = document.querySelector(".gallery");
+      const allGalleryItems = gsap.utils.toArray(".gallery-item");
+      // galleryItems will contain the active items we animate (first 3 on mobile)
+      let galleryItems = allGalleryItems.slice();
+      const overlayText = document.querySelector(".hero-overlay-text");
+      const overlayLines = gsap.utils.toArray(".overlay-line");
 
-        class Star {
-          constructor() {
-            const rands = [];
-            rands.push(Math.random() * (maxorbit / 2) + 1);
-            rands.push(Math.random() * (maxorbit / 2) + maxorbit);
+      // --- TEXT CHAR SPLITTING AND INITIAL ANIMATION ---
+      const textLine1 = document.querySelector(".line-1");
+      const textLine2 = document.querySelector(".line-2");
+      const textLine3Spans = gsap.utils.toArray(".line-3 > span");
 
-            this.orbital = rands.reduce((p, c) => p + c, 0) / rands.length;
-
-            this.x = centerx;
-            this.y = centery + this.orbital;
-
-            this.yOrigin = centery + this.orbital;
-
-            this.speed =
-              ((Math.floor(Math.random() * 2.5) + 1.5) * Math.PI) / 180;
-            this.rotation = 0;
-            this.startRotation =
-              ((Math.floor(Math.random() * 360) + 1) * Math.PI) / 180;
-
-            this.id = stars.length;
-
-            this.collapseBonus = this.orbital - maxorbit * 0.7;
-            if (this.collapseBonus < 0) {
-              this.collapseBonus = 0;
-            }
-
-            this.color = "rgba(255,255,255," + (1 - this.orbital / 255) + ")";
-
-            this.hoverPos = centery + maxorbit / 2 + this.collapseBonus;
-            this.expansePos =
-              centery +
-              (this.id % 100) * -10 +
-              (Math.floor(Math.random() * 20) + 1);
-
-            this.prevR = this.startRotation;
-            this.prevX = this.x;
-            this.prevY = this.y;
-
-            this.originalY = this.yOrigin;
-
-            stars.push(this);
-          }
-
-          draw() {
-            if (!expanse) {
-              this.rotation = this.startRotation + currentTime * this.speed;
-              if (!collapse) {
-                if (this.y > this.yOrigin) {
-                  this.y -= 2.5;
-                }
-                if (this.y < this.yOrigin - 4) {
-                  this.y += (this.yOrigin - this.y) / 10;
-                }
-              } else {
-                this.trail = 1;
-                if (this.y > this.hoverPos) {
-                  this.y -= (this.hoverPos - this.y) / -5;
-                }
-                if (this.y < this.hoverPos - 4) {
-                  this.y += 2.5;
-                }
-              }
-            } else {
-              // EXPANSION ONLY (no reassembly)
-              this.rotation =
-                this.startRotation + currentTime * (this.speed / 2);
-              if (this.y > this.expansePos) {
-                this.y -= Math.floor(this.expansePos - this.y) / -80;
-              }
-            }
-
-            context.save();
-            context.fillStyle = this.color;
-            context.strokeStyle = this.color;
-            context.beginPath();
-            const oldPos = rotate(
-              centerx,
-              centery,
-              this.prevX,
-              this.prevY,
-              -this.prevR
-            );
-            context.moveTo(oldPos[0], oldPos[1]);
-            context.translate(centerx, centery);
-            context.rotate(this.rotation);
-            context.translate(-centerx, -centery);
-            context.lineTo(this.x, this.y);
-            context.stroke();
-            context.restore();
-
-            this.prevR = this.rotation;
-            this.prevX = this.x;
-            this.prevY = this.y;
-          }
-        }
-
-        const centerHover = document.querySelector(".centerHover");
-        const loaderCount = document.querySelector(".loader-count");
-
-        // CLICK: trigger explosion + percentage, then reveal site
-        centerHover.addEventListener("click", function () {
-          if (expanse) return; // prevent double click
-
-          collapse = false;
-          expanse = true;
-          this.classList.add("open");
-
-          if (loaderCount) {
-            loaderCount.classList.add("visible");
-
-            let progress = 0;
-            loaderCount.textContent = "0%";
-
-            const interval = setInterval(() => {
-              progress += 1;
-              if (progress > 100) progress = 100;
-              loaderCount.textContent = progress + "%";
-
-              if (progress >= 100) {
-                clearInterval(interval);
-
-                // Fade into site
-                document.body.classList.add("site-loaded");
-
-                // Optional: hide the number text after transition
-                setTimeout(() => {
-                  loaderCount.classList.remove("visible");
-                }, 900);
-              }
-            }, 50); // 100 * 50ms = 5 seconds total
-          } else {
-            // Fallback: if no counter, just reveal immediately
-            document.body.classList.add("site-loaded");
-          }
+      function splitTextToChars(el) {
+        if (!el) return;
+        const text = el.textContent || "";
+        // If already split, don't double-wrap
+        if (el.querySelector("span")) return;
+        // Save text for accessibility so we don't break screen readers
+        el.setAttribute("aria-label", text.trim());
+        el.innerHTML = "";
+        text.split("").forEach((char) => {
+          const ch = document.createElement("span");
+          ch.textContent = char === " " ? "\u00A0" : char; // preserve spaces
+          // Hide per-char spans from screen readers (we preserve the full text as aria-label)
+          ch.setAttribute("aria-hidden", "true");
+          el.appendChild(ch);
         });
-
-        centerHover.addEventListener("mouseover", function () {
-          if (!expanse) {
-            collapse = true;
-          }
-        });
-
-        centerHover.addEventListener("mouseout", function () {
-          if (!expanse) {
-            collapse = false;
-          }
-        });
-
-        function loop() {
-          const now = new Date().getTime();
-          currentTime = (now - startTime) / 50;
-
-          context.fillStyle = "rgba(25,25,25,0.2)";
-          context.fillRect(0, 0, cw, ch);
-
-          for (let i = 0; i < stars.length; i++) {
-            if (stars[i] !== undefined) {
-              stars[i].draw();
-            }
-          }
-
-          requestAnimationFrame(loop);
-        }
-
-        function init() {
-          context.fillStyle = "rgba(25,25,25,1)";
-          context.fillRect(0, 0, cw, ch);
-          for (let i = 0; i < 2500; i++) {
-            new Star();
-          }
-          loop();
-        }
-
-        init();
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        blackhole("#blackhole");
+      function splitLine3ChildSpans() {
+        textLine3Spans.forEach((s) => splitTextToChars(s));
+      }
+
+      // Split overlay lines into characters (matching text1.html approach)
+      function splitOverlayToChars() {
+        overlayLines.forEach((line) => {
+          const text = line.getAttribute("data-text") || "";
+          line.textContent = "";
+          const chars = [];
+          for (let i = 0; i < text.length; i++) {
+            const ch = text[i];
+            const span = document.createElement("span");
+            span.classList.add("overlay-char");
+            span.setAttribute("aria-hidden", "true");
+            span.textContent = ch === " " ? "\u00A0" : ch;
+            line.appendChild(span);
+            chars.push(span);
+          }
+        });
+      }
+
+      // Execute initial splits
+      splitTextToChars(textLine1);
+      splitTextToChars(textLine2);
+      splitLine3ChildSpans();
+      splitOverlayToChars();
+
+      function animateHeroTextInitial() {
+        const chars = gsap.utils.toArray(".hero-text .text-line span");
+        // Hide initially to avoid FOIC
+        gsap.set(chars, {
+          opacity: 0,
+          y: 20,
+          filter: `blur(${ANIMATION_CONTROLS.textCharBlur}px)`,
+        });
+        gsap.to(chars, {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          stagger: ANIMATION_CONTROLS.textCharStagger,
+          duration: ANIMATION_CONTROLS.textCharInDuration,
+          ease: "power2.out",
+        });
+      }
+
+      // Call animation immediately on load (after images are loaded will also re-build)
+      window.addEventListener("load", () => {
+        // small delay so styles load
+        setTimeout(animateHeroTextInitial, 60);
       });
+
+      // Hover effects for gallery items (subtle GSAP interactions) - attach once
+      // Attach events to allGalleryItems so hover still works when items are present
+      allGalleryItems.forEach((item) => {
+        item.addEventListener("pointerenter", () => {
+          gsap.to(item, { scale: 1.08, duration: 0.3, ease: "power3.out" });
+        });
+        item.addEventListener("pointerleave", () => {
+          gsap.to(item, { scale: 1, duration: 0.25, ease: "power3.out" });
+        });
+        // keyboard accessible focus
+        item.addEventListener("focus", () =>
+          gsap.to(item, { scale: 1.06, duration: 0.3 })
+        );
+        item.addEventListener("blur", () =>
+          gsap.to(item, { scale: 1, duration: 0.25 })
+        );
+      });
+
+      // CALCULATE VIDEO POSITION AND SCALE
+      function calculateVideoTransform() {
+        const rect = videoSpace.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const viewportCenterX = window.innerWidth / 2;
+        const viewportCenterY = window.innerHeight / 2;
+
+        // Calculate how much to translate to center the video
+        const translateX = viewportCenterX - centerX;
+        const translateY = viewportCenterY - centerY;
+
+        // Calculate scale to fill viewport (ensure it goes full width)
+        const scaleX = window.innerWidth / rect.width;
+        const scaleY = window.innerHeight / rect.height;
+        const scale = Math.max(scaleX, scaleY) * 1.0; // scale to exactly fill viewport
+
+        return { translateX, translateY, scale };
+      }
+
+      // CALCULATE GALLERY MOVE TO BOTTOM CENTER
+      function calculateGalleryTransform() {
+        const rect = gallery.getBoundingClientRect();
+        const galleryCenterX = rect.left + rect.width / 2;
+        const galleryCenterY = rect.top + rect.height / 2;
+        const targetCenterX = window.innerWidth / 2;
+        // 5vh above bottom
+        const targetCenterY = window.innerHeight - window.innerHeight * 0.05;
+
+        const translateX = targetCenterX - galleryCenterX;
+        const translateY = targetCenterY - galleryCenterY;
+        return { translateX, translateY };
+      }
+
+      // TIMELINE CONTAINER
+      let videoTimeline;
+
+      // BUILD TIMELINES (idempotent - kills previous)
+      function buildTimelines() {
+        // clear previous timelines
+        if (videoTimeline) {
+          videoTimeline.kill();
+        }
+
+        // Reset inline transforms (safer on rebuild)
+        gsap.set(videoSpace, { clearProps: "all" });
+
+        const transform = calculateVideoTransform();
+        const galleryTransform = calculateGalleryTransform();
+        // Ensure heroSection height matches timeline end (video scroll distance + 1 viewport)
+        const desiredHeight = Math.ceil(
+          (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight
+        );
+        heroSection.style.height = `${desiredHeight}px`;
+        // Determine active gallery items based on viewport
+        const isMobileView = window.matchMedia("(max-width: 768px)").matches;
+        if (isMobileView) {
+          galleryItems = allGalleryItems.slice(0, 3);
+        } else {
+          galleryItems = allGalleryItems.slice();
+        }
+
+        // ANCHOR TIMELINE: VIDEO EXPANDS AND STAYS FULL-SIZE;
+        // LATER (ON FURTHER SCROLL) GALLERY + TEXT ANIMATIONS PLAY
+        videoTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroSection,
+            start: "top top",
+            end: () =>
+              `+=${
+                window.innerHeight * ANIMATION_CONTROLS.videoScrollDistance
+              }`, // controlled by videoScrollDistance
+            scrub: ANIMATION_CONTROLS.videoScrubSmooth, // controlled by videoScrubSmooth
+            pin: ".hero-sticky", // pin the hero-sticky until timeline finishes so user can't scroll past
+            pinSpacing: true,
+            anticipatePin: 0.5,
+          },
+        });
+
+        // PHASE 1: Expand video and de-emphasize text
+        videoTimeline
+          .to(
+            videoSpace,
+            {
+              x: transform.translateX,
+              y: transform.translateY,
+              scale: transform.scale,
+              borderRadius: 0,
+              zIndex: 1000,
+              duration: ANIMATION_CONTROLS.videoExpandSpeed, // controlled by videoExpandSpeed
+              ease: "power2.inOut",
+            },
+            0
+          )
+          .to(
+            ".line-1, .line-2, .line-3 span",
+            {
+              scale: 0.7,
+              opacity: 0.3,
+              duration: 1.0,
+              ease: "power2.out",
+            },
+            0
+          )
+          // Per character: animate blur + Y while fading out so it matches the "text.html" look
+          .to(
+            ".hero-text .text-line span",
+            {
+              opacity: 0.35,
+              y: -14,
+              filter: `blur(${ANIMATION_CONTROLS.textCharBlur}px)`,
+              duration: ANIMATION_CONTROLS.textCharOutDuration,
+              stagger: ANIMATION_CONTROLS.textCharStagger,
+              ease: "sine.in",
+            },
+            0
+          );
+
+        // After the video is expanded (later in the same scroll), run gallery and reveal text
+        // Label ensures these run after the video expansion portion of the timeline
+        // Set label later so gallery and text reveal start after video expansion
+        videoTimeline.addLabel("afterExpand", 1.3);
+
+        // GALLERY slides to bottom-center with staggered item reveal
+        videoTimeline
+          .to(
+            gallery,
+            {
+              x: galleryTransform.translateX,
+              y: galleryTransform.translateY,
+              duration: 0.4, // slightly longer so the gallery takes more scroll to move
+              ease: "power7.inOut",
+            },
+            "afterExpand"
+          )
+          .to(videoSpace, { zIndex: 5, duration: 0.5 }, "afterExpand")
+          // Example animation variants you can try for galleryItems. Uncomment one and comment out
+          // the default `.to(galleryItems, ...)` block to experiment.
+          // 1) Slide from right & fade in (snappy)
+          // gsap.from(galleryItems, { x: 140, autoAlpha: 0, stagger: { each: 0.12, from: 'start' }, duration: 0.45, ease: 'power3.out' }, 'afterExpand+=0.15');
+          // 2) Scale + fade in
+          // gsap.from(galleryItems, { scale: 0.85, autoAlpha: 0, stagger: { each: 0.12, from: 'start' }, duration: 0.5, ease: 'back.out(1.2)' }, 'afterExpand+=0.15');
+          // 3) Rotate in with subtle 3D
+          // gsap.from(galleryItems, { rotationX: -15, autoAlpha: 0, transformOrigin: 'center center', stagger: { each: 0.12, from: 'start' }, duration: 0.5, ease: 'power2.out' }, 'afterExpand+=0.15');
+
+          .to(
+            galleryItems,
+            {
+              y: 0,
+              scale: 1,
+              stagger: {
+                each: ANIMATION_CONTROLS.galleryItemStagger,
+                from: "start",
+              }, // controlled by galleryItemStagger
+              duration: ANIMATION_CONTROLS.galleryItemDuration, // controlled by galleryItemDuration
+              ease: "power3.inout",
+            },
+            `afterExpand+=${ANIMATION_CONTROLS.galleryStartDelay}` // controlled by galleryStartDelay
+          )
+          // Animate overlay text with wave/bounce effect (starts exactly with gallery items)
+          .fromTo(
+            ".overlay-char",
+            {
+              opacity: 0,
+              y: ANIMATION_CONTROLS.overlayStartY,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: ANIMATION_CONTROLS.overlayCharDuration,
+              ease: ANIMATION_CONTROLS.overlayCharEase,
+              stagger: ANIMATION_CONTROLS.overlayCharStagger,
+              force3D: true,
+            },
+            `afterExpand+=${ANIMATION_CONTROLS.galleryStartDelay}` // exact same start as gallery
+          )
+          // Animate CTA at the same start (a subtle fade+rise)
+          .to(
+            ".hero-cta",
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.4,
+              ease: "power2.out",
+            },
+            `afterExpand+=${ANIMATION_CONTROLS.galleryStartDelay}`
+          )
+          // Bring text back to normal and also add parallax offsets
+          .to(
+            ".line-1, .line-2, .line-3 span",
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.6,
+              ease: "power2.out",
+            },
+            `afterExpand+=${ANIMATION_CONTROLS.textRevealDelay}` // controlled by textRevealDelay
+          )
+          // Per-character: remove blur + Y and restore opacity
+          .to(
+            ".hero-text .text-line span",
+            {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: ANIMATION_CONTROLS.textCharInDuration,
+              stagger: ANIMATION_CONTROLS.textCharStagger,
+              ease: "sine.out",
+            },
+            `afterExpand+=${ANIMATION_CONTROLS.textRevealDelay}`
+          )
+          .to(
+            ".line-1",
+            { y: -120, ease: "none" },
+            `afterExpand+=${ANIMATION_CONTROLS.textRevealDelay}`
+          )
+          .to(
+            ".line-2",
+            { y: -70, ease: "none" },
+            `afterExpand+=${ANIMATION_CONTROLS.textRevealDelay}`
+          )
+          .to(
+            ".line-3 span",
+            { y: -40, ease: "none" },
+            `afterExpand+=${ANIMATION_CONTROLS.textRevealDelay}`
+          );
+
+        // Ensure gallery items start offset above viewport so they are hidden visually
+        // Set initial progressive offsets for gallery items: first y=0, next y=-50, etc.
+        galleryItems.forEach((item, index) => {
+          const offset = ANIMATION_CONTROLS.galleryItemOffset * (index + 1); // controlled by galleryItemOffset
+          gsap.set(item, { autoAlpha: 1, y: offset, scale: 0.98 });
+        });
+
+        // CTA initial state (hidden slightly below)
+        const ctaEl = document.querySelector(".hero-cta");
+        if (ctaEl) {
+          gsap.set(ctaEl, { opacity: 0, y: 12, scale: 0.98 });
+        }
+
+        // Reveal the gallery (ensure it's visible even if some items are hidden on mobile)
+        gallery.style.visibility = "visible";
+        if (document.body.classList.contains("no-js")) {
+          document.body.classList.remove("no-js");
+        }
+      }
+
+      // Build timelines initially AFTER gallery images are loaded to avoid flicker
+      function waitForGalleryImages() {
+        const images = gsap.utils.toArray(".gallery img");
+        return Promise.all(
+          images.map((img) => {
+            if (img.complete && img.naturalWidth !== 0)
+              return Promise.resolve();
+            return new Promise((resolve) => {
+              img.addEventListener("load", resolve);
+              img.addEventListener("error", resolve);
+            });
+          })
+        );
+      }
+
+      waitForGalleryImages()
+        .then(() => {
+          buildTimelines();
+          // buildTimelines() sets initial positions; reveal gallery now
+          document.querySelector(".gallery").style.visibility = "visible";
+          if (document.body.classList.contains("no-js"))
+            document.body.classList.remove("no-js");
+        })
+        .catch(() => {
+          // Fallback: if something goes wrong, at least build timelines
+          buildTimelines();
+          document.querySelector(".gallery").style.visibility = "visible";
+          if (document.body.classList.contains("no-js"))
+            document.body.classList.remove("no-js");
+        });
+
+      // REFRESH ON RESIZE AND RECALCULATE (rebuild timelines)
+      let resizeTimeout;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          // refresh ScrollTrigger and rebuild all timelines with new measurements
+          ScrollTrigger.refresh();
+          buildTimelines();
+          // Also ensure heroSection height recalculated (in case of orientation change)
+          const desiredHeight = Math.ceil(
+            (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight
+          );
+          heroSection.style.height = `${desiredHeight}px`;
+        }, 250);
+      });
+
+      console.log(
+        "🎯 Hero Section - Animations: video, gallery, text parallax loaded."
+      );
     </script>
   </body>
 </html>

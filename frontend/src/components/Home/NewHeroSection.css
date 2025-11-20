@@ -191,7 +191,6 @@
   color: #ffffff;
 }
 
-
 /* Remove any cursor/caret pseudo-elements */
 .hero-text h1::after,
 .hero-text h1::before {
@@ -240,7 +239,6 @@
     --hero-left-pad: 32px;
     --hero-right-pad: 32px;
   }
-
 }
 
 /* Mobile styles for phones */
@@ -289,11 +287,10 @@
     gap: 0.78rem;
     white-space: nowrap;
   }
-  
+
   .hero-cta .glass-rain-btn-icon {
     width: 2.76rem;
     height: 2.76rem;
     font-size: 1.008rem;
   }
-
 }
