@@ -112,7 +112,7 @@ body {
   transform: translateX(-50%);
   width: 99%;
   z-index: 1001;
-  padding: 9px 20px; /* Reduced vertical padding by 10% from 10px to 9px */
+  padding: 6.75px 20px; /* Reduced further by 10% for smaller header height */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -146,7 +146,7 @@ body {
 .logo {
   /* Prefer Cenzyl for headers if available, fallback to Cinzel */
   font-family: "Cenzyl", "Cinzel", serif, "Bebas Neue", sans-serif;
-  font-size: 23.4px; /* increased by ~30% */
+  font-size: 18px; /* reduced further for smaller header */
   letter-spacing: 0.03em;
   color: var(--text);
   text-transform: uppercase;
@@ -177,7 +177,7 @@ body {
 .menu-text {
   /* match the logo exactly: prefer Cenzyl, fallback to Cinzel */
   font-family: "Cenzyl", "Cinzel", serif, "Bebas Neue", sans-serif;
-  font-size: 23.4px; /* increased by ~30% */
+  font-size: 18px; /* reduced further for smaller header */
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--text);

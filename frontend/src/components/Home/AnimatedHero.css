@@ -114,7 +114,6 @@
   will-change: transform, opacity;
 }
 
-
 /* CTA styles */
 #animated-hero-section .hero-cta {
   position: absolute;
@@ -140,7 +139,6 @@
   background: rgba(0, 0, 0, 0.6);
   outline: none;
 }
-
 
 /* CTA responsive */
 @media (max-width: 768px) {
