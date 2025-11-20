@@ -1,4 +1,6 @@
+import React, { useState, useEffect } from "react";
 import AnimatedHero from "../components/Home/AnimatedHero";
+import MobileHero from "../components/Home/MobileHero";
 import {
   EssenceSection,
   PortfolioShowcase,
@@ -19,13 +21,26 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
   const { bodyBlocks } = useHome();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
 
   console.log("HomePage bodyBlocks:", bodyBlocks);
 
   return (
     <>
       <div id="hero">
-        <AnimatedHero />
+        {isMobile ? <MobileHero /> : <AnimatedHero />}
       </div>
       <EssenceSection />
       <div id="services">

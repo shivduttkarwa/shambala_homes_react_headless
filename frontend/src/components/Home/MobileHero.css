@@ -1,0 +1,91 @@
+/* MOBILE HERO STYLES - COMPLETELY SEGREGATED */
+/* This will ONLY affect mobile hero, not desktop */
+
+.mobile-hero-section {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.mobile-hero-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+/* MOBILE HERO TEXT */
+.mobile-hero-text {
+  text-align: center;
+  z-index: 10;
+  margin-bottom: 40px;
+}
+
+.mobile-text-line {
+  font-family: "Dream Avenue", serif;
+  font-size: clamp(5rem, 16vw, 8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: #000000;
+  margin-bottom: 0.1em;
+}
+
+.mobile-line-1 {
+  text-align: center;
+}
+
+.mobile-line-2 {
+  text-align: center;
+}
+
+.mobile-line-4 {
+  text-align: center;
+}
+
+.mobile-line-5 {
+  text-align: center;
+}
+
+/* MOBILE VIDEO LINE */
+.mobile-video-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5em 0;
+}
+
+.mobile-video-space {
+  width: 400px;
+  height: 240px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-video-space video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* Responsive for very small screens */
+@media (max-width: 480px) {
+  .mobile-text-line {
+    font-size: clamp(4rem, 14vw, 6rem);
+  }
+  
+  .mobile-video-space {
+    width: 300px;
+    height: 180px;
+  }
+  
+}
