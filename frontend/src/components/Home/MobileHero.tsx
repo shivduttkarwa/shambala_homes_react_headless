@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GlassRainButton from "../UI/GlassRainButton";
 import "./MobileHero.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -104,9 +103,12 @@ const MobileHero: React.FC = () => {
         duration: 0.6,
       })
       // Fade out text during expansion with sliding animation
-      .to(
-        heroTextRef.current.querySelector(".mobile-line-1"),
-        {
+      const line1 = heroTextRef.current!.querySelector(".mobile-line-1") as HTMLElement;
+      const line2 = heroTextRef.current!.querySelector(".mobile-line-2") as HTMLElement;
+      const line4 = heroTextRef.current!.querySelector(".mobile-line-4") as HTMLElement;
+      const line5 = heroTextRef.current!.querySelector(".mobile-line-5") as HTMLElement;
+
+      tl.to(line1, {
           y: -400,
           opacity: 0,
           ease: "power2.inOut",
@@ -114,9 +116,7 @@ const MobileHero: React.FC = () => {
         },
         0
       )
-      .to(
-        heroTextRef.current.querySelector(".mobile-line-2"),
-        {
+      .to(line2, {
           y: -300,
           opacity: 0,
           ease: "power2.inOut",
@@ -124,9 +124,7 @@ const MobileHero: React.FC = () => {
         },
         0
       )
-      .to(
-        heroTextRef.current.querySelector(".mobile-line-4"),
-        {
+      .to(line4, {
           y: 300,
           opacity: 0,
           ease: "power2.inOut",
@@ -134,9 +132,7 @@ const MobileHero: React.FC = () => {
         },
         0
       )
-      .to(
-        heroTextRef.current.querySelector(".mobile-line-5"),
-        {
+      .to(line5, {
           y: 400,
           opacity: 0,
           ease: "power2.inOut",
