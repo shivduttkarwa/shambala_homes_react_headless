@@ -4,10 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlassRainButton from "../UI/GlassRainButton";
 import "./AnimatedHero.css";
 
-// Register plugin only if not already registered
-if (!gsap.plugins.scrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// Register plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const publicUrl = import.meta.env.BASE_URL;
 
@@ -85,8 +83,9 @@ const AnimatedHeroContent: React.FC = () => {
 
   // Calculate video transform for full screen
   const calculateVideoTransform = () => {
-    if (!videoSpaceRef.current) return { translateX: 0, translateY: 0, scale: 1 };
-    
+    if (!videoSpaceRef.current)
+      return { translateX: 0, translateY: 0, scale: 1 };
+
     const rect = videoSpaceRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -106,7 +105,8 @@ const AnimatedHeroContent: React.FC = () => {
   // Split overlay lines into characters
   const splitOverlayToChars = () => {
     if (!heroSectionRef.current) return;
-    const overlayLines = heroSectionRef.current.querySelectorAll(".overlay-line");
+    const overlayLines =
+      heroSectionRef.current.querySelectorAll(".overlay-line");
     overlayLines.forEach((line) => {
       const text = line.getAttribute("data-text") || "";
       line.textContent = "";
@@ -121,11 +121,10 @@ const AnimatedHeroContent: React.FC = () => {
     });
   };
 
-
   // Calculate gallery transform for bottom center
   const calculateGalleryTransform = () => {
     if (!galleryRef.current) return { translateX: 0, translateY: 0 };
-    
+
     const rect = galleryRef.current.getBoundingClientRect();
     const galleryCenterX = rect.left + rect.width / 2;
     const galleryCenterY = rect.top + rect.height / 2;
@@ -139,7 +138,12 @@ const AnimatedHeroContent: React.FC = () => {
 
   // Build animations
   const buildTimelines = () => {
-    if (!heroSectionRef.current || !videoSpaceRef.current || !galleryRef.current) return;
+    if (
+      !heroSectionRef.current ||
+      !videoSpaceRef.current ||
+      !galleryRef.current
+    )
+      return;
 
     // Clear only this component's timeline (which includes its ScrollTrigger)
     if (timelineRef.current) {
@@ -150,16 +154,28 @@ const AnimatedHeroContent: React.FC = () => {
 
     // Reset all elements to their initial states
     gsap.set(videoSpaceRef.current, { clearProps: "all" });
-    gsap.set(heroSectionRef.current.querySelectorAll(".line-1, .line-2, .line-3 span"), { clearProps: "all" });
-    gsap.set(heroSectionRef.current.querySelectorAll(".hero-text .text-line span"), { clearProps: "all" });
+    gsap.set(
+      heroSectionRef.current.querySelectorAll(".line-1, .line-2, .line-3 span"),
+      { clearProps: "all" }
+    );
+    gsap.set(
+      heroSectionRef.current.querySelectorAll(".hero-text .text-line span"),
+      { clearProps: "all" }
+    );
     gsap.set(galleryRef.current, { clearProps: "all" });
-    gsap.set(heroSectionRef.current.querySelectorAll(".gallery-item"), { clearProps: "all" });
-    gsap.set(heroSectionRef.current.querySelectorAll(".overlay-char"), { clearProps: "all" });
-    gsap.set(heroSectionRef.current.querySelector(".hero-cta"), { clearProps: "all" });
+    gsap.set(heroSectionRef.current.querySelectorAll(".gallery-item"), {
+      clearProps: "all",
+    });
+    gsap.set(heroSectionRef.current.querySelectorAll(".overlay-char"), {
+      clearProps: "all",
+    });
+    gsap.set(heroSectionRef.current.querySelector(".hero-cta"), {
+      clearProps: "all",
+    });
 
     const transform = calculateVideoTransform();
     const galleryTransform = calculateGalleryTransform();
-    
+
     // Set hero section height
     const desiredHeight = Math.ceil(
       (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight
@@ -167,73 +183,85 @@ const AnimatedHeroContent: React.FC = () => {
     heroSectionRef.current.style.height = `${desiredHeight}px`;
 
     // Get gallery items (limit to 3 on mobile)
-    const allGalleryItems = gsap.utils.toArray(heroSectionRef.current.querySelectorAll(".gallery-item")) as HTMLElement[];
+    const allGalleryItems = gsap.utils.toArray(
+      heroSectionRef.current.querySelectorAll(".gallery-item")
+    ) as HTMLElement[];
     const isMobileView = window.matchMedia("(max-width: 768px)").matches;
-    const galleryItems = isMobileView ? allGalleryItems.slice(0, 3) : allGalleryItems;
+    const galleryItems = isMobileView
+      ? allGalleryItems.slice(0, 3)
+      : allGalleryItems;
 
     // Main timeline with ScrollTrigger
     timelineRef.current = gsap.timeline({
       scrollTrigger: {
         trigger: heroSectionRef.current,
         start: "top top",
-        end: () => `+=${window.innerHeight * ANIMATION_CONTROLS.videoScrollDistance}`,
+        end: () =>
+          `+=${window.innerHeight * ANIMATION_CONTROLS.videoScrollDistance}`,
         scrub: ANIMATION_CONTROLS.videoScrubSmooth,
         pin: heroSectionRef.current.querySelector(".hero-sticky"),
         pinSpacing: true,
         anticipatePin: 0.5,
         invalidateOnRefresh: true,
         refreshPriority: -1,
-        onUpdate: (self) => {
+        onUpdate: () => {
           // Ensure visibility is managed correctly during scroll
-          const gallery = heroSectionRef.current.querySelector(".gallery") as HTMLElement;
+          const gallery = heroSectionRef.current?.querySelector(
+            ".gallery"
+          ) as HTMLElement;
           if (gallery && gallery.style.visibility !== "visible") {
             gallery.style.visibility = "visible";
           }
         },
-      }
+      },
     });
 
     // Set initial states for ALL elements before animation
-    gsap.set(videoSpaceRef.current, { 
-      x: 0, 
-      y: 0, 
-      scale: 1, 
-      borderRadius: 12, 
-      zIndex: 5 
+    gsap.set(videoSpaceRef.current, {
+      x: 0,
+      y: 0,
+      scale: 1,
+      borderRadius: 12,
+      zIndex: 5,
     });
-    
-    gsap.set(heroSectionRef.current.querySelectorAll(".line-1, .line-2, .line-3 span"), { 
-      scale: 1, 
-      opacity: 1 
-    });
-    
-    gsap.set(heroSectionRef.current.querySelectorAll(".hero-text .text-line span"), { 
-      opacity: 1, 
-      y: 0, 
-      filter: "blur(0px)" 
-    });
-    
+
+    gsap.set(
+      heroSectionRef.current.querySelectorAll(".line-1, .line-2, .line-3 span"),
+      {
+        scale: 1,
+        opacity: 1,
+      }
+    );
+
+    gsap.set(
+      heroSectionRef.current.querySelectorAll(".hero-text .text-line span"),
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+      }
+    );
+
     // Reset gallery to initial position (top center)
-    gsap.set(galleryRef.current, { 
-      x: 0, 
+    gsap.set(galleryRef.current, {
+      x: 0,
       y: 0,
       position: "absolute",
       top: -50,
       left: "50%",
-      transform: "translateX(-50%)" 
-    });
-    
-    gsap.set(heroSectionRef.current.querySelectorAll(".overlay-char"), { 
-      opacity: 0, 
-      y: ANIMATION_CONTROLS.overlayStartY 
-    });
-    
-    gsap.set(heroSectionRef.current.querySelector(".hero-cta"), { 
-      opacity: 0, 
-      y: 12, 
-      scale: 0.98 
+      transform: "translateX(-50%)",
     });
 
+    gsap.set(heroSectionRef.current.querySelectorAll(".overlay-char"), {
+      opacity: 0,
+      y: ANIMATION_CONTROLS.overlayStartY,
+    });
+
+    gsap.set(heroSectionRef.current.querySelector(".hero-cta"), {
+      opacity: 0,
+      y: 12,
+      scale: 0.98,
+    });
 
     const videoTimeline = timelineRef.current;
 
@@ -253,7 +281,9 @@ const AnimatedHeroContent: React.FC = () => {
         0
       )
       .to(
-        heroSectionRef.current.querySelectorAll(".line-1, .line-2, .line-3 span"),
+        heroSectionRef.current.querySelectorAll(
+          ".line-1, .line-2, .line-3 span"
+        ),
         {
           scale: 0.7,
           opacity: 0.3,
@@ -301,7 +331,7 @@ const AnimatedHeroContent: React.FC = () => {
             from: "start",
           },
           duration: ANIMATION_CONTROLS.galleryItemDuration,
-          ease: "power3.inout",
+          ease: "power3.inOut",
         },
         `afterExpand+=${ANIMATION_CONTROLS.galleryStartDelay}`
       )
@@ -333,7 +363,9 @@ const AnimatedHeroContent: React.FC = () => {
         `afterExpand+=${ANIMATION_CONTROLS.galleryStartDelay}`
       )
       .to(
-        heroSectionRef.current.querySelectorAll(".line-1, .line-2, .line-3 span"),
+        heroSectionRef.current.querySelectorAll(
+          ".line-1, .line-2, .line-3 span"
+        ),
         {
           scale: 1,
           opacity: 1,
@@ -380,13 +412,15 @@ const AnimatedHeroContent: React.FC = () => {
   // Wait for gallery images to load
   const waitForGalleryImages = () => {
     if (!heroSectionRef.current) return Promise.resolve();
-    const images = gsap.utils.toArray(heroSectionRef.current.querySelectorAll(".gallery img")) as HTMLImageElement[];
+    const images = gsap.utils.toArray(
+      heroSectionRef.current.querySelectorAll(".gallery img")
+    ) as HTMLImageElement[];
     return Promise.all(
       images.map((img) => {
         if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
-        return new Promise((resolve) => {
-          img.addEventListener("load", resolve);
-          img.addEventListener("error", resolve);
+        return new Promise<void>((resolve) => {
+          img.addEventListener("load", () => resolve());
+          img.addEventListener("error", () => resolve());
         });
       })
     );
@@ -395,7 +429,9 @@ const AnimatedHeroContent: React.FC = () => {
   // Initial text animation
   const animateHeroTextInitial = () => {
     if (!heroSectionRef.current) return;
-    const chars = gsap.utils.toArray(heroSectionRef.current.querySelectorAll(".hero-text .text-line span")) as HTMLElement[];
+    const chars = gsap.utils.toArray(
+      heroSectionRef.current.querySelectorAll(".hero-text .text-line span")
+    ) as HTMLElement[];
     gsap.set(chars, {
       opacity: 0,
       y: 20,
@@ -417,15 +453,19 @@ const AnimatedHeroContent: React.FC = () => {
     // Split text into characters
     const textLine1 = heroSectionRef.current.querySelector(".line-1");
     const textLine2 = heroSectionRef.current.querySelector(".line-2");
-    const textLine3Spans = gsap.utils.toArray(heroSectionRef.current.querySelectorAll(".line-3 > span"));
-    
+    const textLine3Spans = gsap.utils.toArray(
+      heroSectionRef.current.querySelectorAll(".line-3 > span")
+    );
+
     splitTextToChars(textLine1 as HTMLElement);
     splitTextToChars(textLine2 as HTMLElement);
     textLine3Spans.forEach((span) => splitTextToChars(span as HTMLElement));
     splitOverlayToChars();
 
     // Add hover effects to gallery items
-    const allGalleryItems = gsap.utils.toArray(heroSectionRef.current.querySelectorAll(".gallery-item")) as HTMLElement[];
+    const allGalleryItems = gsap.utils.toArray(
+      heroSectionRef.current.querySelectorAll(".gallery-item")
+    ) as HTMLElement[];
     allGalleryItems.forEach((item) => {
       item.addEventListener("pointerenter", () => {
         gsap.to(item, { scale: 1.08, duration: 0.3, ease: "power3.out" });
@@ -439,20 +479,24 @@ const AnimatedHeroContent: React.FC = () => {
     waitForGalleryImages()
       .then(() => {
         buildTimelines();
-        const gallery = heroSectionRef.current.querySelector(".gallery") as HTMLElement;
+        const gallery = heroSectionRef.current?.querySelector(
+          ".gallery"
+        ) as HTMLElement;
         if (gallery) gallery.style.visibility = "visible";
         heroSectionRef.current?.classList.remove("no-js");
-        
+
         // Force scroll to top and reset animation progress
         window.scrollTo(0, 0);
         ScrollTrigger.refresh();
       })
       .catch(() => {
         buildTimelines();
-        const gallery = heroSectionRef.current.querySelector(".gallery") as HTMLElement;
+        const gallery = heroSectionRef.current?.querySelector(
+          ".gallery"
+        ) as HTMLElement;
         if (gallery) gallery.style.visibility = "visible";
         heroSectionRef.current?.classList.remove("no-js");
-        
+
         // Force scroll to top and reset animation progress
         window.scrollTo(0, 0);
         ScrollTrigger.refresh();
@@ -524,7 +568,11 @@ const AnimatedHeroContent: React.FC = () => {
         </div>
 
         {/* Gallery */}
-        <div ref={galleryRef} className="gallery" style={{ visibility: "hidden" }}>
+        <div
+          ref={galleryRef}
+          className="gallery"
+          style={{ visibility: "hidden" }}
+        >
           <div className="gallery-item">
             <img src={`${publicUrl}images/l11.jpg`} alt="Gallery 1" />
           </div>
@@ -541,21 +589,28 @@ const AnimatedHeroContent: React.FC = () => {
             <img src={`${publicUrl}images/l8.jpg`} alt="Gallery 5" />
           </div>
           <div className="gallery-item">
-            <img src={`${publicUrl}images/pexels-asphotography-94818.jpg`} alt="Gallery 6" />
+            <img
+              src={`${publicUrl}images/pexels-asphotography-94818.jpg`}
+              alt="Gallery 6"
+            />
           </div>
           <div className="gallery-item">
-            <img src={`${publicUrl}images/pexels-fotoaibe-1571460.jpg`} alt="Gallery 7" />
+            <img
+              src={`${publicUrl}images/pexels-fotoaibe-1571460.jpg`}
+              alt="Gallery 7"
+            />
           </div>
           <div className="gallery-item">
-            <img src={`${publicUrl}images/pexels-jvdm-1457842.jpg`} alt="Gallery 8" />
+            <img
+              src={`${publicUrl}images/pexels-jvdm-1457842.jpg`}
+              alt="Gallery 8"
+            />
           </div>
         </div>
 
         {/* CTA */}
         <div className="hero-cta">
-          <GlassRainButton href="#next-section">
-            Explore Homes
-          </GlassRainButton>
+          <GlassRainButton href="#next-section">Explore Homes</GlassRainButton>
         </div>
       </div>
     </section>
