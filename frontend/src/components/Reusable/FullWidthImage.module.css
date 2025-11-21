@@ -1,0 +1,152 @@
+/* FullWidthImage styles (scoped via CSS modules) - all classes prefixed with `fwi-` to avoid conflicts */
+
+.fwi-wrapper {
+  width: 100%;
+}
+
+.fwi-hero-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 100vh; /* increased to full viewport height as requested */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark overlay layer applied on top of image to increase contrast for text */
+.fwi-hero-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* darken hero area */
+  z-index: 1;
+}
+
+.fwi-hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  z-index: 2;
+}
+
+.fwi-title {
+  font-family: Georgia, serif;
+  font-weight: bold;
+  font-style: italic;
+  margin: 10px 0;
+  text-shadow: 2px 2px #000;
+  color: #fff;
+  font-size: clamp(2.2rem, 5vw, 3.25rem);
+}
+
+.fwi-subtitle {
+  font-family: Georgia, serif;
+  font-style: italic;
+  text-shadow: 1px 1px #000;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.fwi-shop-button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 12px 35px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.9);
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid black;
+  margin-left: -1px;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+.fwi-shop-button:hover {
+  background-color: transparent;
+  color: white;
+  text-shadow: 2px 2px #000;
+}
+
+.fwi-hero-exclusions {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 2;
+}
+
+.fwi-exclusions-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fwi-exclusions-text {
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.fwi-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.fwi-popup {
+  width: min(600px, 90%);
+  max-height: 80vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.25rem;
+  position: relative;
+}
+
+.fwi-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 22px;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.fwi-content h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+.fwi-content p {
+  color: #333;
+}
+
+@media (max-width: 700px) {
+  /* Keep 100vh on mobile as requested */
+  .fwi-hero-image { height: 100vh; }
+  .fwi-title { font-size: 1.8rem; }
+}
