@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 interface SimpleSwiperProps {
   images: string[];
   autoplaySpeed?: number;
   className?: string;
+  showPagination?: boolean;
+  showNavigation?: boolean;
 }
 
 const SimpleSwiper: React.FC<SimpleSwiperProps> = ({ 
   images, 
   autoplaySpeed = 4000,
-  className = ''
+  className = '',
+  showPagination = true,
+  showNavigation = false
 }) => {
   const [currentSlide, setCurrentSlide] = useState(1);
 
@@ -26,13 +32,19 @@ const SimpleSwiper: React.FC<SimpleSwiperProps> = ({
   return (
     <div className={`simple-swiper-wrapper ${className}`} style={{ position: 'relative' }}>
       <Swiper
-        modules={[Autoplay]}
+        modules={[Autoplay, Pagination, Navigation]}
         spaceBetween={0}
         slidesPerView={1}
         autoplay={{
           delay: autoplaySpeed,
           disableOnInteraction: false,
         }}
+        pagination={showPagination ? {
+          clickable: true,
+          dynamicBullets: true,
+          dynamicMainBullets: 3,
+        } : false}
+        navigation={showNavigation}
         loop={true}
         speed={800}
         className="simple-swiper"

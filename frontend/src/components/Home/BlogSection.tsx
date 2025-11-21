@@ -165,6 +165,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({
                 images={featuredPost.swiperImages}
                 autoplaySpeed={4000}
                 className="blog-featured-swiper"
+                showPagination={true}
+                showNavigation={false}
               />
             ) : (
               <img src={featuredPost.imageSrc} alt={featuredPost.imageAlt} />
