@@ -196,10 +196,9 @@
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: absolute;
-  top: 50%;
+  top: calc(50% - 25px);
   left: 50%;
   transform: translate(-50%, -50%);
-  top: calc(50% - 25px);
   z-index: 1000;
   opacity: 1;
   will-change: transform;

@@ -149,14 +149,23 @@ const MobileHero: React.FC = () => {
         ScrollTrigger.addEventListener("refresh", onRefreshHandler);
       // refresh once to apply sizes immediately
       ScrollTrigger.refresh();
-      // Initialize states similar to the desktop hero
-      gsap.set(videoSpaceRef.current, {
-        x: 0,
-        y: 0,
-        scale: 1,
-        borderRadius: 8,
-        zIndex: 5,
-      });
+      
+      // Small delay to ensure DOM is fully rendered and CSS applied
+      setTimeout(() => {
+        // Minimal GSAP initialization - let CSS handle positioning
+        gsap.set(videoSpaceRef.current, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          borderRadius: 8,
+          zIndex: 1000,
+        });
+
+        // Get text line elements for animations
+        const line1 = heroTextRef.current!.querySelector(".mobile-line-1") as HTMLElement;
+        const line2 = heroTextRef.current!.querySelector(".mobile-line-2") as HTMLElement;
+        const line4 = heroTextRef.current!.querySelector(".mobile-line-4") as HTMLElement;
+        const line5 = heroTextRef.current!.querySelector(".mobile-line-5") as HTMLElement;
       
       tl.to(videoSpaceRef.current, {
         width: "100vw",
@@ -165,30 +174,26 @@ const MobileHero: React.FC = () => {
         zIndex: 1000,
         opacity: 1,
         x: () => {
-          const rect = videoSpaceRef.current!.getBoundingClientRect();
-          return window.innerWidth / 2 - (rect.left + rect.width / 2);
+          // Calculate offset to center of screen from current position
+          if (!videoSpaceRef.current) return 0;
+          const rect = videoSpaceRef.current.getBoundingClientRect();
+          const videoCenterX = rect.left + rect.width / 2;
+          const screenCenterX = window.innerWidth / 2;
+          return screenCenterX - videoCenterX;
         },
         y: () => {
-          const rect = videoSpaceRef.current!.getBoundingClientRect();
-          return window.innerHeight / 2 - (rect.top + rect.height / 2);
+          if (!videoSpaceRef.current) return 0;
+          const rect = videoSpaceRef.current.getBoundingClientRect();
+          const videoCenterY = rect.top + rect.height / 2;
+          const screenCenterY = window.innerHeight / 2;
+          return screenCenterY - videoCenterY;
         },
         ease: "power2.inOut",
         duration: 0.6,
       });
 
       // Fade out text during expansion with sliding animation
-      const line1 = heroTextRef.current!.querySelector(
-        ".mobile-line-1"
-      ) as HTMLElement;
-      const line2 = heroTextRef.current!.querySelector(
-        ".mobile-line-2"
-      ) as HTMLElement;
-      const line4 = heroTextRef.current!.querySelector(
-        ".mobile-line-4"
-      ) as HTMLElement;
-      const line5 = heroTextRef.current!.querySelector(
-        ".mobile-line-5"
-      ) as HTMLElement;
+      // (line variables already declared above)
 
       tl.to(
         line1,
@@ -294,6 +299,7 @@ const MobileHero: React.FC = () => {
         },
         "afterExpand+=0.1"
       );
+      }, 50); // Small delay for DOM readiness
     }, wrapperRef);
 
     return () => {
