@@ -147,10 +147,18 @@
   will-change: transform, opacity;
 }
 
+/* MOBILE CTA BUTTON */
+.mobile-cta {
+  position: absolute;
+  top: calc(100vh - 150px - 80px - 100px); /* 100px above gallery items */
+  left: 20px; /* Aligned left with 20px margin */
+  z-index: 30;
+}
+
 /* MOBILE GALLERY */
 .mobile-gallery {
   position: absolute;
-  bottom: 150px;
+  top: calc(100vh - 150px - 80px); /* Position from top instead of bottom */
   left: 50%;
   transform: translateX(-50%);
   display: flex;

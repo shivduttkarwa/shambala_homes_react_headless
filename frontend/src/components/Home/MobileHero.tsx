@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GlassRainButton from "../UI/GlassRainButton";
 import "./MobileHero.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -258,17 +259,32 @@ const MobileHero: React.FC = () => {
           y: 0,
           duration: 0.4,
           ease: "back.out(2)",
-          stagger: 0.05,
+          stagger: 0.02, // Reduced from 0.05 to 0.02 for faster animation
+        },
+        "afterExpand+=0.1"
+      );
+
+      // Glass button animation - same trigger, animates from left
+      const ctaButton = document.querySelector(".mobile-cta") as HTMLElement;
+      gsap.set(ctaButton, { opacity: 0, x: -200 });
+      tl.fromTo(
+        ctaButton,
+        { opacity: 0, x: -200 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.4,
+          ease: "back.out(2)",
         },
         "afterExpand+=0.1"
       );
 
       // Gallery items animation - exact same behavior as overlay text but from top
       const galleryItems = gsap.utils.toArray(".mobile-gallery-item") as HTMLElement[];
-      gsap.set(galleryItems, { opacity: 0, y: -200 });
+      gsap.set(galleryItems, { opacity: 0, y: -400 }); // Start much higher above screen
       tl.fromTo(
         galleryItems,
-        { opacity: 0, y: -200 },
+        { opacity: 0, y: -400 },
         {
           opacity: 1,
           y: 0,
@@ -342,6 +358,11 @@ const MobileHero: React.FC = () => {
               type="video/mp4"
             />
           </video>
+        </div>
+
+        {/* Glass Button */}
+        <div className="mobile-cta">
+          <GlassRainButton href="#next-section">Explore Homes</GlassRainButton>
         </div>
 
         {/* Gallery Items */}
