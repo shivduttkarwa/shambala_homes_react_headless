@@ -112,7 +112,7 @@ body {
   transform: translateX(-50%);
   width: 99%;
   z-index: 1001;
-  padding: 6.75px 20px; /* Reduced further by 10% for smaller header height */
+  padding: 5.74px 20px; /* Reduced further by 15% for smaller header height */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -146,7 +146,7 @@ body {
 .logo {
   /* Prefer Cenzyl for headers if available, fallback to Cinzel */
   font-family: "Cenzyl", "Cinzel", serif, "Bebas Neue", sans-serif;
-  font-size: 18px; /* reduced further for smaller header */
+  font-size: 16.2px; /* reduced header font-size by 10% */
   letter-spacing: 0.03em;
   color: var(--text);
   text-transform: uppercase;
@@ -177,7 +177,7 @@ body {
 .menu-text {
   /* match the logo exactly: prefer Cenzyl, fallback to Cinzel */
   font-family: "Cenzyl", "Cinzel", serif, "Bebas Neue", sans-serif;
-  font-size: 18px; /* reduced further for smaller header */
+  font-size: 16.2px; /* reduced header font-size by 10% */
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--text);
@@ -194,10 +194,10 @@ body {
 /* Mobile: reduce header logo and menu-text size for small screens */
 @media (max-width: 768px) {
   .logo {
-    font-size: 18px; /* mobile revert */
+    font-size: 16.2px; /* mobile font reduced by 10% */
   }
   .menu-text {
-    font-size: 18px; /* mobile revert */
+    font-size: 16.2px; /* mobile font reduced by 10% */
   }
 }
 

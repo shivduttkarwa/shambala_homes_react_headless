@@ -3,7 +3,7 @@
   padding: 1.5rem;
   border-bottom: 1px solid #e5e5e5;
   position: sticky;
-  top: 72px; /* Account for header height */
+  top: 61.2px; /* Account for reduced header height (15% reduction) */
   z-index: 100;
 }
 

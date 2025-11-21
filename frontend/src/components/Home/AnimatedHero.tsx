@@ -97,7 +97,10 @@ const AnimatedHeroContent: React.FC = () => {
 
     const scaleX = window.innerWidth / rect.width;
     const scaleY = window.innerHeight / rect.height;
-    const scale = Math.max(scaleX, scaleY) * 1.0;
+    // Add a slight overscale buffer (2%) to avoid 1px gaps at certain
+    // viewport sizes or due to subpixel rounding when elements are scaled.
+    const OVERSCALE_BUFFER = 1.02;
+    const scale = Math.max(scaleX, scaleY) * OVERSCALE_BUFFER;
 
     return { translateX, translateY, scale };
   };
@@ -278,6 +281,12 @@ const AnimatedHeroContent: React.FC = () => {
           duration: ANIMATION_CONTROLS.videoExpandSpeed,
           ease: "power2.inOut", // Same smooth easing as GsapVideoText
         },
+        0
+      )
+      // Fade out company description during video expansion
+      .to(
+        heroSectionRef.current.querySelector(".hero-description"),
+        { opacity: 0, y: -8, duration: 0.35, ease: "power2.out" },
         0
       )
       .to(
@@ -565,6 +574,13 @@ const AnimatedHeroContent: React.FC = () => {
         >
           <div className="overlay-line" data-text="Live Better"></div>
           <div className="overlay-line" data-text="Feel More"></div>
+        </div>
+
+        {/* Company description in top-right */}
+        <div className="hero-description" aria-hidden="false">
+          <div className="hero-description-inner">
+            We design spaces that feel like home — thoughtful, timeless, human.
+          </div>
         </div>
 
         {/* Gallery */}

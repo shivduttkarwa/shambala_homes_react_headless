@@ -54,7 +54,7 @@
 
 /* TEXT LINES EXACTLY LIKE SCREENSHOT */
 #animated-hero-section .text-line {
-  font-size: clamp(4rem, 12vw, 16rem);
+  font-size: clamp(4rem, 11vw, 16rem);
   font-weight: 900;
   line-height: 0.85;
   text-transform: uppercase;
@@ -84,6 +84,35 @@
   pointer-events: none;
   will-change: transform, opacity;
   max-width: 90vw;
+}
+
+/* Company description at the top-right of hero (shows when not expanded) */
+#animated-hero-section .hero-description {
+  position: absolute;
+  top: 140px; /* pushed further down below the header */
+  right: 48px;
+  z-index: 25;
+  max-width: 300px;
+  text-align: left;
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+#animated-hero-section .hero-description-inner {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  line-height: 1.35;
+}
+
+/* Hide on small screens */
+@media (max-width: 768px) {
+  #animated-hero-section .hero-description {
+    display: none;
+  }
 }
 
 #animated-hero-section .overlay-line {
@@ -178,6 +207,7 @@
   z-index: 5;
   /* Smooth transform animations */
   will-change: transform;
+  transform-origin: center center; /* ensure scaling is centered */
 }
 
 #animated-hero-section .video-space video {
