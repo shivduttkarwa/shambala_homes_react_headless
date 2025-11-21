@@ -208,21 +208,13 @@ const AnimatedHeroContent: React.FC = () => {
         anticipatePin: 0.5,
         invalidateOnRefresh: true,
         refreshPriority: -1,
-        onUpdate: (self) => {
+        onUpdate: () => {
           // Ensure visibility is managed correctly during scroll
           const gallery = heroSectionRef.current?.querySelector(
             ".gallery"
           ) as HTMLElement;
           if (gallery && gallery.style.visibility !== "visible") {
             gallery.style.visibility = "visible";
-          }
-          // Toggle a class on the video-space element to slightly increase its height/scale when expanded
-          const videoSpace = heroSectionRef.current?.querySelector(
-            ".video-space"
-          ) as HTMLElement | null;
-          if (videoSpace) {
-            if (self.progress > 0.45) videoSpace.classList.add("video-expanded");
-            else videoSpace.classList.remove("video-expanded");
           }
         },
       },

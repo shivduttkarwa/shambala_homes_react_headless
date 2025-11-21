@@ -84,7 +84,7 @@
 
 @media (max-width: 700px) {
   .fwi-wrapper {
-    margin-top: -180px;
+    margin-top: -40px;
   }
   /* Keep 100vh on mobile as requested */
   .fwi-hero-image {

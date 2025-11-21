@@ -132,13 +132,6 @@ const MobileHero: React.FC = () => {
           pinSpacing: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            // Toggle a class on the mobile video during expansion so the video can overscale beyond 100vh
-            const videoEl = videoSpaceRef.current as HTMLElement | null;
-            if (!videoEl) return;
-            if (self.progress > 0.45) videoEl.classList.add("video-expanded");
-            else videoEl.classList.remove("video-expanded");
-          },
         },
       });
 
@@ -182,7 +175,7 @@ const MobileHero: React.FC = () => {
 
         tl.to(videoSpaceRef.current, {
           width: "100vw",
-          height: "100vh",
+          height: "130vh",
           borderRadius: 0,
           zIndex: 1000,
           opacity: 1,

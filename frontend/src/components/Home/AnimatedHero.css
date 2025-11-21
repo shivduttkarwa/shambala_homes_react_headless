@@ -223,15 +223,6 @@
   transform-origin: center center; /* ensure scaling is centered */
 }
 
-/* Slight oversize for full-screen video to hide background underneath when expanded */
-#animated-hero-section .video-space.video-expanded {
-  width: calc(100vw + 40px) !important;
-  height: calc(100vh + 40px) !important;
-  border-radius: 0 !important;
-  transform-origin: center center !important;
-  z-index: 9999 !important;
-}
-
 #animated-hero-section .video-space video {
   width: 100%;
   height: 100%;
