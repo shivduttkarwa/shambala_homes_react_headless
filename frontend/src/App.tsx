@@ -16,11 +16,14 @@ function App() {
     setIsLoading(false);
   };
 
+  const publicUrl = import.meta.env.BASE_URL || "/";
+  const basename = publicUrl === "/" ? "/" : publicUrl.replace(/\/$/, "");
+
   return (
     <>
       {/* Temporarily disabled loader */}
       {/* {isLoading && <BlackHoleLoader onComplete={handlePreloadComplete} />} */}
-      <Router basename="/shambala_homes_react_headless">
+      <Router basename={basename}>
         <div className="App">
           <Header settings={settings} />
           <main>
