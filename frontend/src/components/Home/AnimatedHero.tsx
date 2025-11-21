@@ -262,8 +262,9 @@ const AnimatedHeroContent: React.FC = () => {
 
     gsap.set(heroSectionRef.current.querySelector(".hero-cta"), {
       opacity: 0,
-      y: 12,
-      scale: 0.98,
+      x: 200, // Start from right side
+      y: 0,
+      scale: 0.8,
     });
 
     const videoTimeline = timelineRef.current;
@@ -335,12 +336,9 @@ const AnimatedHeroContent: React.FC = () => {
         {
           y: 0,
           scale: 1,
-          stagger: {
-            each: ANIMATION_CONTROLS.galleryItemStagger,
-            from: "start",
-          },
-          duration: ANIMATION_CONTROLS.galleryItemDuration,
-          ease: "power3.inOut",
+          stagger: ANIMATION_CONTROLS.overlayCharStagger, // Same as overlay text
+          duration: ANIMATION_CONTROLS.overlayCharDuration, // Same as overlay text
+          ease: ANIMATION_CONTROLS.overlayCharEase, // Same as overlay text: "back.out(2)"
         },
         `afterExpand+=${ANIMATION_CONTROLS.galleryStartDelay}`
       )
@@ -364,10 +362,11 @@ const AnimatedHeroContent: React.FC = () => {
         heroSectionRef.current.querySelector(".hero-cta"),
         {
           opacity: 1,
+          x: 0, // Slide in from right
           y: 0,
           scale: 1,
-          duration: 0.4,
-          ease: "power2.out",
+          duration: 0.8, // Slower than overlay text (0.4s)
+          ease: ANIMATION_CONTROLS.overlayCharEase, // Same as overlay text: "back.out(2)"
         },
         `afterExpand+=${ANIMATION_CONTROLS.galleryStartDelay}`
       )
