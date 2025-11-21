@@ -180,7 +180,8 @@ const AnimatedHeroContent: React.FC = () => {
     const galleryTransform = calculateGalleryTransform();
 
     // Set hero section height - use fixed calculation for consistency
-    const desiredHeight = (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight;
+    const desiredHeight =
+      (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight;
     heroSectionRef.current.style.height = `${desiredHeight}px`;
     // Also set via CSS to prevent layout shifts
     heroSectionRef.current.style.minHeight = `${desiredHeight}px`;
@@ -555,7 +556,10 @@ const AnimatedHeroContent: React.FC = () => {
             <div ref={videoSpaceRef} className="video-space">
               <video autoPlay muted loop playsInline>
                 {/* Desktop hero uses `hero-new.mp4`; fallback to `hero1.mp4` when needed */}
-                <source src={`${publicUrl}images/hero-new.mp4`} type="video/mp4" />
+                <source
+                  src={`${publicUrl}images/hero-new.mp4`}
+                  type="video/mp4"
+                />
                 <source src={`${publicUrl}images/hero1.mp4`} type="video/mp4" />
                 <source
                   src="https://www.w3schools.com/html/mov_bbb.mp4"
