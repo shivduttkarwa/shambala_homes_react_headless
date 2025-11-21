@@ -28,10 +28,10 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkIsMobile();
     window.addEventListener("resize", checkIsMobile);
-    
+
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
@@ -39,9 +39,7 @@ const HomePage: React.FC<HomePageProps> = ({ settings: _ }) => {
 
   return (
     <>
-      <div id="hero">
-        {isMobile ? <MobileHero /> : <AnimatedHero />}
-      </div>
+      <div id="hero">{isMobile ? <MobileHero /> : <AnimatedHero />}</div>
       <EssenceSection />
       <div id="services">
         <ServicesSection />

@@ -10,6 +10,7 @@ const publicUrl = import.meta.env.BASE_URL;
 const MobileHero: React.FC = () => {
   const videoSpaceRef = useRef<HTMLDivElement | null>(null);
   const heroTextRef = useRef<HTMLDivElement | null>(null);
+  const overlayTextRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -69,19 +70,65 @@ const MobileHero: React.FC = () => {
       return;
     }
 
+    // onRefreshHandler needs to be referenced in cleanup, so declare in the useEffect scope
+    let onRefreshHandler: (() => void) | undefined;
     const ctx = gsap.context(() => {
       // Initial text animation
       setTimeout(() => {
         animateHeroTextAppearing();
       }, 500);
 
+      // Split overlay text into characters
+      const splitOverlayToChars = () => {
+        if (!overlayTextRef.current) return;
+        const overlayLines =
+          overlayTextRef.current.querySelectorAll(".overlay-line");
+        overlayLines.forEach((line) => {
+          const text = line.getAttribute("data-text") || "";
+          line.textContent = "";
+          for (let i = 0; i < text.length; i++) {
+            const ch = text[i];
+            const span = document.createElement("span");
+            span.classList.add("overlay-char");
+            span.setAttribute("aria-hidden", "true");
+            span.textContent = ch === " " ? "\u00A0" : ch;
+            line.appendChild(span);
+          }
+        });
+      };
+      splitOverlayToChars();
+
       // Video expansion animation - EXACT copy from GsapVideoText
+      const ANIMATION_CONTROLS = {
+        // Keep this closer to desktop to ensure there's enough scroll length
+        videoScrollDistance: 2.9,
+        videoExpandSpeed: 0.6,
+        videoScrubSmooth: 1.4,
+        galleryItemStagger: 0.12,
+        galleryItemDuration: 0.45,
+        galleryItemOffset: -60,
+        overlayCharStagger: 0.05,
+        overlayCharDuration: 0.4,
+        overlayCharEase: "back.out(2)",
+        overlayStartY: 40,
+      };
+
+      // Set hero section height according to animation controls so ScrollTrigger maps correctly
+      const desiredHeight = Math.ceil(
+        (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight
+      );
+      wrapperRef.current!.style.height = `${desiredHeight}px`;
+
+      // No gallery on mobile — no need to wait for gallery images
+
+      // console.debug('Mobile timeline desiredHeight:', desiredHeight); // Debug only
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top top",
-          end: "bottom bottom",
-          scrub: 2,
+          end: () =>
+            `+=${window.innerHeight * ANIMATION_CONTROLS.videoScrollDistance}`,
+          scrub: ANIMATION_CONTROLS.videoScrubSmooth,
           pin: contentRef.current,
           pinSpacing: true,
           anticipatePin: 1,
@@ -89,7 +136,27 @@ const MobileHero: React.FC = () => {
         },
       });
 
-      // Video expansion to fullscreen
+      // Add onRefresh handler to recompute wrapper height
+      onRefreshHandler = () => {
+        if (wrapperRef.current) {
+          wrapperRef.current.style.height = `${Math.ceil(
+            (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight
+          )}px`;
+        }
+      };
+      if (onRefreshHandler)
+        ScrollTrigger.addEventListener("refresh", onRefreshHandler);
+      // refresh once to apply sizes immediately
+      ScrollTrigger.refresh();
+      // Initialize states similar to the desktop hero
+      gsap.set(videoSpaceRef.current, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        borderRadius: 8,
+        zIndex: 5,
+      });
+      // No gallery on mobile — removed gallery transform settings
       tl.to(videoSpaceRef.current, {
         width: "100vw",
         height: "100vh",
@@ -161,11 +228,45 @@ const MobileHero: React.FC = () => {
           },
           0
         )
-        // Reduced pause duration
-        .to({}, { duration: 0.4 });
+        // Reduced pause duration; next: gallery + overlay reveal
+        .to({}, { duration: 0.2 })
+        .addLabel("afterExpand")
+        .to(
+          videoSpaceRef.current,
+          { zIndex: 5, duration: 0.15 },
+          "afterExpand"
+        );
+
+      // Gallery removed on mobile — no gallery setup needed
+
+      // Refresh ScrollTrigger sizes in case anything layout-related changed
+      ScrollTrigger.refresh();
+
+      // Overlay animation - split to chars and animate
+      const overlayChars = gsap.utils.toArray(
+        overlayTextRef.current?.querySelectorAll(".overlay-char") || []
+      ) as HTMLElement[];
+      gsap.set(overlayChars, { opacity: 0, y: 40 });
+      tl.fromTo(
+        overlayChars,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(2)",
+          stagger: 0.05,
+        },
+        "afterExpand+=0.1"
+      );
     }, wrapperRef);
 
-    return () => ctx.revert();
+    return () => {
+      // cleanup the ScrollTrigger event listener to prevent leaks
+      if (onRefreshHandler)
+        ScrollTrigger.removeEventListener("refresh", onRefreshHandler);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -189,6 +290,24 @@ const MobileHero: React.FC = () => {
           <div className="mobile-text-line mobile-line-5">ORDINARY</div>
         </div>
 
+        {/* Overlay Text */}
+        {/*
+          To quickly adjust overlay position, edit the CSS variables in
+          `frontend/src/components/Home/MobileHero.css` or set them on the
+          wrapper selector `.mobile-hero-section`.
+
+          Example (CSS):
+            .mobile-hero-section { --overlay-left: 120px; --overlay-up: 160px; }
+        */}
+        <div
+          ref={overlayTextRef}
+          className="mobile-hero-overlay"
+          aria-label="Live Better Feel More"
+        >
+          <div className="overlay-line" data-text="Live Better"></div>
+          <div className="overlay-line" data-text="Feel More"></div>
+        </div>
+
         {/* Video - separate from text container */}
         <div ref={videoSpaceRef} className="mobile-video-space">
           <video autoPlay muted loop playsInline>
@@ -200,6 +319,7 @@ const MobileHero: React.FC = () => {
           </video>
         </div>
       </div>
+      {/* Mobile gallery removed per request — gallery is not present on mobile devices */}
     </section>
   );
 };
