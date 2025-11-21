@@ -179,11 +179,11 @@ const AnimatedHeroContent: React.FC = () => {
     const transform = calculateVideoTransform();
     const galleryTransform = calculateGalleryTransform();
 
-    // Set hero section height
-    const desiredHeight = Math.ceil(
-      (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight
-    );
+    // Set hero section height - use fixed calculation for consistency
+    const desiredHeight = (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight;
     heroSectionRef.current.style.height = `${desiredHeight}px`;
+    // Also set via CSS to prevent layout shifts
+    heroSectionRef.current.style.minHeight = `${desiredHeight}px`;
 
     // Get gallery items (limit to 3 on mobile)
     const allGalleryItems = gsap.utils.toArray(
