@@ -132,6 +132,13 @@ const MobileHero: React.FC = () => {
           pinSpacing: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            // Toggle a class on the mobile video during expansion so the video can overscale beyond 100vh
+            const videoEl = videoSpaceRef.current as HTMLElement | null;
+            if (!videoEl) return;
+            if (self.progress > 0.45) videoEl.classList.add("video-expanded");
+            else videoEl.classList.remove("video-expanded");
+          },
         },
       });
 
@@ -179,6 +186,7 @@ const MobileHero: React.FC = () => {
           borderRadius: 0,
           zIndex: 1000,
           opacity: 1,
+          scale: 1,
           x: () => {
             // Calculate offset to center of screen from current position
             if (!videoSpaceRef.current) return 0;
@@ -317,6 +325,8 @@ const MobileHero: React.FC = () => {
 
   // no gallery portal mounting required
 
+  const defaultBg = `${publicUrl}images/bg.png`;
+
   return (
     <>
       <section
@@ -324,7 +334,17 @@ const MobileHero: React.FC = () => {
         className="mobile-hero-section"
         id="mobile-hero-section"
       >
-        <div ref={contentRef} className="mobile-hero-container">
+        <div
+          ref={contentRef}
+          className="mobile-hero-container"
+          style={{
+            backgroundImage: `url(${defaultBg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundColor: "rgba(0,0,0,0.12)",
+            backgroundBlendMode: "multiply",
+          }}
+        >
           {/* Hero Text */}
           <div ref={heroTextRef} className="mobile-hero-text">
             <div className="mobile-text-line mobile-line-1">DESIGN</div>

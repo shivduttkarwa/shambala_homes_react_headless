@@ -41,6 +41,18 @@
   overflow: hidden;
 }
 
+/* Background overlay layer on hero-sticky to improve contrast for text */
+#animated-hero-section .hero-sticky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 9; /* below hero text (10), above video (5) */
+  pointer-events: none;
+}
+
+/* Previously attempted background toggle removed (now handled by overscale). */
+
 /* HERO TEXT CONTAINER */
 #animated-hero-section .hero-text {
   position: absolute;
@@ -59,8 +71,9 @@
   line-height: 0.85;
   text-transform: uppercase;
   letter-spacing: -0.05em;
-  color: #000000;
+  color: #ffffff; /* set to white for better contrast against background */
   margin-bottom: 0.1em;
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
 }
 
 /* Ensure per-character spans are inline-block so we can animate Y/blur per char */
@@ -208,6 +221,15 @@
   /* Smooth transform animations */
   will-change: transform;
   transform-origin: center center; /* ensure scaling is centered */
+}
+
+/* Slight oversize for full-screen video to hide background underneath when expanded */
+#animated-hero-section .video-space.video-expanded {
+  width: calc(100vw + 40px) !important;
+  height: calc(100vh + 40px) !important;
+  border-radius: 0 !important;
+  transform-origin: center center !important;
+  z-index: 9999 !important;
 }
 
 #animated-hero-section .video-space video {

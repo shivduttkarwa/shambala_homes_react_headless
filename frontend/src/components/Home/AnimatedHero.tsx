@@ -208,13 +208,21 @@ const AnimatedHeroContent: React.FC = () => {
         anticipatePin: 0.5,
         invalidateOnRefresh: true,
         refreshPriority: -1,
-        onUpdate: () => {
+        onUpdate: (self) => {
           // Ensure visibility is managed correctly during scroll
           const gallery = heroSectionRef.current?.querySelector(
             ".gallery"
           ) as HTMLElement;
           if (gallery && gallery.style.visibility !== "visible") {
             gallery.style.visibility = "visible";
+          }
+          // Toggle a class on the video-space element to slightly increase its height/scale when expanded
+          const videoSpace = heroSectionRef.current?.querySelector(
+            ".video-space"
+          ) as HTMLElement | null;
+          if (videoSpace) {
+            if (self.progress > 0.45) videoSpace.classList.add("video-expanded");
+            else videoSpace.classList.remove("video-expanded");
           }
         },
       },
@@ -540,13 +548,24 @@ const AnimatedHeroContent: React.FC = () => {
     };
   }, []);
 
+  const defaultBg = `${publicUrl}images/bg.png`;
+
   return (
     <section
       ref={heroSectionRef}
       className="hero-section no-js"
       id="animated-hero-section"
     >
-      <div className="hero-sticky">
+      <div
+        className="hero-sticky"
+        style={{
+          backgroundImage: `url(${defaultBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundColor: "rgba(0,0,0,0.15)",
+          backgroundBlendMode: "multiply",
+        }}
+      >
         {/* Hero Text */}
         <div ref={heroTextRef} className="hero-text">
           <div className="text-line line-1">DESIGN</div>

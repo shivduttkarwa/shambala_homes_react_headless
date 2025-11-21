@@ -35,7 +35,8 @@
 }
 
 .fwi-title {
-  font-family: Georgia, serif;
+  /* Heading uses Dream Avenue (ensure this font is loaded in site) */
+  font-family: "Dream Avenue", cursive;
   font-weight: bold;
   font-style: italic;
   margin: 10px 0;
@@ -45,13 +46,15 @@
 }
 
 .fwi-subtitle {
-  font-family: Georgia, serif;
+  /* Subtitle uses Nunito for a modern, clean look */
+  font-family: "Nunito", sans-serif;
   font-style: italic;
   text-shadow: 1px 1px #000;
   color: #fff;
   margin-bottom: 12px;
 }
 
+/* shop button removed; leaving styles here in case we re-use a CTA later */
 .fwi-shop-button {
   border: none;
   outline: 0;
@@ -77,76 +80,17 @@
   text-shadow: 2px 2px #000;
 }
 
-.fwi-hero-exclusions {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  z-index: 2;
-}
-
-.fwi-exclusions-link {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-.fwi-exclusions-text {
-  font-family: Georgia, serif;
-  font-size: 0.7rem;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.fwi-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-}
-
-.fwi-popup {
-  width: min(600px, 90%);
-  max-height: 80vh;
-  overflow: auto;
-  background: #fff;
-  border-radius: 8px;
-  padding: 1.25rem;
-  position: relative;
-}
-
-.fwi-close {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  font-size: 22px;
-  line-height: 1;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.fwi-content h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Georgia, serif;
-  font-style: italic;
-}
-
-.fwi-content p {
-  color: #333;
-}
+/* Removed popup/exclusions styles: these were used by the previous CTA/popup implementation and are intentionally removed to reduce bundle size and CSS clutter. */
 
 @media (max-width: 700px) {
+  .fwi-wrapper {
+    margin-top: -180px;
+  }
   /* Keep 100vh on mobile as requested */
-  .fwi-hero-image { height: 100vh; }
-  .fwi-title { font-size: 1.8rem; }
+  .fwi-hero-image {
+    height: 100vh;
+  }
+  .fwi-title {
+    font-size: 1.8rem;
+  }
 }
