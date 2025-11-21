@@ -113,8 +113,9 @@ const MobileHero: React.FC = () => {
       };
 
       // Set hero section height according to animation controls so ScrollTrigger maps correctly
+      // Add extra height to prevent overlap with next section
       const desiredHeight = Math.ceil(
-        (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight
+        (ANIMATION_CONTROLS.videoScrollDistance + 1.2) * window.innerHeight
       );
       wrapperRef.current!.style.height = `${desiredHeight}px`;
 
@@ -139,7 +140,7 @@ const MobileHero: React.FC = () => {
       onRefreshHandler = () => {
         if (wrapperRef.current) {
           wrapperRef.current.style.height = `${Math.ceil(
-            (ANIMATION_CONTROLS.videoScrollDistance + 1) * window.innerHeight
+            (ANIMATION_CONTROLS.videoScrollDistance + 1.2) * window.innerHeight
           )}px`;
         }
       };
@@ -261,6 +262,22 @@ const MobileHero: React.FC = () => {
         },
         "afterExpand+=0.1"
       );
+
+      // Gallery items animation - exact same behavior as overlay text but from top
+      const galleryItems = gsap.utils.toArray(".mobile-gallery-item") as HTMLElement[];
+      gsap.set(galleryItems, { opacity: 0, y: -200 });
+      tl.fromTo(
+        galleryItems,
+        { opacity: 0, y: -200 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(2)",
+          stagger: 0.05,
+        },
+        "afterExpand+=0.1"
+      );
     }, wrapperRef);
 
     return () => {
@@ -325,6 +342,22 @@ const MobileHero: React.FC = () => {
               type="video/mp4"
             />
           </video>
+        </div>
+
+        {/* Gallery Items */}
+        <div className="mobile-gallery">
+          <div className="mobile-gallery-item">
+            <img src={`${publicUrl}images/l11.jpg`} alt="Gallery 1" />
+          </div>
+          <div className="mobile-gallery-item">
+            <img src={`${publicUrl}images/l4.jpg`} alt="Gallery 2" />
+          </div>
+          <div className="mobile-gallery-item">
+            <img src={`${publicUrl}images/l5.jpg`} alt="Gallery 3" />
+          </div>
+          <div className="mobile-gallery-item">
+            <img src={`${publicUrl}images/l6.jpg`} alt="Gallery 4" />
+          </div>
         </div>
       </div>
     </section>
