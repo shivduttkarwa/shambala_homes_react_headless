@@ -72,6 +72,7 @@ const MobileHero: React.FC = () => {
 
     // onRefreshHandler needs to be referenced in cleanup, so declare in the useEffect scope
     let onRefreshHandler: (() => void) | undefined;
+    // We don't use a watcher currently; keep the variable removed to avoid lint errors
     const ctx = gsap.context(() => {
       // Initial text animation
       setTimeout(() => {
@@ -104,9 +105,7 @@ const MobileHero: React.FC = () => {
         videoScrollDistance: 2.9,
         videoExpandSpeed: 0.6,
         videoScrubSmooth: 1.4,
-        galleryItemStagger: 0.12,
-        galleryItemDuration: 0.45,
-        galleryItemOffset: -60,
+        // (gallery-related options removed for mobile)
         overlayCharStagger: 0.05,
         overlayCharDuration: 0.4,
         overlayCharEase: "back.out(2)",
@@ -119,7 +118,7 @@ const MobileHero: React.FC = () => {
       );
       wrapperRef.current!.style.height = `${desiredHeight}px`;
 
-      // No gallery on mobile — no need to wait for gallery images
+      
 
       // console.debug('Mobile timeline desiredHeight:', desiredHeight); // Debug only
       const tl = gsap.timeline({
@@ -156,7 +155,7 @@ const MobileHero: React.FC = () => {
         borderRadius: 8,
         zIndex: 5,
       });
-      // No gallery on mobile — removed gallery transform settings
+      
       tl.to(videoSpaceRef.current, {
         width: "100vw",
         height: "100vh",
@@ -174,6 +173,7 @@ const MobileHero: React.FC = () => {
         ease: "power2.inOut",
         duration: 0.6,
       });
+
       // Fade out text during expansion with sliding animation
       const line1 = heroTextRef.current!.querySelector(
         ".mobile-line-1"
@@ -228,7 +228,7 @@ const MobileHero: React.FC = () => {
           },
           0
         )
-        // Reduced pause duration; next: gallery + overlay reveal
+        // Reduced pause duration; overlay reveal follows
         .to({}, { duration: 0.2 })
         .addLabel("afterExpand")
         .to(
@@ -237,7 +237,9 @@ const MobileHero: React.FC = () => {
           "afterExpand"
         );
 
-      // Gallery removed on mobile — no gallery setup needed
+      
+
+      
 
       // Refresh ScrollTrigger sizes in case anything layout-related changed
       ScrollTrigger.refresh();
@@ -265,11 +267,15 @@ const MobileHero: React.FC = () => {
       // cleanup the ScrollTrigger event listener to prevent leaks
       if (onRefreshHandler)
         ScrollTrigger.removeEventListener("refresh", onRefreshHandler);
+      // no lingering class cleanup needed
       ctx.revert();
     };
   }, []);
 
+  // no gallery portal mounting required
+
   return (
+    <>
     <section
       ref={wrapperRef}
       className="mobile-hero-section"
@@ -311,6 +317,8 @@ const MobileHero: React.FC = () => {
         {/* Video - separate from text container */}
         <div ref={videoSpaceRef} className="mobile-video-space">
           <video autoPlay muted loop playsInline>
+            {/* Mobile hero uses `hero-new.mp4`; fallback to `hero1.mp4` when needed */}
+            <source src={`${publicUrl}images/hero-new.mp4`} type="video/mp4" />
             <source src={`${publicUrl}images/hero1.mp4`} type="video/mp4" />
             <source
               src="https://www.w3schools.com/html/mov_bbb.mp4"
@@ -319,8 +327,9 @@ const MobileHero: React.FC = () => {
           </video>
         </div>
       </div>
-      {/* Mobile gallery removed per request — gallery is not present on mobile devices */}
     </section>
+      
+    </>
   );
 };
 

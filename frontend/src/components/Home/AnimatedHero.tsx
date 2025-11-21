@@ -555,6 +555,8 @@ const AnimatedHeroContent: React.FC = () => {
             <span>THE</span>
             <div ref={videoSpaceRef} className="video-space">
               <video autoPlay muted loop playsInline>
+                {/* Desktop hero uses `hero-new.mp4`; fallback to `hero1.mp4` when needed */}
+                <source src={`${publicUrl}images/hero-new.mp4`} type="video/mp4" />
                 <source src={`${publicUrl}images/hero1.mp4`} type="video/mp4" />
                 <source
                   src="https://www.w3schools.com/html/mov_bbb.mp4"

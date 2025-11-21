@@ -1,3 +1,8 @@
+/* Mobile hero styles; gallery removed */
+
+/* - Visible state - */
+/* No special visible class required - animation handles transition to visible */
+
 /* MOBILE HERO STYLES - COMPLETELY SEGREGATED */
 /* This will ONLY affect mobile hero, not desktop */
 
@@ -107,7 +112,7 @@
       calc(var(--overlay-right, 0px) - var(--overlay-left, 0px)),
       calc(var(--overlay-down, 0px) - var(--overlay-up, 0px))
     );
-  z-index: 30;
+  z-index: 11000;
   text-align: center;
   pointer-events: none;
   max-width: 90vw;
